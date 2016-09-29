@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<dsx>
+    <scene root="scene" axis_length=5 />
+
+    <views default="def" >
+
+        <perspective id="one" near="1" far="1" angle="20">
+            <from x="5" y="5" z="5" />
+            <to x="-5" y="-5" z="-5" />
+        </perspective>
+
+    </views>
+     
+</dsx>
