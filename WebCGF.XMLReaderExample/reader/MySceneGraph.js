@@ -30,7 +30,7 @@ MySceneGraph.prototype.onXMLReady=function()
 	var rootElement = this.reader.xmlDoc.documentElement;
 
 	// Here should go the calls for different functions to parse the various blocks
-	var error = this.parseGlobalsExample(rootElement);
+	var error = this.parsePrimitives(rootElement);
 
 	if (error != null) {
 		this.onXMLError(error);
@@ -45,22 +45,46 @@ MySceneGraph.prototype.onXMLReady=function()
 
 
 
-/*
- * Example of method that parses elements of one block and stores information in a specific data structure
- */
-MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
+
+MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 
 
 	var prim = rootElement.getElementsByTagName('primitives');
 	if(prim == null){
 		return "No primitives found";
 	}
+
+	if(prim.length !=1){
+		return "either zero or more than one 'primitives' element found.";
+	}
 	var primitives = prim[0];
 
+	// iterate over every element
+	var nnodes=primitives.children.length;
+	for (var i=0; i< nnodes; i++)
+	{
+		var node=primitives.children[i];
+		switch (node.nodeName) {
+			case "rectangle":
+				this.rectangle = new Rectangle(node);
+				break;
+			case "triangle":
+				this.triangle = new Triangle(node);
+				break;
+			case "cylinder":
+				this.cylinder = new Cylinder(node);
+				break;
+			default:
+				break;
+		}
+	};
 
 
 
 
+
+
+/*
 	var elems =  rootElement.getElementsByTagName('globals');
 	if (elems == null) {
 		return "globals element is missing.";
@@ -95,9 +119,10 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		// process each element and store its information
 		this.list[e.id]=e.attributes.getNamedItem("coords").value;
 		console.log("Read list item id "+ e.id+" with value "+this.list[e.id]);
-	};
+	};*/
 
 };
+
 
 /*
  * Callback to be executed on any read error
