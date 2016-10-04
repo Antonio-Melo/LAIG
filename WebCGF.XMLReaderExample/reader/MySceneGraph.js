@@ -6,6 +6,12 @@ function MySceneGraph(filename, scene) {
 	this.scene = scene;
 	scene.graph=this;
 
+	this.listRectangles=[];
+	this.listTriangles=[];
+	this.listCylinders=[];
+	this.listSpheres=[];
+	this.listTorus =[];
+
 	// File reading
 	this.reader = new CGFXMLreader();
 
@@ -67,22 +73,28 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 		switch (node.nodeName) {
 			case "rectangle":
 				this.rectangle = new Rectangle(node);
+				this.listRectangles.push(this.rectangle);
 				break;
 			case "triangle":
 				this.triangle = new Triangle(node);
+				this.listTriangles.push(this.triangle);
 				break;
 			case "cylinder":
 				this.cylinder = new Cylinder(node);
+				this.listCylinders.push(this.cylinder);
+				break;
+			case "sphere":
+				this.sphere = new Sphere(node);
+				this.listSpheres.push(this.sphere);
+				break;
+			case "torus":
+				this.torus = new Torus(node);
+				this.listTorus.push(this.torus);
 				break;
 			default:
 				break;
 		}
 	};
-
-
-
-
-
 
 /*
 	var elems =  rootElement.getElementsByTagName('globals');
@@ -109,7 +121,7 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 		return "list element is missing.";
 	}
 
-	this.list=[];
+
 	// iterate over every element
 	var nnodes=tempList[0].children.length;
 	for (var i=0; i< nnodes; i++)
