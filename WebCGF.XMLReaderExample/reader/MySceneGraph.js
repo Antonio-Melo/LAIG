@@ -30,7 +30,7 @@ MySceneGraph.prototype.onXMLReady=function()
 	var rootElement = this.reader.xmlDoc.documentElement;
 
 	// Here should go the calls for different functions to parse the various blocks
-	var error = this.parseTransformations(rootElement);
+	var error = this.parseComponents(rootElement);
 
 	if (error != null) {
 		this.onXMLError(error);
@@ -198,6 +198,52 @@ MySceneGraph.prototype.parseTransformations  = function(rootElement) {
 
 }
 };
+
+MySceneGraph.prototype.parseComponents  = function(rootElement) {
+		var comp = rootElement.getElementsByTagName('components')[0];
+		if (comp == null ) {
+				return "components element is missing.";
+		}
+		if (comp.length < 0) {
+				return "either zero or more than one 'components' element found.";
+		}
+
+		var transf = comp.getElementsByTagName('transformation');
+
+		for (var i = 0; i < transf.length; i++) {
+
+			var node = transf[i];
+			this.transformation = new Transformation(node);
+		}
+
+		var materials = comp.getElementsByTagName('materials');
+
+		for (var i = 0; i < materials.length; i++) {
+
+			var node = materials[i];
+			this.material = new Materials(node);
+		}
+
+			var text = comp.getElementsByTagName('texture');
+
+			for (var i = 0; i < text.length; i++) {
+
+				var node = text[i];
+				this.texture = new Textures(node);
+			}
+
+			var child = comp.getElementsByTagName('children');
+
+			for (var i = 0; i < child.length; i++) {
+
+				var node = child[i];
+				this.children = new Children(node);
+			}
+
+
+
+	};
+
 
 
 
