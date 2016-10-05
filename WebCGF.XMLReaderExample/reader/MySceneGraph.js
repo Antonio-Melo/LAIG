@@ -6,12 +6,6 @@ function MySceneGraph(filename, scene) {
 	this.scene = scene;
 	scene.graph=this;
 
-	this.listRectangles=[];
-	this.listTriangles=[];
-	this.listCylinders=[];
-	this.listSpheres=[];
-	this.listTorus =[];
-
 	// File reading
 	this.reader = new CGFXMLreader();
 
@@ -36,7 +30,7 @@ MySceneGraph.prototype.onXMLReady=function()
 	var rootElement = this.reader.xmlDoc.documentElement;
 
 	// Here should go the calls for different functions to parse the various blocks
-	var error = this.parsePrimitives(rootElement);
+	var error = this.parseTransformations(rootElement);
 
 	if (error != null) {
 		this.onXMLError(error);
@@ -73,67 +67,138 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 		switch (node.nodeName) {
 			case "rectangle":
 				this.rectangle = new Rectangle(node);
-				this.listRectangles.push(this.rectangle);
 				break;
 			case "triangle":
 				this.triangle = new Triangle(node);
-				this.listTriangles.push(this.triangle);
 				break;
 			case "cylinder":
 				this.cylinder = new Cylinder(node);
-				this.listCylinders.push(this.cylinder);
-				break;
-			case "sphere":
-				this.sphere = new Sphere(node);
-				this.listSpheres.push(this.sphere);
-				break;
-			case "torus":
-				this.torus = new Torus(node);
-				this.listTorus.push(this.torus);
 				break;
 			default:
 				break;
 		}
-	};
-
-/*
-	var elems =  rootElement.getElementsByTagName('globals');
-	if (elems == null) {
-		return "globals element is missing.";
 	}
-
-	if (elems.length != 1) {
-		return "either zero or more than one 'globals' element found.";
-	}
-
-	// various examples of different types of access
-	var globals = elems[0];
-	this.background = this.reader.getRGBA(globals, 'background');
-	this.drawmode = this.reader.getItem(globals, 'drawmode', ["fill","line","point"]);
-	this.cullface = this.reader.getItem(globals, 'cullface', ["back","front","none", "frontandback"]);
-	this.cullorder = this.reader.getItem(globals, 'cullorder', ["ccw","cw"]);
-
-	console.log("Globals read from file: {background=" + this.background + ", drawmode=" + this.drawmode + ", cullface=" + this.cullface + ", cullorder=" + this.cullorder + "}");
-
-	var tempList=rootElement.getElementsByTagName('list');
-
-	if (tempList == null  || tempList.length==0) {
-		return "list element is missing.";
-	}
-
-
-	// iterate over every element
-	var nnodes=tempList[0].children.length;
-	for (var i=0; i< nnodes; i++)
-	{
-		var e=tempList[0].children[i];
-
-		// process each element and store its information
-		this.list[e.id]=e.attributes.getNamedItem("coords").value;
-		console.log("Read list item id "+ e.id+" with value "+this.list[e.id]);
-	};*/
 
 };
+
+MySceneGraph.prototype.parseViews = function(rootElement) {
+    var views = rootElement.getElementsByTagName('views')[0];
+    if (views == null ) {
+        return "views element is missing.";
+    }
+    if (views.length < 0) {
+        return "either zero or more than one 'views' element found.";
+    }
+    var nnodes = views.children.length;
+    for (var i = 0; i < nnodes; i++) {
+
+
+        var node = views.children[i];
+
+		this.view = new View(node);
+
+    }
+};
+
+
+
+MySceneGraph.prototype.parseIllumination = function(rootElement) {
+    var ill = rootElement.getElementsByTagName('illumination')[0];
+    if (ill == null ) {
+        return "illumination element is missing.";
+    }
+    if (ill.length < 0) {
+        return "either zero or more than one 'illumination' element found.";
+    }
+
+    var node = ill;
+
+		this.illumination = new Illumination(node);
+
+	};
+
+
+
+	MySceneGraph.prototype.parseLights  = function(rootElement) {
+	    var lights = rootElement.getElementsByTagName('lights')[0];
+	    if (lights == null ) {
+	        return "lights element is missing.";
+	    }
+	    if (lights.length < 0) {
+	        return "either zero or more than one 'lights' element found.";
+	    }
+
+			var nomni = lights.getElementsByTagName('omni');
+
+			for (var i = 0; i < nomni.length; i++) {
+
+				var node = nomni[i];
+				this.omni = new Omni(node);
+			}
+
+			var nspot = lights.getElementsByTagName('spot');
+
+			for (var i = 0; i < nspot.length; i++) {
+
+				var node = nspot[i];
+				this.spot = new Spot(node);
+
+			}
+		};
+
+
+
+		MySceneGraph.prototype.parseTextures  = function(rootElement) {
+		    var texture = rootElement.getElementsByTagName('textures');
+		    if (texture == null ) {
+		        return "textures element is missing.";
+		    }
+		    if (texture.length < 0) {
+		        return "either zero or more than one 'textures' element found.";
+		    }
+
+				for(var i = 0; i < texture.length; i++){
+
+				var node = texture[0].children[i];
+				this.textures = new Textures(node);
+
+}
+};
+
+MySceneGraph.prototype.parseMaterials  = function(rootElement) {
+		var material = rootElement.getElementsByTagName('materials');
+		if (material == null ) {
+				return "materials element is missing.";
+		}
+		if (material.length < 0) {
+				return "either zero or more than one 'materials' element found.";
+		}
+
+		for(var i = 0; i < material.length; i++){
+
+		var node = material[0].children[i];
+		this.materials = new Materials(node);
+
+}
+};
+
+MySceneGraph.prototype.parseTransformations  = function(rootElement) {
+		var transf = rootElement.getElementsByTagName('transformations');
+		if (transf == null ) {
+				return "materials element is missing.";
+		}
+		if (transf.length < 0) {
+				return "either zero or more than one 'materials' element found.";
+		}
+
+		for(var i = 0; i < transf.length; i++){
+
+		var node = transf[0].children[i];
+		this.transformation = new Transformation(node);
+
+}
+};
+
 
 
 /*
