@@ -1,4 +1,4 @@
-function Materials(node,reader){
+function Materials(node){
 
     this.reader = new CGFXMLreader();
 

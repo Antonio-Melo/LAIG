@@ -1,4 +1,4 @@
-function Spot(node,reader){
+function Spot(node){
 
     this.reader = new CGFXMLreader();
 

@@ -1,4 +1,4 @@
-function Transformation(node,reader){
+function Transformation(node){
 
     this.reader = new CGFXMLreader();
 

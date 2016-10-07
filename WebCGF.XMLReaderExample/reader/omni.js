@@ -1,4 +1,4 @@
-function Omni(node,reader){
+function Omni(node){
 
     this.reader = new CGFXMLreader();
 

@@ -2,6 +2,16 @@
 function MySceneGraph(filename, scene) {
 	this.loadedOk = null;
 
+	//Vectors to save things from dsx file
+	this.views = [];
+	this.illumination = [];
+	this.lights = [];
+	this.textures = [];
+	this.materials = [];
+	this.transformations = [];
+	this.primitives = [];
+	this.components = [];
+
 	// Establish bidirectional references between scene and graph
 	this.scene = scene;
 	scene.graph=this;
@@ -16,21 +26,16 @@ function MySceneGraph(filename, scene) {
 	 */
 
 	this.reader.open('scenes/test.xml', this);
-
-
 }
-
-
 /*
  * Callback to be executed after successful reading
  */
-MySceneGraph.prototype.onXMLReady=function()
-{
+MySceneGraph.prototype.onXMLReady=function(){
 	console.log("XML Loading finished.");
 	var rootElement = this.reader.xmlDoc.documentElement;
 
 	// Here should go the calls for different functions to parse the various blocks
-	var error = this.parseComponents(rootElement);
+	var error = this.parse(rootElement);
 
 	if (error != null) {
 		this.onXMLError(error);
@@ -43,11 +48,128 @@ MySceneGraph.prototype.onXMLReady=function()
 	this.scene.onGraphLoaded();
 };
 
+MySceneGraph.prototype.parse=function(rootElement){
+	this.parseViews(rootElement);
+	this.parseIllumination(rootElement);
+	this.parseLights(rootElement);
+	this.parseTextures(rootElement);
+	this.parseMaterials(rootElement);
+	this.parseTransformations(rootElement);
+	this.parsePrimitives(rootElement);
+	this.parseComponents(rootElement);
+};
 
+MySceneGraph.prototype.parseViews = function(rootElement) {
+    var views = rootElement.getElementsByTagName('views')[0];
+    if (views == null ) {
+        return "views element is missing.";
+    }
+    if (views.length <= 0) {
+        return "zero 'perspective' elements found.";
+    }
+    var nnodes = views.children.length;
+    for (var i = 0; i < nnodes; i++) {
+        var node = views.children[i];
+				var view = new View(node);
+				this.views.push(view);
+    }
+		console.debug('VIEWS READ\n');
+};
 
+MySceneGraph.prototype.parseIllumination = function(rootElement) {
+    var ill = rootElement.getElementsByTagName('illumination')[0];
+    if (ill == null ) {
+        return "illumination element is missing.";
+    }
+
+    var node = ill;
+
+		var illumination = new Illumination(node);
+		this.illumination.push(illumination);
+		console.debug('ILLUMINATION READ\n');
+};
+
+MySceneGraph.prototype.parseLights = function(rootElement) {
+	    var lights = rootElement.getElementsByTagName('lights')[0];
+	    if (lights == null ) {
+	        return "lights element is missing.";
+	    }
+	    if (lights.length <= 0) {
+	        return "zero 'lights' element found.";
+	    }
+
+			var nomni = lights.getElementsByTagName('omni');
+
+			for (var i = 0; i < nomni.length; i++) {
+
+				var node = nomni[i];
+				var omni = new Omni(node);
+				this.lights.push(omni);
+			}
+
+			var nspot = lights.getElementsByTagName('spot');
+
+			for (var i = 0; i < nspot.length; i++) {
+
+				var node = nspot[i];
+				var spot = new Spot(node);
+				this.lights.push(spot);
+			}
+			console.debug('LIGHTS READ\n');
+};
+
+MySceneGraph.prototype.parseTextures = function(rootElement) {
+	var texture = rootElement.getElementsByTagName('textures');
+	if (texture == null ) {
+		return "textures element is missing.";
+	}
+	if (texture.length == 0) {
+		return "zero 'texture' element found.";
+	}
+
+	for(var i = 0; i < texture.length; i++){
+		var node = texture[0].children[i];
+		var textures = new Textures(node);
+		this.textures.push(textures);
+	}
+	console.debug('TEXTURES READ\n');
+};
+
+MySceneGraph.prototype.parseMaterials  = function(rootElement) {
+		var material = rootElement.getElementsByTagName('materials');
+		if (material == null ) {
+				return "materials element is missing.";
+		}
+		if (material.length == 0) {
+				return "zero 'materials' element found.";
+		}
+
+		for(var i = 0; i < material.length; i++){
+			var node = material[0].children[i];
+			var materials = new Materials(node);
+			this.materials.push(materials);
+		}
+		console.debug('MATERIALS READ\n');
+};
+
+MySceneGraph.prototype.parseTransformations  = function(rootElement) {
+		var transf = rootElement.getElementsByTagName('transformations');
+		if (transf == null ) {
+				return "materials element is missing.";
+		}
+		if (transf.length <= 0) {
+				return "zero 'materials' element found.";
+		}
+
+		for(var i = 0; i < transf.length; i++){
+			var node = transf[0].children[i];
+			var transformation = new Transformation(node);
+			this.transformations.push(transformation);
+		}
+		console.debug('TRANSFORMATIONS READ\n');
+};
 
 MySceneGraph.prototype.parsePrimitives= function(rootElement) {
-
 
 	var prim = rootElement.getElementsByTagName('primitives');
 	if(prim == null){
@@ -66,137 +188,20 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 		var node=primitives.children[i];
 		switch (node.nodeName) {
 			case "rectangle":
-				this.rectangle = new Rectangle(node);
+				var p = new Rectangle(node);
 				break;
 			case "triangle":
-				this.triangle = new Triangle(node);
+				var p = new Triangle(node);
 				break;
 			case "cylinder":
-				this.cylinder = new Cylinder(node);
+				var p = new Cylinder(node);
 				break;
 			default:
 				break;
 		}
+		this.primitives.push(p);
 	}
-
-};
-
-MySceneGraph.prototype.parseViews = function(rootElement) {
-    var views = rootElement.getElementsByTagName('views')[0];
-    if (views == null ) {
-        return "views element is missing.";
-    }
-    if (views.length < 0) {
-        return "either zero or more than one 'views' element found.";
-    }
-    var nnodes = views.children.length;
-    for (var i = 0; i < nnodes; i++) {
-
-
-        var node = views.children[i];
-
-		this.view = new View(node);
-
-    }
-};
-
-
-
-MySceneGraph.prototype.parseIllumination = function(rootElement) {
-    var ill = rootElement.getElementsByTagName('illumination')[0];
-    if (ill == null ) {
-        return "illumination element is missing.";
-    }
-    if (ill.length < 0) {
-        return "either zero or more than one 'illumination' element found.";
-    }
-
-    var node = ill;
-
-		this.illumination = new Illumination(node);
-
-	};
-
-
-
-	MySceneGraph.prototype.parseLights  = function(rootElement) {
-	    var lights = rootElement.getElementsByTagName('lights')[0];
-	    if (lights == null ) {
-	        return "lights element is missing.";
-	    }
-	    if (lights.length < 0) {
-	        return "either zero or more than one 'lights' element found.";
-	    }
-
-			var nomni = lights.getElementsByTagName('omni');
-
-			for (var i = 0; i < nomni.length; i++) {
-
-				var node = nomni[i];
-				this.omni = new Omni(node);
-			}
-
-			var nspot = lights.getElementsByTagName('spot');
-
-			for (var i = 0; i < nspot.length; i++) {
-
-				var node = nspot[i];
-				this.spot = new Spot(node);
-
-			}
-		};
-
-
-
-		MySceneGraph.prototype.parseTextures  = function(rootElement) {
-		    var texture = rootElement.getElementsByTagName('textures');
-		    if (texture == null ) {
-		        return "textures element is missing.";
-		    }
-		    if (texture.length < 0) {
-		        return "either zero or more than one 'textures' element found.";
-		    }
-
-				for(var i = 0; i < texture.length; i++){
-
-				var node = texture[0].children[i];
-				this.textures = new Textures(node);
-
-}
-};
-
-MySceneGraph.prototype.parseMaterials  = function(rootElement) {
-		var material = rootElement.getElementsByTagName('materials');
-		if (material == null ) {
-				return "materials element is missing.";
-		}
-		if (material.length < 0) {
-				return "either zero or more than one 'materials' element found.";
-		}
-
-		for(var i = 0; i < material.length; i++){
-
-		var node = material[0].children[i];
-		this.materials = new Materials(node);
-
-}
-};
-
-MySceneGraph.prototype.parseTransformations  = function(rootElement) {
-		var transf = rootElement.getElementsByTagName('transformations');
-		if (transf == null ) {
-				return "materials element is missing.";
-		}
-		if (transf.length < 0) {
-				return "either zero or more than one 'materials' element found.";
-		}
-
-		for(var i = 0; i < transf.length; i++){
-
-		var node = transf[0].children[i];
-		this.transformation = new Transformation(node);
-
-}
+	console.debug('PRIMATIVES READ\n');
 };
 
 MySceneGraph.prototype.parseComponents  = function(rootElement) {
@@ -204,7 +209,7 @@ MySceneGraph.prototype.parseComponents  = function(rootElement) {
 		if (comp == null ) {
 				return "components element is missing.";
 		}
-		if (comp.length < 0) {
+		if (comp.length <= 0) {
 				return "either zero or more than one 'components' element found.";
 		}
 
@@ -239,18 +244,12 @@ MySceneGraph.prototype.parseComponents  = function(rootElement) {
 				var node = child[i];
 				this.children = new Children(node);
 			}
-
-
-
-	};
-
-
-
+			console.debug('COMPUNENTS READ\n');
+};
 
 /*
  * Callback to be executed on any read error
  */
-
 MySceneGraph.prototype.onXMLError=function (message) {
 	console.error("XML Loading Error: "+message);
 	this.loadedOk=false;

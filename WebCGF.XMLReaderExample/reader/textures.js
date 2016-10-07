@@ -1,4 +1,4 @@
-function Textures(node,reader){
+function Textures(node){
 
     this.reader = new CGFXMLreader();
 
