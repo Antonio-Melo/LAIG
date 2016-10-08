@@ -2,18 +2,11 @@
 <dsx>
     <scene root="scene" axis_length="5.0" />
 
-    <views default="p1" >
-
-        <!-- declaracao obrigatoria de pelo menos uma vista; -->
-        <!-- se varias vistas declaradas, o default e' a -->
-        <!-- primeira vista; de cada vez que se pressione a tecla v/V, -->
-        <!-- a vista muda para a proxima da lista; da -->
-        <!-- ultima vista da lista volta 'a primeira -->
+    <views default="p1">
         <perspective id="p1" near="0.0" far="1.0" angle="1.2">
             <from x="2.0" y="2.0" z="2.0" />
             <to x="1.0" y="1.0" z="1.0" />
         </perspective>
-
     </views>
 
     <illumination doublesided="1" local="0" >
@@ -24,7 +17,6 @@
     </illumination>
 
     <lights>
-
         <!-- Deve existir um ou mais blocos "omni" ou "spot" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
         <omni id="o1" enabled="0" >

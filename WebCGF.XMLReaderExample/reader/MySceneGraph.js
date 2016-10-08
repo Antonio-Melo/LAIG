@@ -143,10 +143,12 @@ MySceneGraph.prototype.parseMaterials  = function(rootElement) {
 		if (material.length == 0) {
 				return "zero 'materials' element found.";
 		}
-
+		console.debug(material.length + '\n');
 		for(var i = 0; i < material.length; i++){
 			var node = material[0].children[i];
+			console.debug('Estou aqui 1\n');
 			var materials = new Materials(node);
+			console.debug('Estou aqui 2\n');
 			this.materials.push(materials);
 		}
 		console.debug('MATERIALS READ\n');
