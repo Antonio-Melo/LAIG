@@ -17,4 +17,6 @@ function Triangle(node){
   this.z1 = node.attributes.getNamedItem("z1").value;
   this.z2 = node.attributes.getNamedItem("z2").value;
   this.z3 = node.attributes.getNamedItem("z3").value;
+
+  console.debug("Triangle "+this.x1);
 }

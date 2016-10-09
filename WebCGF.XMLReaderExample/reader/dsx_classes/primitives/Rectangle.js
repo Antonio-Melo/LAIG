@@ -10,4 +10,6 @@ function Rectangle(node){
   this.x2 = node.attributes.getNamedItem("x2").value;
   this.y1 = node.attributes.getNamedItem("y1").value;
   this.y2 = node.attributes.getNamedItem("y2").value;
+
+  console.debug("Rectangle "+this.x1 +" "+this.x2 +"\n");
 }

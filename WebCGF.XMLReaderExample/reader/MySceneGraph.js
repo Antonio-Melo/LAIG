@@ -59,49 +59,47 @@ MySceneGraph.prototype.parse=function(rootElement){
 	this.parseComponents(rootElement);
 };
 
+//Parse Views
 MySceneGraph.prototype.parseViews = function(rootElement) {
     var views = rootElement.getElementsByTagName('views')[0];
     if (views == null ) {
-        return "views element is missing.";
+        return "views element is null.";
     }
-    if (views.length <= 0) {
+    if (views.children.length == 0) {
         return "zero 'perspective' elements found.";
     }
-    var nnodes = views.children.length;
-    for (var i = 0; i < nnodes; i++) {
+
+    for (var i = 0; i < views.children.length; i++) {
         var node = views.children[i];
 				var view = new View(node);
 				this.views.push(view);
     }
 		console.debug('VIEWS READ\n');
 };
-
+//Parse Illumination
 MySceneGraph.prototype.parseIllumination = function(rootElement) {
     var ill = rootElement.getElementsByTagName('illumination')[0];
     if (ill == null ) {
-        return "illumination element is missing.";
+        return "illumination element is null or missing.";
     }
 
-    var node = ill;
-
-		var illumination = new Illumination(node);
+		var illumination = new Illumination(ill);
 		this.illumination.push(illumination);
 		console.debug('ILLUMINATION READ\n');
 };
-
+//Parse lights
 MySceneGraph.prototype.parseLights = function(rootElement) {
 	    var lights = rootElement.getElementsByTagName('lights')[0];
 	    if (lights == null ) {
-	        return "lights element is missing.";
+	        return "lights element is null.";
 	    }
-	    if (lights.length <= 0) {
-	        return "zero 'lights' element found.";
+	    if (lights.children.length == 0) {
+	        return "zero 'lights' elements found.";
 	    }
 
 			var nomni = lights.getElementsByTagName('omni');
 
 			for (var i = 0; i < nomni.length; i++) {
-
 				var node = nomni[i];
 				var omni = new Omni(node);
 				this.lights.push(omni);
@@ -110,93 +108,96 @@ MySceneGraph.prototype.parseLights = function(rootElement) {
 			var nspot = lights.getElementsByTagName('spot');
 
 			for (var i = 0; i < nspot.length; i++) {
-
 				var node = nspot[i];
 				var spot = new Spot(node);
 				this.lights.push(spot);
 			}
 			console.debug('LIGHTS READ\n');
 };
-
+//Parse Textures
 MySceneGraph.prototype.parseTextures = function(rootElement) {
-	var texture = rootElement.getElementsByTagName('textures');
+	var texture = rootElement.getElementsByTagName('textures')[0];
 	if (texture == null ) {
-		return "textures element is missing.";
-	}
-	if (texture.length == 0) {
-		return "zero 'texture' element found.";
+		return "textures element is null.";
 	}
 
-	for(var i = 0; i < texture.length; i++){
-		var node = texture[0].children[i];
-		var textures = new Textures(node);
-		this.textures.push(textures);
+	if (texture.children.length == 0) {
+		return "zero 'texture' elements found.";
+	}
+
+	for(var i = 0; i < texture.children.length; i++){
+		var node = texture.children[i];
+		var tex = new Textures(node);
+		this.textures.push(tex);
 	}
 	console.debug('TEXTURES READ\n');
 };
 
 MySceneGraph.prototype.parseMaterials  = function(rootElement) {
-		var material = rootElement.getElementsByTagName('materials');
+		var material = rootElement.getElementsByTagName('materials')[0];
 		if (material == null ) {
-				return "materials element is missing.";
+				return "materials element is null";
 		}
-		if (material.length == 0) {
-				return "zero 'materials' element found.";
+		if (material.children.length == 0) {
+				return "zero 'material' elements found.";
 		}
-		console.debug(material.length + '\n');
-		for(var i = 0; i < material.length; i++){
-			var node = material[0].children[i];
-			console.debug('Estou aqui 1\n');
+
+		for(var i = 0; i < material.children.length; i++){
+			var node = material.children[i];
 			var materials = new Materials(node);
-			console.debug('Estou aqui 2\n');
 			this.materials.push(materials);
 		}
 		console.debug('MATERIALS READ\n');
 };
 
 MySceneGraph.prototype.parseTransformations  = function(rootElement) {
-		var transf = rootElement.getElementsByTagName('transformations');
+		var transf = rootElement.getElementsByTagName('transformations')[0];
 		if (transf == null ) {
-				return "materials element is missing.";
+				return "transformations element is null.";
 		}
-		if (transf.length <= 0) {
-				return "zero 'materials' element found.";
+		if (transf.children.length == 0) {
+				return "zero 'transformation' elements found.";
 		}
 
-		for(var i = 0; i < transf.length; i++){
-			var node = transf[0].children[i];
-			var transformation = new Transformation(node);
-			this.transformations.push(transformation);
+		for(var i = 0; i < transf.children.length; i++){
+			var node = transf.children[i];
+			if(node.children.length == 0){
+				return "zero transformations inside the 'transformation' element";
+			}
+			var tran = new Transformation(node);
+			this.transformations.push(tran);
 		}
 		console.debug('TRANSFORMATIONS READ\n');
 };
 
 MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 
-	var prim = rootElement.getElementsByTagName('primitives');
+	var prim = rootElement.getElementsByTagName('primitives')[0];
 	if(prim == null){
-		return "No primitives found";
+		return "primitives element is null";
 	}
 
-	if(prim.length !=1){
-		return "either zero or more than one 'primitives' element found.";
+	if(prim.children.length == 0){
+		return "zero 'primitives' elements found.";
 	}
-	var primitives = prim[0];
 
 	// iterate over every element
-	var nnodes=primitives.children.length;
-	for (var i=0; i< nnodes; i++)
+	for (var i=0; i< prim.children.length; i++)
 	{
-		var node=primitives.children[i];
-		switch (node.nodeName) {
+		var node=prim.children[i];
+		var p;
+		switch (node.children[0].nodeName) {
 			case "rectangle":
-				var p = new Rectangle(node);
+				p = new Rectangle(node.children[0]);
 				break;
 			case "triangle":
-				var p = new Triangle(node);
+				p = new Triangle(node.children[0]);
 				break;
 			case "cylinder":
-				var p = new Cylinder(node);
+				p = new Cylinder(node.children[0]);
+				break;
+			case "sphere":
+				p = new Sphere(node.children[0]);
 				break;
 			default:
 				break;
@@ -209,12 +210,18 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 MySceneGraph.prototype.parseComponents  = function(rootElement) {
 		var comp = rootElement.getElementsByTagName('components')[0];
 		if (comp == null ) {
-				return "components element is missing.";
+				return "components element is null";
 		}
-		if (comp.length <= 0) {
-				return "either zero or more than one 'components' element found.";
+		if (comp.children.length == 0) {
+				return "zero 'component' elements found.";
 		}
 
+		for (var i = 0;i < comp.children.length; i++){
+			var node = comp.children[i];
+			var c = new Component(node);
+		}
+
+		/*
 		var transf = comp.getElementsByTagName('transformation');
 
 		for (var i = 0; i < transf.length; i++) {
@@ -245,7 +252,7 @@ MySceneGraph.prototype.parseComponents  = function(rootElement) {
 
 				var node = child[i];
 				this.children = new Children(node);
-			}
+			}*/
 			console.debug('COMPUNENTS READ\n');
 };
 

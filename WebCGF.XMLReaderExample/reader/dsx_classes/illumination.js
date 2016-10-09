@@ -1,4 +1,4 @@
-function Illumination(node,reader){
+function Illumination(node){
 
     this.reader = new CGFXMLreader();
 

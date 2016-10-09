@@ -16,6 +16,7 @@ function Spot(node){
     this.tz = this.reader.getFloat(target,'z');
 
     var location = node.getElementsByTagName('location')[0];
+    
     this.lx = this.reader.getFloat(location,'x');
     this.ly = this.reader.getFloat(location,'y');
     this.lz = this.reader.getFloat(location,'z');
