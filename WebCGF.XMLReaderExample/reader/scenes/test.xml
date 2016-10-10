@@ -10,9 +10,14 @@
         <!-- primeira vista; de cada vez que se pressione a tecla v/V, -->
         <!-- a vista muda para a proxima da lista; da -->
         <!-- ultima vista da lista volta 'a primeira -->
-        <perspective id="p1" near="0.0" far="1.0" angle="1.2">
-            <from x="2.0" y="2.0" z="2.0" />
-            <to x="1.0" y="1.0" z="1.0" />
+        <perspective id="p1" near="0.1" far="500" angle="0.4">
+            <from x="15.0" y="15.0" z="15.0" />
+            <to x="0.0" y="0.0" z="0.0" />
+        </perspective>
+
+        <perspective id="p2" near="0.1" far="500" angle="0.4">
+            <from x="5.0" y="5.0" z="5.0" />
+            <to x="0.0" y="0.0" z="0.0" />
         </perspective>
     </views>
 

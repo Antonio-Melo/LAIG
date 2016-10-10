@@ -130,20 +130,23 @@ MySceneGraph.prototype.parseScene= function (rootElement){
 
 //Parse Views
 MySceneGraph.prototype.parseViews = function(rootElement) {
-    var views = rootElement.getElementsByTagName('views')[0];
+    var nviews = rootElement.getElementsByTagName('views')[0];
 
-    if (views == null ) {
+    if (nviews == null ) {
         return "views element is null.";
     }
-    if (views.children.length == 0) {
+    if (nviews.children.length == 0) {
         return "zero 'perspective' elements found.";
     }
 		//Reads all perspectives
-    for (var i = 0; i < views.children.length; i++) {
-        var node = views.children[i];
+    for (var i = 0; i < nviews.children.length; i++) {
+        var node = nviews.children[i];
 				var view = new View(node);
 				this.views.push(view);
     }
+
+		//Default Camera
+		this.changeView();
 		console.debug('VIEWS READ\n');
 };
 //Parse Illumination
@@ -296,11 +299,16 @@ MySceneGraph.prototype.parseComponents  = function(rootElement) {
 };
 
 MySceneGraph.prototype.changeView = function(){
-	if(++this.viewsIndex <= views.length){
-		
-	}else{
+	this.defaultLight = this.views[this.viewsIndex];
+	this.scene.camera = this.camera = new CGFcamera(this.defaultLight.angle, this.defaultLight.near, this.defaultLight.far,
+																									vec3.fromValues(this.defaultLight.fromX,this.defaultLight.fromY, this.defaultLight.fromZ),
+																									vec3.fromValues(this.defaultLight.toX, this.defaultLight.toY, this.defaultLight.toZ));
+	if(++this.viewsIndex < this.views.length){
+		this.viewsIndex = this.viewsIndex++;
+  }else{
 		this.viewsIndex = 0;
 	}
+	console.log(this.viewsIndex);
 }
 
 

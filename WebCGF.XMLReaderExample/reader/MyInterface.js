@@ -29,7 +29,7 @@ MyInterface.prototype.processKeyboard = function(event) {
 	switch (event.keyCode)
 	{
 		case (118):			// v
-
+			this.scene.graph.changeView();
 			console.debug("v\n");
 			break;
 	};
