@@ -39,5 +39,4 @@ function Materials(node){
   console.debug(this.er + '\n');
 	console.debug(this.ag + '\n');
   console.debug(this.sr + '\n');
-
 }

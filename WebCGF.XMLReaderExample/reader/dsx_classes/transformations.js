@@ -6,6 +6,8 @@ function Transformation(node){
 
     if(this.reader.getString(node,'id') != null){
       this.id = this.reader.getString(node,'id');
+    }else {
+      this.id = "ctransformation";
     }
     this.translations = [];
     this.rotations = [];
