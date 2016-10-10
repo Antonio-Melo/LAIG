@@ -49,14 +49,14 @@ MySceneGraph.prototype.onXMLReady=function(){
 };
 
 MySceneGraph.prototype.parse=function(rootElement){
-	this.parseViews(rootElement);
-	this.parseIllumination(rootElement);
-	this.parseLights(rootElement);
-	this.parseTextures(rootElement);
-	this.parseMaterials(rootElement);
-	this.parseTransformations(rootElement);
+	//this.parseViews(rootElement);
+	//this.parseIllumination(rootElement);
+	//this.parseLights(rootElement);
+	//this.parseTextures(rootElement);
+	//this.parseMaterials(rootElement);
+	//this.parseTransformations(rootElement);
 	this.parsePrimitives(rootElement);
-	this.parseComponents(rootElement);
+	//this.parseComponents(rootElement);
 };
 
 //Parse Views
@@ -188,16 +188,16 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 		var p;
 		switch (node.children[0].nodeName) {
 			case "rectangle":
-				p = new Rectangle(node.children[0]);
+				p = new Rectangle(node.children[0], this.scene);
 				break;
 			case "triangle":
-				p = new Triangle(node.children[0]);
+				p = new Triangle(node.children[0],this.scene);
 				break;
 			case "cylinder":
-				p = new Cylinder(node.children[0]);
+				p = new Cylinder(node.children[0],this.scene);
 				break;
 			case "sphere":
-				p = new Sphere(node.children[0]);
+				p = new Sphere(node.children[0],this.scene);
 				break;
 			default:
 				break;
@@ -255,6 +255,8 @@ MySceneGraph.prototype.parseComponents  = function(rootElement) {
 			}*/
 			console.debug('COMPUNENTS READ\n');
 };
+
+
 
 /*
  * Callback to be executed on any read error

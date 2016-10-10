@@ -50,6 +50,16 @@ XMLscene.prototype.onGraphLoaded = function ()
     this.lights[0].enable();
 };
 
+XMLscene.prototype.primitivesDisplay = function(){
+  var p = this.graph.primitives;
+  for(var i = 0; i < p.length; i++)
+{
+  console.debug(p[i]);
+  p[i].display();
+}
+};
+
+
 XMLscene.prototype.display = function () {
 	// ---- BEGIN Background, camera and axis setup
 
@@ -77,5 +87,7 @@ XMLscene.prototype.display = function () {
 	if (this.graph.loadedOk)
 	{
 		this.lights[0].update();
+    this.primitivesDisplay();
+
 	};
 };
