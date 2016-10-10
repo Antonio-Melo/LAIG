@@ -53,10 +53,10 @@ XMLscene.prototype.onGraphLoaded = function ()
 XMLscene.prototype.primitivesDisplay = function(){
   var p = this.graph.primitives;
   for(var i = 0; i < p.length; i++)
-{
-  console.debug(p[i]);
-  p[i].display();
-}
+  {
+    //console.debug(p[i]);
+    p[i].display();
+  }
 };
 
 

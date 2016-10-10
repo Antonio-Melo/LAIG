@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-16" standalone="yes"?>
 <dsx>
+    <!-- deve definir-se um objeto para raiz do grafo , assim -->
+    <!-- como o comprimento dos tres eixos (cilindros) -->
     <scene root="scene" axis_length="5.0" />
 
     <views default="p1">
+        <!-- declaracao obrigatoria de pelo menos uma vista; -->
+        <!-- se varias vistas declaradas, o default e' a -->
+        <!-- primeira vista; de cada vez que se pressione a tecla v/V, -->
+        <!-- a vista muda para a proxima da lista; da -->
+        <!-- ultima vista da lista volta 'a primeira -->
         <perspective id="p1" near="0.0" far="1.0" angle="1.2">
             <from x="2.0" y="2.0" z="2.0" />
             <to x="1.0" y="1.0" z="1.0" />
