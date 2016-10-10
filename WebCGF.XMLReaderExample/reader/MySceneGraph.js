@@ -49,15 +49,71 @@ MySceneGraph.prototype.onXMLReady=function(){
 };
 
 MySceneGraph.prototype.parse=function(rootElement){
+<<<<<<< HEAD
 	//this.parseViews(rootElement);
 	//this.parseIllumination(rootElement);
 	//this.parseLights(rootElement);
 	//this.parseTextures(rootElement);
 	//this.parseMaterials(rootElement);
 	//this.parseTransformations(rootElement);
+=======
+	this.checkDsxOrder(rootElement);
+	this.parseViews(rootElement);
+	this.parseIllumination(rootElement);
+	this.parseLights(rootElement);
+	this.parseTextures(rootElement);
+	this.parseMaterials(rootElement);
+	this.parseTransformations(rootElement);
+>>>>>>> origin/master
 	this.parsePrimitives(rootElement);
 	//this.parseComponents(rootElement);
 };
+
+//Checks if .dsx file order is correct
+MySceneGraph.prototype.checkDsxOrder = function(rootElement){
+	var dsx =rootElement.children;
+
+	if(dsx.length != 9){
+		return "Wrong number of blocks in the dsx file";
+	}
+
+	if(dsx[0].nodeName != "scene"){
+		return "Scene block missing in the dsx file";
+	}
+
+	if(dsx[1].nodeName != "views"){
+		return "Views block missing in the dsx file";
+	}
+
+	if(dsx[2].nodeName != "illumination"){
+		return "Illumination block missing in the dsx file";
+	}
+
+	if(dsx[3].nodeName != "lights"){
+		return "Lights block missing in the dsx file";
+	}
+
+	if(dsx[4].nodeName != "textures"){
+		return "Textures block missing in the dsx file";
+	}
+
+	if(dsx[5].nodeName != "materials"){
+		return "Materials block missing in the dsx file";
+	}
+
+	if(dsx[6].nodeName != "transformations"){
+		return "Transformations block missing in the dsx file";
+	}
+
+	if(dsx[7].nodeName != "primitives"){
+		return "Primitives block missing in the dsx file";
+	}
+
+	if(dsx[8].nodeName != "components"){
+		return "Components block missing in the dsx file";
+	}
+	console.debug("DSX order is correct");
+}
 
 //Parse Views
 MySceneGraph.prototype.parseViews = function(rootElement) {
@@ -219,41 +275,10 @@ MySceneGraph.prototype.parseComponents  = function(rootElement) {
 		for (var i = 0;i < comp.children.length; i++){
 			var node = comp.children[i];
 			var c = new Component(node);
+			this.components.push(c);
 		}
 
-		/*
-		var transf = comp.getElementsByTagName('transformation');
-
-		for (var i = 0; i < transf.length; i++) {
-
-			var node = transf[i];
-			this.transformation = new Transformation(node);
-		}
-
-		var materials = comp.getElementsByTagName('materials');
-
-		for (var i = 0; i < materials.length; i++) {
-
-			var node = materials[i];
-			this.material = new Materials(node);
-		}
-
-			var text = comp.getElementsByTagName('texture');
-
-			for (var i = 0; i < text.length; i++) {
-
-				var node = text[i];
-				this.texture = new Textures(node);
-			}
-
-			var child = comp.getElementsByTagName('children');
-
-			for (var i = 0; i < child.length; i++) {
-
-				var node = child[i];
-				this.children = new Children(node);
-			}*/
-			console.debug('COMPUNENTS READ\n');
+		console.debug('COMPUNENTS READ\n');
 };
 
 
