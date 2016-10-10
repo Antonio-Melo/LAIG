@@ -49,14 +49,7 @@ MySceneGraph.prototype.onXMLReady=function(){
 };
 
 MySceneGraph.prototype.parse=function(rootElement){
-<<<<<<< HEAD
-	//this.parseViews(rootElement);
-	//this.parseIllumination(rootElement);
-	//this.parseLights(rootElement);
-	//this.parseTextures(rootElement);
-	//this.parseMaterials(rootElement);
-	//this.parseTransformations(rootElement);
-=======
+
 	this.checkDsxOrder(rootElement);
 	this.parseViews(rootElement);
 	this.parseIllumination(rootElement);
@@ -64,9 +57,8 @@ MySceneGraph.prototype.parse=function(rootElement){
 	this.parseTextures(rootElement);
 	this.parseMaterials(rootElement);
 	this.parseTransformations(rootElement);
->>>>>>> origin/master
 	this.parsePrimitives(rootElement);
-	//this.parseComponents(rootElement);
+	this.parseComponents(rootElement);
 };
 
 //Checks if .dsx file order is correct
