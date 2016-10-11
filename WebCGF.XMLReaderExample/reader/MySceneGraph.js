@@ -108,7 +108,6 @@ MySceneGraph.prototype.checkDsxOrder = function(rootElement){
 	}
 	console.debug("DSX order is correct");
 }
-
 //Parse Scene
 MySceneGraph.prototype.parseScene= function (rootElement){
 	var scene = rootElement.getElementsByTagName('scene')[0];
@@ -126,8 +125,6 @@ MySceneGraph.prototype.parseScene= function (rootElement){
 	}
 	console.debug("SCENE READ");
 }
-
-
 //Parse Views
 MySceneGraph.prototype.parseViews = function(rootElement) {
     var nviews = rootElement.getElementsByTagName('views')[0];
