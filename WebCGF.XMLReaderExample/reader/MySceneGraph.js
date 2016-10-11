@@ -148,6 +148,7 @@ MySceneGraph.prototype.parseViews = function(rootElement) {
 		console.debug('VIEWS READ\n');
 };
 //Parse Illumination
+//TODO :Not loading properly
 MySceneGraph.prototype.parseIllumination = function(rootElement) {
     var ill = rootElement.getElementsByTagName('illumination')[0];
     if (ill == null ) {
@@ -183,8 +184,32 @@ MySceneGraph.prototype.parseLights = function(rootElement) {
 				var spot = new Spot(node);
 				this.lights.push(spot);
 			}
+
 			console.debug('LIGHTS READ\n');
 };
+//enableLights
+MySceneGraph.prototype.enableLights = function(){
+	for(var i = 0;i < this.lights.length;i++){
+		 var ls = this.scene.lights[i];
+		 var ld = this.lights[i];
+
+		 ls.setPosition(ld.lx,ld.ly,ld.lz);
+		 ls.setAmbient(ld.ar,ld.ag,ld.ab,ld.aa);
+		 ls.setDiffuse(ld.dr,ld.dg,ld.db,ld.da);
+		 ls.setSpecular(ld.sr,ld.sg,ld.sb,ld.sa);
+		 if(ls instanceof Spot){
+			 ls.setSpotDirection(ls.tx,ls.ty,ls.tz);
+			 ls.setSpotCutOff(ls.angle);
+			 ls.setSpotExponent(ls.exponent);
+		 }
+		 if(ld.enable){
+			 ls.enable();
+		 }
+	}
+}
+
+
+
 //Parse Textures
 MySceneGraph.prototype.parseTextures = function(rootElement) {
 	var texture = rootElement.getElementsByTagName('textures')[0];
@@ -295,22 +320,21 @@ MySceneGraph.prototype.parseComponents  = function(rootElement) {
 
 		console.debug('COMPUNENTS READ\n');
 };
-
+//ChangeView
 MySceneGraph.prototype.changeView = function(){
 	this.defaultLight = this.views[this.viewsIndex];
-	this.scene.camera = new CGFcamera(this.defaultLight.angle, this.defaultLight.near, this.defaultLight.far,
-																									vec3.fromValues(this.defaultLight.fromX,this.defaultLight.fromY, this.defaultLight.fromZ),
-																									vec3.fromValues(this.defaultLight.toX, this.defaultLight.toY, this.defaultLight.toZ));
-	//this.scene.camera.setActiveCamera(myScene.camera);
+	this.scene.camera = new CGFcamera(this.defaultLight.angle,
+		 																this.defaultLight.near,
+																		this.defaultLight.far,
+																		vec3.fromValues(this.defaultLight.fromX,this.defaultLight.fromY, this.defaultLight.fromZ),
+																		vec3.fromValues(this.defaultLight.toX, this.defaultLight.toY, this.defaultLight.toZ));
+
 	if(++this.viewsIndex < this.views.length){
 		this.viewsIndex = this.viewsIndex++;
   }else{
 		this.viewsIndex = 0;
 	}
-	console.log(this.viewsIndex);
 }
-
-
 
 /*
  * Callback to be executed on any read error

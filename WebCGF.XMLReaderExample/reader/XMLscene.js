@@ -45,7 +45,7 @@ XMLscene.prototype.onGraphLoaded = function ()
 {
 	this.gl.clearColor(0,1,1,0.5);
 	this.lights[0].setVisible(true);
-    this.lights[0].enable();
+  this.lights[0].enable();
 };
 
 XMLscene.prototype.primitivesDisplay = function(){
