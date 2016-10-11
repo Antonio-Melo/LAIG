@@ -51,31 +51,14 @@ XMLscene.prototype.onGraphLoaded = function ()
 
 XMLscene.prototype.primitivesDisplay = function(){
   var p = this.graph.primitives;
-<<<<<<< HEAD
   var t = this.graph.transformations;
 
 
-/*  for(var i = 0; i < p.length; i++)
-  console.debug(p[i]);
-  */
+
     this.pushMatrix();
-      /*  this.translate(t[0].translations[0][0],
-                   t[0].translations[0][1],
-                   t[0].translations[0][2]);*/
-        this.scene.translate(2,2,2);
-
         p[0].display();
-
     this.popMatrix();
-//  p[i].display();
 
-=======
-  for(var i = 0; i < p.length; i++)
-  {
-    //console.debug(p[i]);
-    p[i].display();
-  }
->>>>>>> origin/master
 };
 
 
