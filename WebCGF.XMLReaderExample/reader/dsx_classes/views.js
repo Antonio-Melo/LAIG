@@ -19,10 +19,17 @@ function View(node){
 
     this.toX = this.reader.getFloat(t,'x');
     this.toY = this.reader.getFloat(t,'y');
-    this.yoZ = this.reader.getFloat(t,'z');
+    this.toZ = this.reader.getFloat(t,'z');
 
-  //Degub  
+  //Degub
   console.debug(this.id + '\n');
 	console.debug(this.angle);
+  console.debug(this.near);
+  console.debug(this.far);
+  console.debug(this.fromX);
+  console.debug(this.fromY);
+  console.debug(this.fromZ);
+  console.debug(this.toX);
 	console.debug(this.toY);
+  console.debug(this.toZ);
 }

@@ -17,15 +17,14 @@ XMLscene.prototype.init = function (application) {
 
     this.gl.clearDepth(100.0);
     this.gl.enable(this.gl.DEPTH_TEST);
-	this.gl.enable(this.gl.CULL_FACE);
+	  this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
 
 	this.axis=new CGFaxis(this);
 };
 
 XMLscene.prototype.initLights = function () {
-
-	this.lights[0].setPosition(2, 3, 3, 1);
+    this.lights[0].setPosition(2, 3, 3, 1);
     this.lights[0].setDiffuse(1.0,1.0,1.0,1.0);
     this.lights[0].update();
 };
@@ -52,6 +51,7 @@ XMLscene.prototype.onGraphLoaded = function ()
 
 XMLscene.prototype.primitivesDisplay = function(){
   var p = this.graph.primitives;
+<<<<<<< HEAD
   var t = this.graph.transformations;
 
 
@@ -69,6 +69,13 @@ XMLscene.prototype.primitivesDisplay = function(){
     this.popMatrix();
 //  p[i].display();
 
+=======
+  for(var i = 0; i < p.length; i++)
+  {
+    //console.debug(p[i]);
+    p[i].display();
+  }
+>>>>>>> origin/master
 };
 
 

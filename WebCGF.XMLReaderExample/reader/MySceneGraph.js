@@ -4,6 +4,7 @@ function MySceneGraph(filename, scene) {
 
 	//Vectors to save things from dsx file
 	this.views = [];
+	this.viewsIndex = 0;
 	this.illumination = [];
 	this.lights = [];
 	this.textures = [];
@@ -48,9 +49,10 @@ MySceneGraph.prototype.onXMLReady=function(){
 	this.scene.onGraphLoaded();
 };
 
+//Global Parser
 MySceneGraph.prototype.parse=function(rootElement){
-
 	this.checkDsxOrder(rootElement);
+	this.parseScene(rootElement);
 	this.parseViews(rootElement);
 	this.parseIllumination(rootElement);
 	this.parseLights(rootElement);
@@ -107,21 +109,44 @@ MySceneGraph.prototype.checkDsxOrder = function(rootElement){
 	console.debug("DSX order is correct");
 }
 
+//Parse Scene
+MySceneGraph.prototype.parseScene= function (rootElement){
+	var scene = rootElement.getElementsByTagName('scene')[0];
+
+	//root attribute
+	this.root = this.reader.getString(scene,"root");
+	if(this.root == null){
+		return "Error reading root attribute in scene block";
+	}
+
+	//axis_lenght attribute
+	this.axis_lenght = this.reader.getFloat(scene,"axis_length");
+	if(this.axis_lenght == null || this.axis_lenght <=0){
+		return "Erros reading axis_lenght attribute in scene block \n Either missing or negative";
+	}
+	console.debug("SCENE READ");
+}
+
+
 //Parse Views
 MySceneGraph.prototype.parseViews = function(rootElement) {
-    var views = rootElement.getElementsByTagName('views')[0];
-    if (views == null ) {
+    var nviews = rootElement.getElementsByTagName('views')[0];
+
+    if (nviews == null ) {
         return "views element is null.";
     }
-    if (views.children.length == 0) {
+    if (nviews.children.length == 0) {
         return "zero 'perspective' elements found.";
     }
-
-    for (var i = 0; i < views.children.length; i++) {
-        var node = views.children[i];
+		//Reads all perspectives
+    for (var i = 0; i < nviews.children.length; i++) {
+        var node = nviews.children[i];
 				var view = new View(node);
 				this.views.push(view);
     }
+
+		//Default Camera
+		this.changeView();
 		console.debug('VIEWS READ\n');
 };
 //Parse Illumination
@@ -272,6 +297,19 @@ MySceneGraph.prototype.parseComponents  = function(rootElement) {
 
 		console.debug('COMPUNENTS READ\n');
 };
+
+MySceneGraph.prototype.changeView = function(){
+	this.defaultLight = this.views[this.viewsIndex];
+	this.scene.camera = this.camera = new CGFcamera(this.defaultLight.angle, this.defaultLight.near, this.defaultLight.far,
+																									vec3.fromValues(this.defaultLight.fromX,this.defaultLight.fromY, this.defaultLight.fromZ),
+																									vec3.fromValues(this.defaultLight.toX, this.defaultLight.toY, this.defaultLight.toZ));
+	if(++this.viewsIndex < this.views.length){
+		this.viewsIndex = this.viewsIndex++;
+  }else{
+		this.viewsIndex = 0;
+	}
+	console.log(this.viewsIndex);
+}
 
 
 
