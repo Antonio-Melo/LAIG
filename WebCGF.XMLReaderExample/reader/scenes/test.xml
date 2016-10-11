@@ -76,34 +76,36 @@
         <transformation id="t1">
            <!-- instrucoes a usar sem limite nem ordem -->
            <!-- deve existir pelo menos uma transformacao -->
-           <translate x="0.1" y="0.2" z="0.3" />
-           <rotate axis="x" angle="0.5" />
-           <scale x="1.0" y="2.3" z="6.0" />
+           <translate x="2.0" y="2.0" z="2.0" />
+
+           <rotate axis="x" angle="90" />
+           <scale x="3.0" y="3.0" z="3.0" />
+
         </transformation>
 
     </transformations>
 
 
     <primitives>
-<!--
+
       <primitive>
         <rectangle x1="0.0" y1="1.0" x2="2.0" y2="2.0"/>
       </primitive>
-
+<!--
       <primitive>
         <triangle x1="0.0" y1="0.0" z1="0.0"
                   x2="0.0" y2="3.0" z2="0.0"
                   x3="0.0" y3="1.5" z3="2.0" />
       </primitive>
--->
+
       <primitive>
         <cylinder base="2.0" top="2.0" height="5.0" slices="50.0" stacks="50.0" />
       </primitive>
-<!--
+
       <primitive>
         <sphere radius="1.0" slices="30.0" stacks="50.0" />
       </primitive>
-    -->
+-->
     </primitives>
 
 

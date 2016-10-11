@@ -2,6 +2,7 @@ function Transformation(node){
 
     this.reader = new CGFXMLreader();
 
+
     this.node = node;
 
     if(this.reader.getString(node,'id') != null){
