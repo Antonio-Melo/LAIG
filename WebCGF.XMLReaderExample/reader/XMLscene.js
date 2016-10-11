@@ -55,7 +55,6 @@ XMLscene.prototype.primitivesDisplay = function(){
 
   for(var i = 0; i < p.length; i++)
   {
-    //console.debug(p[i]);
     p[i].display();
   }
 };
