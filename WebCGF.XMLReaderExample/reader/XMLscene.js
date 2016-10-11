@@ -31,6 +31,7 @@ XMLscene.prototype.initLights = function () {
 
 XMLscene.prototype.initCameras = function () {
     this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+
 };
 
 XMLscene.prototype.setDefaultAppearance = function () {
@@ -51,52 +52,14 @@ XMLscene.prototype.onGraphLoaded = function ()
 
 XMLscene.prototype.primitivesDisplay = function(){
   var p = this.graph.primitives;
-<<<<<<< HEAD
-  var t = this.graph.transformations;
 
-
-/*  for(var i = 0; i < p.length; i++)
-  console.debug(p[i]);
-  */
-    this.pushMatrix();
-      /*  this.translate(t[0].translations[0][0],
-                   t[0].translations[0][1],
-                   t[0].translations[0][2]);*/
-        this.scene.translate(2,2,2);
-
-        p[0].display();
-
-    this.popMatrix();
-//  p[i].display();
-
-=======
   for(var i = 0; i < p.length; i++)
   {
     //console.debug(p[i]);
     p[i].display();
   }
->>>>>>> origin/master
 };
 
-
-XMLscene.prototype.transformationApply = function(){
-  var p = this.graph.primitives;
-  var t = this.graph.transformations;
-
-  console.debug(t[0]);
-
-  console.debug(t[1]);
-
-  console.debug(t[0].translations[0][0]);
-  console.debug(t[0].translations[0][1]);
-  console.debug(t[0].translations[0][2]);
-
-  this.pushMatrix();
-      this.p[0].translate(t[0].translations[0][0],
-                 t[0].translations[0][1],
-                 t[0].translations[0][2]);
-  this.popMatrix();
-};
 
 XMLscene.prototype.display = function () {
 	// ---- BEGIN Background, camera and axis setup
@@ -117,6 +80,7 @@ XMLscene.prototype.display = function () {
 
 	this.setDefaultAppearance();
 
+
 	// ---- END Background, camera and axis setup
 
 	// it is important that things depending on the proper loading of the graph
@@ -125,7 +89,6 @@ XMLscene.prototype.display = function () {
 	if (this.graph.loadedOk)
 	{
 		this.lights[0].update();
-  //  this.transformationApply();
     this.primitivesDisplay();
 
 	};

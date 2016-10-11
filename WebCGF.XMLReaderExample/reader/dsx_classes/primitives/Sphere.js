@@ -27,8 +27,8 @@
 	this.texCoords = [];
 
 	var hor_ang = (2*Math.PI) / this.slices;
-	var ver_ang = Math.PI / (2*this.stacks);
-	var rect = Math.PI / 2;
+	var ver_ang = (2*Math.PI) / (2*this.stacks);
+	var rect = Math.PI ;
 
 	for (i = 0; i < this.slices; i++) {
 		this.vertices.push(Math.sin(rect)*Math.cos(i*hor_ang), Math.sin(rect)*Math.sin(i*hor_ang), Math.cos(rect));
