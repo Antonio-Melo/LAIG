@@ -147,6 +147,7 @@ MySceneGraph.prototype.parseViews = function(rootElement) {
 
 		//Default Camera
 		this.changeView();
+		this.scene.interface.setActiveCamera(this.scene.camera);
 		console.debug('VIEWS READ\n');
 };
 //Parse Illumination
@@ -300,9 +301,10 @@ MySceneGraph.prototype.parseComponents  = function(rootElement) {
 
 MySceneGraph.prototype.changeView = function(){
 	this.defaultLight = this.views[this.viewsIndex];
-	this.scene.camera = this.camera = new CGFcamera(this.defaultLight.angle, this.defaultLight.near, this.defaultLight.far,
+	this.scene.camera = new CGFcamera(this.defaultLight.angle, this.defaultLight.near, this.defaultLight.far,
 																									vec3.fromValues(this.defaultLight.fromX,this.defaultLight.fromY, this.defaultLight.fromZ),
 																									vec3.fromValues(this.defaultLight.toX, this.defaultLight.toY, this.defaultLight.toZ));
+	//this.scene.camera.setActiveCamera(myScene.camera);
 	if(++this.viewsIndex < this.views.length){
 		this.viewsIndex = this.viewsIndex++;
   }else{

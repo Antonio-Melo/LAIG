@@ -2,9 +2,11 @@
  * MyInterface
  * @constructor
  */
-function MyInterface() {
+function MyInterface(scene) {
 	//call CGFinterface constructor
 	CGFinterface.call(this);
+	this.scene = scene;
+	scene.interface = this;
 };
 
 MyInterface.prototype = Object.create(CGFinterface.prototype);
@@ -30,6 +32,7 @@ MyInterface.prototype.processKeyboard = function(event) {
 	{
 		case (118):			// v
 			this.scene.graph.changeView();
+			this.setActiveCamera(this.scene.camera);
 			console.debug("v\n");
 			break;
 	};
