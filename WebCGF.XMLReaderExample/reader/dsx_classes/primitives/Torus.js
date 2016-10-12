@@ -1,5 +1,5 @@
-function Torus(node,scene){
-  OGFobject.call(this,scene);
+function Torus(node, scene){
+  CGFobject.call(this,scene);
 
   this.materialDefault = new CGFappearance(this.scene);
   this.node= node;
@@ -9,7 +9,7 @@ function Torus(node,scene){
   this.slices = node.attributes.getNamedItem("slices").value;
   this.loops = node.attributes.getNamedItem("loops").value;
 
-  this.initBuffers();
+  //this.initBuffers();
 };
 //u = 2%pi/stacks;
 //v = 2%pi/slices;
@@ -25,7 +25,7 @@ Torus.prototype.initBuffers = function(){
       var u = 2*Math.PI /this.stacks;
       var v = 2*Math.PI/this.loops;
 
-      
+
 
       this.primitiveType = this.scene.gl.TORUS;
       this.initGLBuffers();

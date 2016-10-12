@@ -11,8 +11,8 @@ function Transformation(node){
       this.id = "ctransformation";
     }
 
-    this.matrix = m4.create();
-    m4.identity(this.matrix);
+    this.matrix = mat4.create();
+    mat4.identity(this.matrix);
 
     for(var i = 0; i < node.children.length;i++){
       switch (node.children[i].nodeName) {
@@ -29,66 +29,31 @@ function Transformation(node){
           break;
       }
     }
-    /*
-    this.translations = [];
-    this.rotations = [];
-    this.scales = [];
-
-    var translate = node.getElementsByTagName('translate');
-    //console.debug(translate.length+"\n");
-    for(var i = 0;i < translate.length;i++){
-      var t = [];
-      var tr = translate[i];
-      t.push(this.reader.getFloat(tr,'x'));
-      t.push(this.reader.getFloat(tr,'y'));
-      t.push(this.reader.getFloat(tr,'z'));
-      this.translations.push(t);
-    }
-
-    var rotate = node.getElementsByTagName('rotate');
-    //console.debug(rotate.length+"\n");
-    for(var i = 0;i <rotate.length;i++){
-      var r =[];
-      var rot = rotate[i];
-      r.push(this.reader.getFloat(rot,'axis'));
-      r.push(this.reader.getFloat(rot,'angle'));
-      this.rotations.push(r);
-    }
-
-
-    var scale = node.getElementsByTagName('scale');
-    //console.debug(scale.length+"\n");
-    for(var i = 0; i< scale.length;i++){
-        var s = [];
-        var sca = scale[i];
-        s.push(this.reader.getFloat(sca,'x'));
-        s.push(this.reader.getFloat(sca,'y'));
-        s.push(this.reader.getFloat(sca,'z'));
-        this.scales.push(s);
-    }*/
-
-
-  //console.debug(this.id + '\n');
-  //console.debug(this.tx + '\n');
-	//console.debug(this.angle + '\n');
-  //console.debug(this.sx + '\n');
-
 };
 
 Transformation.prototype.translate = function(node){
   var tx = this.reader.getFloat(node,"x");
   var ty = this.reader.getFloat(node,"y");
   var tz = this.reader.getFloat(node,"z");
-  this.matrix.translate(this.matrix,this.matrix,[tx,ty,tz]);
+  mat4.translate(this.matrix,this.matrix,[tx,ty,tz]);
 }
 
 Transformation.prototype.rotate = function(node){
   var axis = this.reader.getString(node,"axis");
-  var angle = this.reader.getFloat(node,"angle");
+  var angle = this.reader.getFloat(node,"angle")*Math.PI/180;
+  var rotation;
 
-  this.matrix.translate(this.matrix,this.matrix,[tx,ty,tz]);
+  if (axis == 'x') rotation = [1, 0, 0];
+  else if (axis == 'y') rotation = [0, 1, 0];
+  else if (axis == 'z') rotation = [0, 0, 1];
+
+  mat4.rotate(this.matrix,this.matrix,angle,rotation);
 }
 
 Transformation.prototype.scale = function(node){
+  var sx = this.reader.getFloat(node,"x");
+  var sy = this.reader.getFloat(node,"y");
+  var sz = this.reader.getFloat(node,"z");
 
+  mat4.scale(this.matrix,this.matrix,[sx,sy,sz]);
 }

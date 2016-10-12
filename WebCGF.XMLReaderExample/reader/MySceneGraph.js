@@ -222,9 +222,9 @@ MySceneGraph.prototype.enableLights = function(){
 		 ls.setSpecular(ld.sr,ld.sg,ld.sb,ld.sa);
 
 		 if(ld.tx != null){
-			 //ls.setSpotDirection(ls.tx,ls.ty,ls.tz);
-			 ls.setSpotCutOff(ls.angle);
-			 ls.setSpotExponent(ls.exponent);
+			 ls.setSpotDirection(ld.tx,ld.ty,ld.tz);
+			 ls.setSpotCutOff(ld.angle);
+			 ls.setSpotExponent(ld.exponent);
 		 }
 		 if(ld.enabled){
 			 ls.enable();
