@@ -31,8 +31,8 @@ function Omni(node){
     this.sb = this.reader.getFloat(specular,'b');
     this.sa = this.reader.getFloat(specular,'a');
 
-  console.debug(this.id + '\n');
-	console.debug(this.enabled + '\n');
-  console.debug(this.ar + '\n');
-  console.debug(this.sb + '\n');
+  //console.debug(this.id + '\n');
+	//console.debug(this.enabled + '\n');
+  //console.debug(this.ar + '\n');
+  //console.debug(this.sb + '\n');
 };

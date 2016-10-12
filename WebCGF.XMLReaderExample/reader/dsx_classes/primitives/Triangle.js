@@ -24,7 +24,7 @@ function Triangle(node,scene) {
   this.z2 = node.attributes.getNamedItem("z2").value;
   this.z3 = node.attributes.getNamedItem("z3").value;
 
-  console.debug("Triangle "+this.x1);
+  //console.debug("Triangle "+this.x1);
 
 	this.initBuffers();
 

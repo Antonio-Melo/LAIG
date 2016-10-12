@@ -22,14 +22,14 @@ function View(node){
     this.toZ = this.reader.getFloat(t,'z');
 
   //Degub
-  console.debug(this.id + '\n');
-	console.debug(this.angle);
-  console.debug(this.near);
-  console.debug(this.far);
-  console.debug(this.fromX);
-  console.debug(this.fromY);
-  console.debug(this.fromZ);
-  console.debug(this.toX);
-	console.debug(this.toY);
-  console.debug(this.toZ);
+  //console.debug(this.id + '\n');
+	//console.debug(this.angle);
+  //console.debug(this.near);
+  //console.debug(this.far);
+  //console.debug(this.fromX);
+  //console.debug(this.fromY);
+  //console.debug(this.fromZ);
+  //console.debug(this.toX);
+	//console.debug(this.toY);
+  //console.debug(this.toZ);
 }

@@ -15,7 +15,7 @@ function Rectangle(node,scene) {
   this.y2 = node.attributes.getNamedItem("y2").value;
 
 
-  console.debug("Rectangle "+this.x1 +" "+this.x2 +"\n");
+  //console.debug("Rectangle "+this.x1 +" "+this.x2 +"\n");
 
 	this.initBuffers();
 

@@ -35,8 +35,8 @@ function Materials(node){
     this.value = this.reader.getFloat(shininess,"value");
 
 
-  console.debug(this.id + '\n');
-  console.debug(this.er + '\n');
-	console.debug(this.ag + '\n');
-  console.debug(this.sr + '\n');
+  //console.debug(this.id + '\n');
+  //console.debug(this.er + '\n');
+	//console.debug(this.ag + '\n');
+  //console.debug(this.sr + '\n');
 }

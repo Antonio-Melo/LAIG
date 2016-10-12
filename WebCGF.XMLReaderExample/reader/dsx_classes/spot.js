@@ -16,7 +16,7 @@ function Spot(node){
     this.tz = this.reader.getFloat(target,'z');
 
     var location = node.getElementsByTagName('location')[0];
-    
+
     this.lx = this.reader.getFloat(location,'x');
     this.ly = this.reader.getFloat(location,'y');
     this.lz = this.reader.getFloat(location,'z');
@@ -40,8 +40,10 @@ function Spot(node){
     this.sa = this.reader.getFloat(specular,'a');
 
 
-  console.debug(this.id + '\n');
-	console.debug(this.enabled + '\n');
-	console.debug(this.ar + '\n');
-	console.debug(this.sb + '\n');
+  //console.debug(this.id + '\n');
+	//console.debug(this.enabled + '\n');
+	//console.debug(this.ar + '\n');
+	//console.debug(this.sb + '\n');
 };
+
+Spot.prototype.constructor = Spot;

@@ -24,12 +24,13 @@ XMLscene.prototype.init = function (application) {
 };
 
 XMLscene.prototype.initLights = function () {
-    this.lights[0].setPosition(2, 3, 3, 1);
-    this.lights[0].setDiffuse(1.0,1.0,1.0,1.0);
-    this.lights[0].update();
+    //this.lights[0].setPosition(2, 3, 3, 1);
+    //this.lights[0].setDiffuse(1.0,1.0,1.0,1.0);
+    //this.lights[0].update();
 };
 
 XMLscene.prototype.initCameras = function () {
+   this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(1, 1, 1), vec3.fromValues(0, 0, 0));
 };
 
 XMLscene.prototype.setDefaultAppearance = function () {
@@ -53,7 +54,7 @@ XMLscene.prototype.primitivesDisplay = function(){
 
   for(var i = 0; i < p.length; i++)
   {
-    p[i].display();
+    //p[i].display();
   }
 };
 
@@ -67,7 +68,7 @@ XMLscene.prototype.display = function () {
 
 	// Initialize Model-View matrix as identity (no transformation
 	this.updateProjectionMatrix();
-    this.loadIdentity();
+  this.loadIdentity();
 
 	// Apply transformations corresponding to the camera position relative to the origin
 	this.applyViewMatrix();
@@ -85,7 +86,9 @@ XMLscene.prototype.display = function () {
 	// This is one possible way to do it
 	if (this.graph.loadedOk)
 	{
-		this.lights[0].update();
+    for(var i = 0;i <this.lights.length;i++){
+		  this.lights[i].update();
+    }
     this.primitivesDisplay();
 
 	};

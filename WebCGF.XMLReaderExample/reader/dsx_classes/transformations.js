@@ -15,7 +15,7 @@ function Transformation(node){
     this.scales = [];
 
     var translate = node.getElementsByTagName('translate');
-    console.debug(translate.length+"\n");
+    //console.debug(translate.length+"\n");
     for(var i = 0;i < translate.length;i++){
       var t = [];
       var tr = translate[i];
@@ -26,7 +26,7 @@ function Transformation(node){
     }
 
     var rotate = node.getElementsByTagName('rotate');
-    console.debug(rotate.length+"\n");
+    //console.debug(rotate.length+"\n");
     for(var i = 0;i <rotate.length;i++){
       var r =[];
       var rot = rotate[i];
@@ -37,7 +37,7 @@ function Transformation(node){
 
 
     var scale = node.getElementsByTagName('scale');
-    console.debug(scale.length+"\n");
+    //console.debug(scale.length+"\n");
     for(var i = 0; i< scale.length;i++){
         var s = [];
         var sca = scale[i];
@@ -48,7 +48,7 @@ function Transformation(node){
     }
 
 
-  console.debug(this.id + '\n');
+  //console.debug(this.id + '\n');
   //console.debug(this.tx + '\n');
 	//console.debug(this.angle + '\n');
   //console.debug(this.sx + '\n');

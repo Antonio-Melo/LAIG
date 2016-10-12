@@ -21,9 +21,9 @@ function Illumination(node){
     this.ab = this.reader.getFloat(background,'a');
 
 
-  console.debug(this.doublesided + '\n');
-  console.debug(this.local + '\n');
-	console.debug(this.ra + '\n');
-  console.debug(this.ba + '\n');
-  console.debug(this.gb + '\n');
+  //console.debug(this.doublesided + '\n');
+  //console.debug(this.local + '\n');
+	//console.debug(this.ra + '\n');
+  //console.debug(this.ba + '\n');
+  //console.debug(this.gb + '\n');
 };

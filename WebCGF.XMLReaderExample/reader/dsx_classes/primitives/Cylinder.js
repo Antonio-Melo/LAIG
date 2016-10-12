@@ -14,7 +14,7 @@
 
   this.slices = node.attributes.getNamedItem("slices").value;
   this.stacks = node.attributes.getNamedItem("stacks").value;
-  console.debug("Cylinder "+this.base+"\n");
+  //console.debug("Cylinder "+this.base+"\n");
  	this.initBuffers();
  };
 

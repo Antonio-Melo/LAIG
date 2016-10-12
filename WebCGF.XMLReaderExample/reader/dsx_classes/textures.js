@@ -12,9 +12,9 @@ function Textures(node){
 
 
 
-  console.debug(this.id + '\n');
-  console.debug(this.file + '\n');
-	console.debug(this.length_s + '\n');
-  console.debug(this.length_t + '\n');
+  //console.debug(this.id + '\n');
+  //console.debug(this.file + '\n');
+	//console.debug(this.length_s + '\n');
+  //console.debug(this.length_t + '\n');
 
 };

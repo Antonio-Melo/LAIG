@@ -147,6 +147,21 @@ MySceneGraph.prototype.parseViews = function(rootElement) {
 		this.scene.interface.setActiveCamera(this.scene.camera);
 		console.debug('VIEWS READ\n');
 };
+//ChangeView
+MySceneGraph.prototype.changeView = function(){
+	this.defaultLight = this.views[this.viewsIndex];
+	this.scene.camera = new CGFcamera(this.defaultLight.angle,
+		 																this.defaultLight.near,
+																		this.defaultLight.far,
+																		vec3.fromValues(this.defaultLight.fromX,this.defaultLight.fromY, this.defaultLight.fromZ),
+																		vec3.fromValues(this.defaultLight.toX, this.defaultLight.toY, this.defaultLight.toZ));
+
+	if(++this.viewsIndex < this.views.length){
+		this.viewsIndex = this.viewsIndex++;
+  }else{
+		this.viewsIndex = 0;
+	}
+}
 //Parse Illumination
 //TODO :Not loading properly
 MySceneGraph.prototype.parseIllumination = function(rootElement) {
@@ -160,14 +175,18 @@ MySceneGraph.prototype.parseIllumination = function(rootElement) {
 		console.debug('ILLUMINATION READ\n');
 };
 //Parse lights
+//TODO:Spot target? nto loading properly
 MySceneGraph.prototype.parseLights = function(rootElement) {
 	    var lights = rootElement.getElementsByTagName('lights')[0];
 	    if (lights == null ) {
 	        return "lights element is null.";
 	    }
 	    if (lights.children.length == 0) {
-	        return "zero 'lights' elements found.";
+	        return "zero 'light' elements found.";
 	    }
+			if(lights.children.length > 8){
+					return  "not possible to represent more than 8 lights in the scene";
+			}
 
 			var nomni = lights.getElementsByTagName('omni');
 
@@ -184,11 +203,15 @@ MySceneGraph.prototype.parseLights = function(rootElement) {
 				var spot = new Spot(node);
 				this.lights.push(spot);
 			}
-
+			if(!this.checkIds(this.lights)){
+				console.debug("Ids repeted in Lights");
+			}
+			this.enableLights();
 			console.debug('LIGHTS READ\n');
 };
 //enableLights
 MySceneGraph.prototype.enableLights = function(){
+	//console.debug(this.scene.lights.length);
 	for(var i = 0;i < this.lights.length;i++){
 		 var ls = this.scene.lights[i];
 		 var ld = this.lights[i];
@@ -197,19 +220,19 @@ MySceneGraph.prototype.enableLights = function(){
 		 ls.setAmbient(ld.ar,ld.ag,ld.ab,ld.aa);
 		 ls.setDiffuse(ld.dr,ld.dg,ld.db,ld.da);
 		 ls.setSpecular(ld.sr,ld.sg,ld.sb,ld.sa);
-		 if(ls instanceof Spot){
-			 ls.setSpotDirection(ls.tx,ls.ty,ls.tz);
+
+		 if(ld.tx != null){
+			 //ls.setSpotDirection(ls.tx,ls.ty,ls.tz);
 			 ls.setSpotCutOff(ls.angle);
 			 ls.setSpotExponent(ls.exponent);
 		 }
-		 if(ld.enable){
+		 if(ld.enabled){
 			 ls.enable();
 		 }
+		 ls.setVisible(true);
+		 ls.update();
 	}
 }
-
-
-
 //Parse Textures
 MySceneGraph.prototype.parseTextures = function(rootElement) {
 	var texture = rootElement.getElementsByTagName('textures')[0];
@@ -226,9 +249,12 @@ MySceneGraph.prototype.parseTextures = function(rootElement) {
 		var tex = new Textures(node);
 		this.textures.push(tex);
 	}
+	if(!this.checkIds(this.textures)){
+		console.debug("Ids repeted in Textures");
+	}
 	console.debug('TEXTURES READ\n');
 };
-
+//Parse Materials
 MySceneGraph.prototype.parseMaterials  = function(rootElement) {
 		var material = rootElement.getElementsByTagName('materials')[0];
 		if (material == null ) {
@@ -243,9 +269,14 @@ MySceneGraph.prototype.parseMaterials  = function(rootElement) {
 			var materials = new Materials(node);
 			this.materials.push(materials);
 		}
+
+		if(!this.checkIds(this.materials)){
+			console.debug("Ids repeted in Materials");
+		}
+
 		console.debug('MATERIALS READ\n');
 };
-
+//Parse Transformations
 MySceneGraph.prototype.parseTransformations  = function(rootElement) {
 		var transf = rootElement.getElementsByTagName('transformations')[0];
 		if (transf == null ) {
@@ -263,11 +294,15 @@ MySceneGraph.prototype.parseTransformations  = function(rootElement) {
 			var tran = new Transformation(node);
 			this.transformations.push(tran);
 		}
+
+		if(!this.checkIds(this.transformations)){
+			console.debug("Ids repeted in Transformations");
+		}
+
 		console.debug('TRANSFORMATIONS READ\n');
 };
-
+//Parse Primitives
 MySceneGraph.prototype.parsePrimitives= function(rootElement) {
-
 	var prim = rootElement.getElementsByTagName('primitives')[0];
 	if(prim == null){
 		return "primitives element is null";
@@ -302,7 +337,7 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 	}
 	console.debug('PRIMATIVES READ\n');
 };
-
+//Parse Components
 MySceneGraph.prototype.parseComponents  = function(rootElement) {
 		var comp = rootElement.getElementsByTagName('components')[0];
 		if (comp == null ) {
@@ -320,22 +355,22 @@ MySceneGraph.prototype.parseComponents  = function(rootElement) {
 
 		console.debug('COMPUNENTS READ\n');
 };
-//ChangeView
-MySceneGraph.prototype.changeView = function(){
-	this.defaultLight = this.views[this.viewsIndex];
-	this.scene.camera = new CGFcamera(this.defaultLight.angle,
-		 																this.defaultLight.near,
-																		this.defaultLight.far,
-																		vec3.fromValues(this.defaultLight.fromX,this.defaultLight.fromY, this.defaultLight.fromZ),
-																		vec3.fromValues(this.defaultLight.toX, this.defaultLight.toY, this.defaultLight.toZ));
 
-	if(++this.viewsIndex < this.views.length){
-		this.viewsIndex = this.viewsIndex++;
-  }else{
-		this.viewsIndex = 0;
+MySceneGraph.prototype.checkIds = function (vector){
+	for(var i = 0; i < vector.length;i++){
+		var v = vector[i];
+		var nfound = 0;
+		for(var x = 0;x <vector.length;x++){
+			if(v.id == vector[x].id){
+				nfound++;
+			}
+		}
+		if(nfound != 1){
+			return false;
+		}
 	}
+	return true;
 }
-
 /*
  * Callback to be executed on any read error
  */

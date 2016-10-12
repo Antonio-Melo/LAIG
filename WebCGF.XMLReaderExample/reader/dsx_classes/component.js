@@ -1,5 +1,4 @@
 function Component (node){
-    console.debug("156\n");
     this.reader = new CGFXMLreader();
 
     this.node = node;
