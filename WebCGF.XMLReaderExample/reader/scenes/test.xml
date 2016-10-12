@@ -98,12 +98,11 @@
            <!-- instrucoes a usar sem limite nem ordem -->
            <!-- deve existir pelo menos uma transformacao -->
            <translate x="2.0" y="2.0" z="2.0" />
-
            <rotate axis="x" angle="90" />
            <scale x="3.0" y="3.0" z="3.0" />
 
         </transformation>
-        
+
         <transformation id="t2">
            <!-- instrucoes a usar sem limite nem ordem -->
            <!-- deve existir pelo menos uma transformacao -->
@@ -136,6 +135,9 @@
       <primitive>
         <sphere radius="1.0" slices="30.0" stacks="50.0" />
       </primitive>
+
+      <primitive>
+        <torus inner="2.0" outer="4.0" slices="30.0" loops="10.0" />
 
     </primitives>
 

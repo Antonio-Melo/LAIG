@@ -175,7 +175,7 @@ MySceneGraph.prototype.parseIllumination = function(rootElement) {
 		console.debug('ILLUMINATION READ\n');
 };
 //Parse lights
-//TODO:Spot target? nto loading properly
+//TODO:Spot target? not loading properly
 MySceneGraph.prototype.parseLights = function(rootElement) {
 	    var lights = rootElement.getElementsByTagName('lights')[0];
 	    if (lights == null ) {
@@ -330,6 +330,9 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 			case "sphere":
 				p = new Sphere(node.children[0],this.scene);
 				break;
+			case "torus":
+				p = new Torus(node.children[0],this.scene);
+				break;
 			default:
 				break;
 		}
@@ -355,7 +358,7 @@ MySceneGraph.prototype.parseComponents  = function(rootElement) {
 
 		console.debug('COMPUNENTS READ\n');
 };
-
+//Checks vector for elements with the same id
 MySceneGraph.prototype.checkIds = function (vector){
 	for(var i = 0; i < vector.length;i++){
 		var v = vector[i];

@@ -1,6 +1,3 @@
-
-
-
 function Rectangle(node,scene) {
 
   CGFobject.call(this,scene);

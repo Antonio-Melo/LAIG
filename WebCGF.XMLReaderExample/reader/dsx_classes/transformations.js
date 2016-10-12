@@ -10,6 +10,26 @@ function Transformation(node){
     }else {
       this.id = "ctransformation";
     }
+
+    this.matrix = m4.create();
+    m4.identity(this.matrix);
+
+    for(var i = 0; i < node.children.length;i++){
+      switch (node.children[i].nodeName) {
+        case "translate":
+          this.translate(node.children[i]);
+          break;
+        case "rotate":
+          this.rotate(node.children[i]);
+          break;
+        case "scale":
+          this.scale(node.children[i]);
+          break;
+        default:
+          break;
+      }
+    }
+    /*
     this.translations = [];
     this.rotations = [];
     this.scales = [];
@@ -45,7 +65,7 @@ function Transformation(node){
         s.push(this.reader.getFloat(sca,'y'));
         s.push(this.reader.getFloat(sca,'z'));
         this.scales.push(s);
-    }
+    }*/
 
 
   //console.debug(this.id + '\n');
@@ -54,3 +74,21 @@ function Transformation(node){
   //console.debug(this.sx + '\n');
 
 };
+
+Transformation.prototype.translate = function(node){
+  var tx = this.reader.getFloat(node,"x");
+  var ty = this.reader.getFloat(node,"y");
+  var tz = this.reader.getFloat(node,"z");
+  this.matrix.translate(this.matrix,this.matrix,[tx,ty,tz]);
+}
+
+Transformation.prototype.rotate = function(node){
+  var axis = this.reader.getString(node,"axis");
+  var angle = this.reader.getFloat(node,"angle");
+
+  this.matrix.translate(this.matrix,this.matrix,[tx,ty,tz]);
+}
+
+Transformation.prototype.scale = function(node){
+
+}
