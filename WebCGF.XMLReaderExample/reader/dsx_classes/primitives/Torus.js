@@ -15,10 +15,10 @@ Torus.prototype = Object.create(CGFobject.prototype);
 Torus.prototype.constructor=Torus;
 
 Torus.prototype.initBuffers = function(){
-      this.vertices = [];
-      this.indices = [];
-      this.normals = [];
-      this.texCoords = [];
+    this.vertices = new Array();
+    this.indices = new Array();
+    this.normals = new Array();
+    this.texCoords = new Array();
 
       var u = 2*Math.PI /this.slices;
       var v = 2*Math.PI/this.loops;
