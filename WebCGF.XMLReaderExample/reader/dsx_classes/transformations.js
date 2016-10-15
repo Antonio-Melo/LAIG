@@ -14,7 +14,8 @@ function Transformation(node){
     this.matrix = mat4.create();
     mat4.identity(this.matrix);
 
-    for(var i = 0; i < node.children.length;i++){
+    for(var i = node.children.length -1; i >= 0;i--){
+      console.debug("Transformation ");
       switch (node.children[i].nodeName) {
         case "translate":
           this.translate(node.children[i]);
@@ -32,28 +33,30 @@ function Transformation(node){
 };
 
 Transformation.prototype.translate = function(node){
+  var vec = vec3.create();
   var tx = this.reader.getFloat(node,"x");
   var ty = this.reader.getFloat(node,"y");
   var tz = this.reader.getFloat(node,"z");
-  mat4.translate(this.matrix,this.matrix,[tx,ty,tz]);
+  vec3.set(vec,tx,ty,tz);
+
+  mat4.translate(this.matrix,this.matrix,vec);
 }
 
 Transformation.prototype.rotate = function(node){
   var axis = this.reader.getString(node,"axis");
   var angle = this.reader.getFloat(node,"angle")*Math.PI/180;
-  var rotation;
 
-  if (axis == 'x') rotation = [1, 0, 0];
-  else if (axis == 'y') rotation = [0, 1, 0];
-  else if (axis == 'z') rotation = [0, 0, 1];
-
-  mat4.rotate(this.matrix,this.matrix,angle,rotation);
+  if (axis == 'x') mat4.rotateX(this.matrix,this.matrix,angle);
+  else if (axis == 'y') mat4.rotateY(this.matrix,this.matrix,angle);
+  else if (axis == 'z') mat4.rotateZ(this.matrix,this.matrix,angle);
 }
 
 Transformation.prototype.scale = function(node){
+  var vec = vec3.create();
   var sx = this.reader.getFloat(node,"x");
   var sy = this.reader.getFloat(node,"y");
   var sz = this.reader.getFloat(node,"z");
+  vec3.set(vec,sx,sy,sz);
 
-  mat4.scale(this.matrix,this.matrix,[sx,sy,sz]);
+  mat4.scale(this.matrix,this.matrix,vec);
 }

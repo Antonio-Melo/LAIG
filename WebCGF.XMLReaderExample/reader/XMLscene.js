@@ -49,18 +49,6 @@ XMLscene.prototype.onGraphLoaded = function ()
   this.lights[0].enable();
 };
 
-XMLscene.prototype.primitivesDisplay = function(){
-  var p = this.graph.primitives;
-
-  //for(var i = 0; i < p.length; i++){
-    console.debug(p[2]);
-    console.debug(p[3]);
-    console.debug(p[4]);
-    p[4].display();
-  //}
-};
-
-
 XMLscene.prototype.display = function () {
 	// ---- BEGIN Background, camera and axis setup
 
@@ -94,4 +82,22 @@ XMLscene.prototype.display = function () {
     this.primitivesDisplay();
 
 	};
+};
+
+XMLscene.prototype.primitivesDisplay = function(){
+  var p = this.graph.primitives;
+
+  //for(var i = 0; i < p.length; i++){
+    //console.debug(p[2]);
+    //console.debug(p[3]);
+    console.debug(this.graph.transformations[0].matrix);
+
+    this.pushMatrix();
+      this.multMatrix(this.graph.transformations[0].matrix);
+      p[1].display();
+    this.popMatrix();
+
+
+
+  //}
 };

@@ -175,7 +175,6 @@ MySceneGraph.prototype.parseIllumination = function(rootElement) {
 		console.debug('ILLUMINATION READ\n');
 };
 //Parse lights
-//TODO:Spot target? not loading properly
 MySceneGraph.prototype.parseLights = function(rootElement) {
 	    var lights = rootElement.getElementsByTagName('lights')[0];
 	    if (lights == null ) {
@@ -374,6 +373,11 @@ MySceneGraph.prototype.checkIds = function (vector){
 	}
 	return true;
 }
+
+MySceneGraph.prototype.applyTransformations = function(){
+
+}
+
 /*
  * Callback to be executed on any read error
  */
