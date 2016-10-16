@@ -15,7 +15,7 @@ XMLscene.prototype.init = function (application) {
 
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
-    this.gl.clearDepth(100.0);
+    this.gl.clearDepth(100.0);CGFscene
     this.gl.enable(this.gl.DEPTH_TEST);
 	  this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
@@ -90,10 +90,10 @@ XMLscene.prototype.primitivesDisplay = function(){
   //for(var i = 0; i < p.length; i++){
     //console.debug(p[2]);
     //console.debug(p[3]);
-    console.debug(this.graph.transformations[0].matrix);
+    //console.debug(this.graph.transformations[0].matrix);
 
     this.pushMatrix();
-      this.multMatrix(this.graph.transformations[0].matrix);
+      this.multMatrix(this.graph.transformations["t1"].matrix);
       p[1].display();
     this.popMatrix();
 

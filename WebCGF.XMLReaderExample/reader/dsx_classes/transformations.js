@@ -5,17 +5,13 @@ function Transformation(node){
 
     this.node = node;
 
-    if(this.reader.getString(node,'id') != null){
-      this.id = this.reader.getString(node,'id');
-    }else {
-      this.id = "ctransformation";
-    }
+    this.id = this.reader.getString(node,'id');
 
     this.matrix = mat4.create();
     mat4.identity(this.matrix);
 
     for(var i = node.children.length -1; i >= 0;i--){
-      console.debug("Transformation ");
+      //console.debug("Transformation ");
       switch (node.children[i].nodeName) {
         case "translate":
           this.translate(node.children[i]);

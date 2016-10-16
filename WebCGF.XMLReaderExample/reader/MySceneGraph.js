@@ -5,10 +5,10 @@ function MySceneGraph(filename, scene) {
 	//Vectors to save things from dsx file
 	this.views = [];
 	this.viewsIndex = 0;
-	this.illumination = [];
+	this.illumination;
 	this.lights = [];
-	this.textures = [];
-	this.materials = [];
+	this.textures = {};
+	this.materials = {};
 	this.transformations = [];
 	this.primitives = [];
 	this.components = [];
@@ -60,7 +60,7 @@ MySceneGraph.prototype.parse=function(rootElement){
 	this.parseMaterials(rootElement);
 	this.parseTransformations(rootElement);
 	this.parsePrimitives(rootElement);
-	this.parseComponents(rootElement);
+	//this.parseComponents(rootElement);
 };
 
 //Checks if .dsx file order is correct
@@ -113,16 +113,17 @@ MySceneGraph.prototype.parseScene= function (rootElement){
 	var scene = rootElement.getElementsByTagName('scene')[0];
 
 	//root attribute
-	this.root = this.reader.getString(scene,"root");
-	if(this.root == null){
+	this.root_id = this.reader.getString(scene,"root");
+	if(this.root_id == null){
 		return "Error reading root attribute in scene block";
 	}
 
 	//axis_lenght attribute
-	this.axis_lenght = this.reader.getFloat(scene,"axis_length");
-	if(this.axis_lenght == null || this.axis_lenght <=0){
+	this.axis_length = this.reader.getFloat(scene,"axis_length");
+	if(this.axis_length == null || this.axis_length <=0){
 		return "Erros reading axis_lenght attribute in scene block \n Either missing or negative";
 	}
+	this.scene.axis=new CGFaxis(this.scene,this.axis_length,0.2);
 	console.debug("SCENE READ");
 }
 //Parse Views
@@ -170,8 +171,8 @@ MySceneGraph.prototype.parseIllumination = function(rootElement) {
         return "illumination element is null or missing.";
     }
 
-		var illumination = new Illumination(ill);
-		this.illumination.push(illumination);
+		this.illumination = new Illumination(ill);
+		//this.scene.setGlobalAmbientLight(this.illumination.ra,this.illumination.ga,this.illumination.ba,this.illumination.aa);
 		console.debug('ILLUMINATION READ\n');
 };
 //Parse lights
@@ -246,10 +247,11 @@ MySceneGraph.prototype.parseTextures = function(rootElement) {
 	for(var i = 0; i < texture.children.length; i++){
 		var node = texture.children[i];
 		var tex = new Textures(node);
-		this.textures.push(tex);
-	}
-	if(!this.checkIds(this.textures)){
-		console.debug("Ids repeted in Textures");
+		if(this.textures[tex.id] == null){
+			this.textures[tex.id]= tex;
+		}else{
+			console.debug("Ids repeted in Textures");
+		}
 	}
 	console.debug('TEXTURES READ\n');
 };
@@ -266,11 +268,19 @@ MySceneGraph.prototype.parseMaterials  = function(rootElement) {
 		for(var i = 0; i < material.children.length; i++){
 			var node = material.children[i];
 			var materials = new Materials(node);
-			this.materials.push(materials);
-		}
 
-		if(!this.checkIds(this.materials)){
-			console.debug("Ids repeted in Materials");
+			var appear = new CGFappearance(this.scene);
+	    appear.setEmission(materials.er,materials.eg,materials.eb,materials.ea);
+			appear.setAmbient(materials.ar,materials.ag,materials.ab,materials.aa);
+			appear.setDiffuse(materials.dr,materials.dg,materials.db,materials.da);
+			appear.setSpecular(materials.sr,materials.sg,materials.sb,materials.sa);
+			appear.setShininess(materials.value);
+
+			if(this.materials[materials.id] == null){
+				this.materials[materials.id] = appear;
+			}else {
+				console.debug("Ids repeted in Materials");
+			}
 		}
 
 		console.debug('MATERIALS READ\n');
@@ -291,11 +301,11 @@ MySceneGraph.prototype.parseTransformations  = function(rootElement) {
 				return "zero transformations inside the 'transformation' element";
 			}
 			var tran = new Transformation(node);
-			this.transformations.push(tran);
-		}
-
-		if(!this.checkIds(this.transformations)){
-			console.debug("Ids repeted in Transformations");
+			if(this.transformations[tran.id] == null){
+					this.transformations[tran.id] = tran;
+			}else{
+					console.debug("Ids repeted in Transformations");
+			}
 		}
 
 		console.debug('TRANSFORMATIONS READ\n');
@@ -374,8 +384,8 @@ MySceneGraph.prototype.checkIds = function (vector){
 	return true;
 }
 
-MySceneGraph.prototype.applyTransformations = function(){
-
+MySceneGraph.prototype.displayGraph = function(){
+	var x;
 }
 
 /*

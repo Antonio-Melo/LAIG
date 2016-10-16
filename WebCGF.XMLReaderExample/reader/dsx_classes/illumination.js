@@ -19,11 +19,4 @@ function Illumination(node){
     this.gb = this.reader.getFloat(background,'g');
     this.bb = this.reader.getFloat(background,'b');
     this.ab = this.reader.getFloat(background,'a');
-
-
-  //console.debug(this.doublesided + '\n');
-  //console.debug(this.local + '\n');
-	//console.debug(this.ra + '\n');
-  //console.debug(this.ba + '\n');
-  //console.debug(this.gb + '\n');
 };
