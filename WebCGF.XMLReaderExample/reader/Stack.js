@@ -1,4 +1,4 @@
-var Structure = {
+var Stack = {
   stack: function() {
     var vec;
 

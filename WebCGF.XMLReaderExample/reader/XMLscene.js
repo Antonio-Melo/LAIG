@@ -95,7 +95,11 @@ XMLscene.prototype.primitivesDisplay = function(){
       //p["tri1"].display();
       //p["cyl1"].display();
       //p["sph1"].display();
-      p["tor1"].display();
+      console.debug(this.graph.materials["m1"]);
+      console.debug(this.graph.textures["t1"].texture);
+      this.graph.materials["m1"].setTexture(this.graph.textures["t1"].texture);
+      this.graph.materials["m1"].apply();
+      p["sph1"].display();
     this.popMatrix();
 
 

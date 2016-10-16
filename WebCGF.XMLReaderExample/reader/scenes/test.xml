@@ -74,8 +74,8 @@
         <!-- objetos respetivos podem a violar esta regra.         -->
         <!-- Nao necessario aplicar fatores de escala em  -->
         <!-- quadricas (esfera, ciclindro...) -->
-        <texture id="t1" file="f1" length_s="1.0" length_t="2.0" />
-        <texture id="t2" file="f2" length_s="1.0" length_t="2.0" />
+        <texture id="t1" file="./textures/foolball.jpg" length_s="1.0" length_t="1.0" />
+        <texture id="t2" file="./textures/soccer.jpg" length_s="1.0" length_t="1.0" />
 
     </textures>
 
@@ -85,11 +85,11 @@
         <!-- Deve existir um ou mais blocos "material" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
         <material id="m1" >
-            <emission r="1.0" g="2.0" b="3.0" a="4.0" />
-            <ambient r="5.0" g="6.0" b="7.0" a="1.0" />
-            <diffuse r="2.0" g="3.0" b="2.0" a="0.5" />
-            <specular r="0.4" g="0.1" b="0.2" a="0.3" />
-            <shininess value="1.1" />
+            <emission r="0.2" g="0.4" b="0.8" a="1.0" />
+            <ambient r="0.2" g="0.4" b="0.8" a="1.0" />
+            <diffuse r="0.2" g="0.4" b="0.8" a="1.0" />
+            <specular r="0.2" g="0.4" b="0.8" a="1.0" />
+            <shininess value="10" />
         </material>
 
         <material id="m2" >
@@ -149,7 +149,7 @@
       </primitive>
 
       <primitive id="tor1">
-        <torus inner="0.1" outer="1.0" slices="20.0" loops="10.0" />
+        <torus inner="0.5" outer="1.0" slices="20.0" loops="10.0" />
       </primitive>
     </primitives>
 

@@ -247,7 +247,7 @@ MySceneGraph.prototype.parseTextures = function(rootElement) {
 
 	for(var i = 0; i < texture.children.length; i++){
 		var node = texture.children[i];
-		var tex = new Textures(node);
+		var tex = new Textures(node,this.scene);
 		if(this.textures[tex.id] == null){
 			this.textures[tex.id]= tex;
 		}else{
@@ -394,9 +394,21 @@ MySceneGraph.prototype.checkIds = function (vector){
 	return true;
 }
 
+
+//Read graph
 MySceneGraph.prototype.displayGraph = function(){
-	var x;
+	var textureStack = Stack.stack();
+	var materialStack = Stack.stack();
+	var transformationStack = Stack.stack();
+
+	transformationStack.push(mat4.create());
+	this.visitGraph(this.root_id,textureStack,materialStack,transformationStack);
 }
+
+MySceneGraph.prototype.visitGraph = function(root_id,textureStack,materialStack,transformationStack){
+
+}
+
 
 /*
  * Callback to be executed on any read error
