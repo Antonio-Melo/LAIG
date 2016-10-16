@@ -1,17 +1,29 @@
-<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
-<dsx>
-    <!-- deve definir-se um objeto para raiz do grafo , assim -->
-    <!-- como o comprimento dos tres eixos (cilindros) -->
-    <scene root="scene" axis_length="5.0" />
+<!-- Os comentarios devem ter espacos no inicio e no fim, a -->
+<!-- separar dos hifens -->
+<!-- Nao devem ser usados caracteres especiais (p.ex. acentos) -->
+<!-- Todas as tags e atributos sao obrigatorios, exceto onde for -->
+<!-- referido o contrario -->
 
-    <views default="p1">
-        <!-- declaracao obrigatoria de pelo menos uma vista; -->
-        <!-- se varias vistas declaradas, o default e' a -->
-        <!-- primeira vista; de cada vez que se pressione a tecla v/V, -->
-        <!-- a vista muda para a proxima da lista; da -->
-        <!-- ultima vista da lista volta 'a primeira -->
+<!-- Na descricao abaixo, os simbolos utilizados tem o seguinte significado: -->
+    <!-- ii: integer value -->
+    <!-- ff: float value -->
+    <!-- ss: string value -->
+    <!-- cc: character "x" or "y" or "z" -->
+    <!-- tt: "0" or "1" with Boolean significance -->
+
+<dsx>
+  <!-- deve definir-se um objeto para raiz do grafo , assim -->
+  <!-- como o comprimento dos tres eixos (cilindros) -->
+  <scene root="root" axis_length="5.0" />
+
+  <views default="p1">
+      <!-- declaracao obrigatoria de pelo menos uma vista; -->
+      <!-- se varias vistas declaradas, o default e' a -->
+      <!-- primeira vista; de cada vez que se pressione a tecla v/V, -->
+      <!-- a vista muda para a proxima da lista; da -->
+      <!-- ultima vista da lista volta 'a primeira -->
         <perspective id="p1" near="0.1" far="500" angle="0.4">
-            <from x="15.0" y="15.0" z="15.0" />
+            <from x="30.0" y="30.0" z="30.0" />
             <to x="0.0" y="0.0" z="0.0" />
         </perspective>
 
@@ -118,33 +130,32 @@
 
     <primitives>
 
-      <primitive>
-        <rectangle x1="0.0" y1="1.0" x2="2.0" y2="2.0"/>
+      <primitive id="rec1">
+        <rectangle x1="0.0" y1="0.0" x2="2.0" y2="2.0"/>
       </primitive>
 
-      <primitive>
+      <primitive id="tri1">
         <triangle x1="0.0" y1="0.0" z1="0.0"
                   x2="0.0" y2="3.0" z2="0.0"
                   x3="0.0" y3="1.5" z3="2.0" />
       </primitive>
 
-      <primitive>
+      <primitive id="cyl1">
         <cylinder base="2.0" top="2.0" height="5.0" slices="50.0" stacks="50.0" />
       </primitive>
 
-      <primitive>
+      <primitive id="sph1">
         <sphere radius="1.0" slices="30.0" stacks="50.0" />
       </primitive>
 
-      <primitive>
-        <torus inner="2.0" outer="4.0" slices="30.0" loops="10.0" />
-
+      <primitive id="tor1">
+        <torus inner="0.1" outer="1.0" slices="20.0" loops="10.0" />
+      </primitive>
     </primitives>
 
 
 
     <components>
-
         <component id="s1">
 
             <!-- bloco "transformation" obrigatorio -->
@@ -192,11 +203,5 @@
             </children>
 
         </component>
-
     </components>
-
-
-
-
-
 </dsx>

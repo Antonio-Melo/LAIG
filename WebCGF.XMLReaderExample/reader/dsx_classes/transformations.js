@@ -5,7 +5,8 @@ function Transformation(node){
 
     this.node = node;
 
-    this.id = this.reader.getString(node,'id');
+    if(this.reader.getString(node,'id') != null)
+      this.id = this.reader.getString(node,'id');
 
     this.matrix = mat4.create();
     mat4.identity(this.matrix);

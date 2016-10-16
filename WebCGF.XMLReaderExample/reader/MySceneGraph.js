@@ -10,8 +10,7 @@ function MySceneGraph(filename, scene) {
 	this.textures = {};
 	this.materials = {};
 	this.transformations = {};
-	this.primitives = [];
-	this.components = [];
+	this.nodes = {};
 
 	// Establish bidirectional references between scene and graph
 	this.scene = scene;
@@ -51,6 +50,7 @@ MySceneGraph.prototype.onXMLReady=function(){
 
 //Global Parser
 MySceneGraph.prototype.parse=function(rootElement){
+	console.log("READING DSX FILE ==============================");
 	this.checkDsxOrder(rootElement);
 	this.parseScene(rootElement);
 	this.parseViews(rootElement);
@@ -60,53 +60,53 @@ MySceneGraph.prototype.parse=function(rootElement){
 	this.parseMaterials(rootElement);
 	this.parseTransformations(rootElement);
 	this.parsePrimitives(rootElement);
-	//this.parseComponents(rootElement);
+	this.parseComponents(rootElement);
+	console.log("DSX FILE READ =================================");
 };
-
 //Checks if .dsx file order is correct
 MySceneGraph.prototype.checkDsxOrder = function(rootElement){
 	var dsx =rootElement.children;
 
 	if(dsx.length != 9){
-		return "Wrong number of blocks in the dsx file";
+		this.onXMLError("Wrong number of blocks in the dsx file");
 	}
 
 	if(dsx[0].nodeName != "scene"){
-		return "Scene block missing in the dsx file";
+		this.onXMLError("Scene block missing in the dsx file");
 	}
 
 	if(dsx[1].nodeName != "views"){
-		return "Views block missing in the dsx file";
+		this.onXMLError("Views block missing in the dsx file");
 	}
 
 	if(dsx[2].nodeName != "illumination"){
-		return "Illumination block missing in the dsx file";
+		this.onXMLError("Illumination block missing in the dsx file");
 	}
 
 	if(dsx[3].nodeName != "lights"){
-		return "Lights block missing in the dsx file";
+		this.onXMLError("Lights block missing in the dsx file");
 	}
 
 	if(dsx[4].nodeName != "textures"){
-		return "Textures block missing in the dsx file";
+		this.onXMLError("Textures block missing in the dsx file");
 	}
 
 	if(dsx[5].nodeName != "materials"){
-		return "Materials block missing in the dsx file";
+		this.onXMLError("Materials block missing in the dsx file");
 	}
 
 	if(dsx[6].nodeName != "transformations"){
-		return "Transformations block missing in the dsx file";
+		this.onXMLError("Transformations block missing in the dsx file");
 	}
 
 	if(dsx[7].nodeName != "primitives"){
-		return "Primitives block missing in the dsx file";
+		this.onXMLError("Primitives block missing in the dsx file");
 	}
 
 	if(dsx[8].nodeName != "components"){
-		return "Components block missing in the dsx file";
+		this.onXMLError("Components block missing in the dsx file");
 	}
-	console.debug("DSX order is correct");
+	console.log("DSX order is correct");
 }
 //Parse Scene
 MySceneGraph.prototype.parseScene= function (rootElement){
@@ -114,27 +114,28 @@ MySceneGraph.prototype.parseScene= function (rootElement){
 
 	//root attribute
 	this.root_id = this.reader.getString(scene,"root");
+	//console.debug(this.root_id);
 	if(this.root_id == null){
-		return "Error reading root attribute in scene block";
+		this.onXMLError("Error reading root attribute in scene block");
 	}
 
 	//axis_lenght attribute
 	this.axis_length = this.reader.getFloat(scene,"axis_length");
 	if(this.axis_length == null || this.axis_length <=0){
-		return "Erros reading axis_lenght attribute in scene block \n Either missing or negative";
+		this.onXMLError("Erros reading axis_lenght attribute in scene block \n Either missing or negative");
 	}
 	this.scene.axis=new CGFaxis(this.scene,this.axis_length,0.2);
-	console.debug("SCENE READ");
+	console.log("SCENE READ");
 }
 //Parse Views
 MySceneGraph.prototype.parseViews = function(rootElement) {
     var nviews = rootElement.getElementsByTagName('views')[0];
 
     if (nviews == null ) {
-        return "views element is null.";
+    	this.onXMLError("views element is null.");
     }
     if (nviews.children.length == 0) {
-        return "zero 'perspective' elements found.";
+    	this.onXMLError("zero 'perspective' elements found.");
     }
 		//Reads all perspectives
     for (var i = 0; i < nviews.children.length; i++) {
@@ -146,7 +147,7 @@ MySceneGraph.prototype.parseViews = function(rootElement) {
 		//Default Camera
 		this.changeView();
 		this.scene.interface.setActiveCamera(this.scene.camera);
-		console.debug('VIEWS READ\n');
+		console.log('VIEWS READ\n');
 };
 //ChangeView
 MySceneGraph.prototype.changeView = function(){
@@ -168,24 +169,24 @@ MySceneGraph.prototype.changeView = function(){
 MySceneGraph.prototype.parseIllumination = function(rootElement) {
     var ill = rootElement.getElementsByTagName('illumination')[0];
     if (ill == null ) {
-        return "illumination element is null or missing.";
+    	this.onXMLError("illumination element is null or missing.");
     }
 
 		this.illumination = new Illumination(ill);
 		//this.scene.setGlobalAmbientLight(this.illumination.ra,this.illumination.ga,this.illumination.ba,this.illumination.aa);
-		console.debug('ILLUMINATION READ\n');
+		console.log('ILLUMINATION READ\n');
 };
 //Parse lights
 MySceneGraph.prototype.parseLights = function(rootElement) {
 	    var lights = rootElement.getElementsByTagName('lights')[0];
 	    if (lights == null ) {
-	        return "lights element is null.";
+	    	this.onXMLError("lights element is null.");
 	    }
 	    if (lights.children.length == 0) {
-	        return "zero 'light' elements found.";
+	    	this.onXMLError("zero 'light' elements found.");
 	    }
 			if(lights.children.length > 8){
-					return  "not possible to represent more than 8 lights in the scene";
+				this.onXMLError("not possible to represent more than 8 lights in the scene");
 			}
 
 			var nomni = lights.getElementsByTagName('omni');
@@ -204,10 +205,10 @@ MySceneGraph.prototype.parseLights = function(rootElement) {
 				this.lights.push(spot);
 			}
 			if(!this.checkIds(this.lights)){
-				console.debug("Ids repeted in Lights");
+					this.onXMLError("Ids repeted in Lights");
 			}
 			this.enableLights();
-			console.debug('LIGHTS READ\n');
+			console.log('LIGHTS READ\n');
 };
 //enableLights
 MySceneGraph.prototype.enableLights = function(){
@@ -237,11 +238,11 @@ MySceneGraph.prototype.enableLights = function(){
 MySceneGraph.prototype.parseTextures = function(rootElement) {
 	var texture = rootElement.getElementsByTagName('textures')[0];
 	if (texture == null ) {
-		return "textures element is null.";
+		this.onXMLError("textures element is null.");
 	}
 
 	if (texture.children.length == 0) {
-		return "zero 'texture' elements found.";
+		this.onXMLError("zero 'texture' elements found.");
 	}
 
 	for(var i = 0; i < texture.children.length; i++){
@@ -250,19 +251,19 @@ MySceneGraph.prototype.parseTextures = function(rootElement) {
 		if(this.textures[tex.id] == null){
 			this.textures[tex.id]= tex;
 		}else{
-			console.debug("Ids repeted in Textures");
+			this.onXMLError("Ids repeted in Textures");
 		}
 	}
-	console.debug('TEXTURES READ\n');
+	console.log('TEXTURES READ\n');
 };
 //Parse Materials
 MySceneGraph.prototype.parseMaterials  = function(rootElement) {
 		var material = rootElement.getElementsByTagName('materials')[0];
 		if (material == null ) {
-				return "materials element is null";
+			this.onXMLError("materials element is null");
 		}
 		if (material.children.length == 0) {
-				return "zero 'material' elements found.";
+			this.onXMLError("zero 'material' elements found.");
 		}
 
 		for(var i = 0; i < material.children.length; i++){
@@ -279,46 +280,46 @@ MySceneGraph.prototype.parseMaterials  = function(rootElement) {
 			if(this.materials[materials.id] == null){
 				this.materials[materials.id] = appear;
 			}else {
-				console.debug("Ids repeted in Materials");
+				this.onXMLError("Ids repeted in Materials");
 			}
 		}
 
-		console.debug('MATERIALS READ\n');
+		console.log('MATERIALS READ\n');
 };
 //Parse Transformations
 MySceneGraph.prototype.parseTransformations  = function(rootElement) {
 		var transf = rootElement.getElementsByTagName('transformations')[0];
 		if (transf == null ) {
-				return "transformations element is null.";
+			this.onXMLError("transformations element is null.");
 		}
 		if (transf.children.length == 0) {
-				return "zero 'transformation' elements found.";
+			this.onXMLError("zero 'transformation' elements found.");
 		}
 
 		for(var i = 0; i < transf.children.length; i++){
 			var node = transf.children[i];
 			if(node.children.length == 0){
-				return "zero transformations inside the 'transformation' element";
+				this.onXMLError("zero transformations inside the 'transformation' element");
 			}
 			var tran = new Transformation(node);
 			if(this.transformations[tran.id] == null){
 					this.transformations[tran.id] = tran;
 			}else{
-					console.debug("Ids repeted in Transformations");
+				this.onXMLError("Ids repeted in Transformations");
 			}
 		}
 
-		console.debug('TRANSFORMATIONS READ\n');
+		console.log('TRANSFORMATIONS READ\n');
 };
 //Parse Primitives
 MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 	var prim = rootElement.getElementsByTagName('primitives')[0];
 	if(prim == null){
-		return "primitives element is null";
+		this.onXMLError("primitives element is null");
 	}
 
 	if(prim.children.length == 0){
-		return "zero 'primitives' elements found.";
+		this.onXMLError("zero 'primitives' elements found.");
 	}
 
 	// iterate over every element
@@ -328,44 +329,53 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 		var p;
 		switch (node.children[0].nodeName) {
 			case "rectangle":
-				p = new Rectangle(node.children[0], this.scene);
+				p = new Rectangle(node.children[0], this.scene,this.reader.getString(node,'id'));
 				break;
 			case "triangle":
-				p = new Triangle(node.children[0],this.scene);
+				p = new Triangle(node.children[0],this.scene,this.reader.getString(node,'id'));
 				break;
 			case "cylinder":
-				p = new Cylinder(node.children[0],this.scene);
+				p = new Cylinder(node.children[0],this.scene,this.reader.getString(node,'id'));
 				break;
 			case "sphere":
-				p = new Sphere(node.children[0],this.scene);
+				p = new Sphere(node.children[0],this.scene,this.reader.getString(node,'id'));
 				break;
 			case "torus":
-				p = new Torus(node.children[0],this.scene);
+				p = new Torus(node.children[0],this.scene,this.reader.getString(node,'id'));
 				break;
 			default:
 				break;
 		}
-		this.primitives.push(p);
+		if(this.nodes[p.id] ==null){
+			this.nodes[p.id] =p;
+		}else {
+			this.onXMLError("Ids repeted in primitives");
+		}
 	}
-	console.debug('PRIMATIVES READ\n');
+	console.log('PRIMATIVES READ\n');
 };
 //Parse Components
-MySceneGraph.prototype.parseComponents  = function(rootElement) {
-		var comp = rootElement.getElementsByTagName('components')[0];
+MySceneGraph.prototype.parseComponents = function(rootElement) {
+		var comp = rootElement.getElementsByTagName("components")[0];
+
 		if (comp == null ) {
-				return "components element is null";
+			this.onXMLError("components element is null");
 		}
 		if (comp.children.length == 0) {
-				return "zero 'component' elements found.";
+			this.onXMLError("zero 'component' elements found.");
 		}
 
 		for (var i = 0;i < comp.children.length; i++){
 			var node = comp.children[i];
-			var c = new Component(node);
-			//this.components.push(c);
-		}
+			var c = new Component(node,this);
 
-		console.debug('COMPUNENTS READ\n');
+			if(this.nodes[c.id] == null){
+				this.nodes[c.id] = c;
+			}else{
+				this.onXMLError("Ids repeted in Components");
+			}
+		}
+		console.log('COMPUNENTS READ\n');
 };
 //Checks vector for elements with the same id
 MySceneGraph.prototype.checkIds = function (vector){

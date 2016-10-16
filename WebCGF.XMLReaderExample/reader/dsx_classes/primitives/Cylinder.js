@@ -3,10 +3,12 @@
 */
 
 
- function Cylinder(node,scene) {
+ function Cylinder(node,scene,id) {
  	CGFobject.call(this,scene);
 
   this.node = node;
+  this.id = id;
+
 
   this.base = node.attributes.getNamedItem("base").value;
   this.top = node.attributes.getNamedItem("top").value;

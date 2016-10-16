@@ -3,11 +3,12 @@
 */
 
 
- function Sphere(node, scene) {
+ function Sphere(node, scene,id) {
 
  	CGFobject.call(this,scene);
 
   this.node = node;
+  this.id = id;
 
   this.radius = node.attributes.getNamedItem("radius").value;
   this.slices = node.attributes.getNamedItem("slices").value;

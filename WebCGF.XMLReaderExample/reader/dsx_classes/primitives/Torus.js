@@ -1,60 +1,71 @@
-function Torus(node, scene){
+function Torus(node, scene,id){
   CGFobject.call(this,scene);
+  this.reader = new CGFXMLreader();
 
   this.node= node;
+  this.id = id;
 
-  this.inner =  node.attributes.getNamedItem("inner").value;
-  this.outer = node.attributes.getNamedItem("outer").value;
-  this.slices = node.attributes.getNamedItem("slices").value;
-  this.loops = node.attributes.getNamedItem("loops").value;
+  this.inner =  this.reader.getFloat(node,'inner');
+  this.outer = this.reader.getFloat(node,'outer');
+  this.slices =  this.reader.getFloat(node,'slices');
+  this.loops =  this.reader.getFloat(node,'loops');
+
+  //console.debug(this.inner);
+  //console.debug(this.outer);
+  //console.debug(this.slices);
+
 
   this.initBuffers();
 };
 
 Torus.prototype = Object.create(CGFobject.prototype);
-Torus.prototype.constructor=Torus;
+Torus.prototype.constructor = Torus;
 
 Torus.prototype.initBuffers = function(){
-    this.vertices = new Array();
-    this.indices = new Array();
-    this.normals = new Array();
-    this.texCoords = new Array();
+  this.vertices = [];
+ 	this.indices = [];
+ 	this.normals = [];
+ 	this.texCoords = [];
 
-      var u = 2*Math.PI /this.slices;
-      var v = 2*Math.PI/this.loops;
+ 	var deltaAlpha = 360.0/this.slices;
+ 	var deltaPhi = 360.0/this.loops;
+ 	var r = (this.outer - this.inner)/2;
 
-      for(var stack = 0; stack <= this.loops;stack++){
-        var ang = stack*v;
-        var sin = Math.sin(ang);
-        var cos = Math.cos(ang);
+ 	var deg2Rad = Math.PI/180.0;
 
-        for(var slice = 0;slice <= this.slices;slice++){
-          var ang2 = slice * u;
-          var sin2 = Math.sin(ang2);
-          var cos2 = Math.cos(ang2);
+	var phi = 0;
+	for(var k = 0; k <= this.loops; k++)
+	{
+		var phiRad = phi*deg2Rad;
+		var alpha = 0;
+		for(var i = 0; i <= this.slices; i++)
+		{
+			var alphaRad = alpha*deg2Rad;
 
-          var x = (this.outer +(this.inner * cos))*cos2;
-          var y = (this.outer +(this.inner * cos))*sin2;
-          var z = this.inner * sin;
-          var s = 1 - (stack/this.loops);
-          var t = 1 - (slice/this.slices);
+			//Vertices
+			var d = this.inner + r + r*Math.cos(phiRad);
+			this.vertices.push(d*Math.cos(alphaRad),d*Math.sin(alphaRad),r*Math.sin(phiRad));
 
-          this.vertices.push(x,y,z);
-          this.normals.push(x,y,z);
-          this.texCoords.push(s,t);
-        }
-      }
+			//Indices
+			if(i > 0 && k > 0)
+			{
+				this.indices.push((this.slices+1)*(k)+(i),(this.slices+1)*(k)+(i-1),(this.slices+1)*(k-1)+(i-1));
+				this.indices.push((this.slices+1)*(k)+(i),(this.slices+1)*(k-1)+(i-1),(this.slices+1)*(k-1)+(i));
+			}
 
-      for(var stack = 0;stack < this.loops; stack++){
-        for(var slice = 0;slice < this.slices;slice++){
-          var f =(stack * (this.slices +1))+slice;
-          var s = f + this.slices + 1;
+			//Normals
+			this.normals.push(d*r*Math.cos(alphaRad)*Math.cos(phiRad),d*r*Math.sin(alphaRad)*Math.cos(phiRad),d*r*Math.sin(phiRad));
 
-          this.indices.push(f,s +1,s);
-          this.indices.push(f,f+1,s+1);
-        }
-      }
+			//Texture coords
+			this.texCoords.push(i/(this.slices), 1 -k/this.loops);
 
-      this.primitiveType = this.scene.gl.TORUS;
-      this.initGLBuffers();
-}
+			alpha += deltaAlpha;
+		}
+
+		phi += deltaPhi;
+	}
+
+
+	this.primitiveType=this.scene.gl.TRIANGLES;
+	this.initGLBuffers();
+};

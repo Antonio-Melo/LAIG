@@ -85,16 +85,17 @@ XMLscene.prototype.display = function () {
 };
 
 XMLscene.prototype.primitivesDisplay = function(){
-  var p = this.graph.primitives;
-
-  //for(var i = 0; i < p.length; i++){
-    //console.debug(p[2]);
-    //console.debug(p[3]);
-    //console.debug(this.graph.transformations[0].matrix);
+  var p = this.graph.nodes;
 
     this.pushMatrix();
-      this.multMatrix(this.graph.transformations["t1"].matrix);
-      p[1].display();
+      //this.multMatrix(this.graph.transformations["t1"].matrix);
+      //console.debug(p["cyl1"]);
+      //console.debug(p["tor1"]);
+      //p["rec1"].display();
+      //p["tri1"].display();
+      //p["cyl1"].display();
+      //p["sph1"].display();
+      p["tor1"].display();
     this.popMatrix();
 
 

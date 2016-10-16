@@ -1,10 +1,11 @@
-function Rectangle(node,scene) {
+function Rectangle(node,scene,id) {
 
   CGFobject.call(this,scene);
 
 	this.materialDefault = new CGFappearance(this.scene);
 
   this.node = node;
+  this.id = id;
 
   this.x1 = node.attributes.getNamedItem("x1").value;
   this.x2 = node.attributes.getNamedItem("x2").value;
