@@ -1,8 +1,8 @@
 function Component (node){
     this.reader = new CGFXMLreader();
-
     this.node = node;
-    this.transformations = null;
+
+    this.transref = null;
     this.materials = [];
     this.componentref = [];
     this.primitiveref = [];
@@ -17,7 +17,7 @@ function Component (node){
     if(transref != null){
       this.transref = this.reader.getString(transref,"id");
     }else{
-        this.transformations = new Transformation(trans);
+        this.transformation = new Transformation(trans);
     }
 
     //Materials

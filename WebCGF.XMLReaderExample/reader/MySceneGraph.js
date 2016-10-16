@@ -9,7 +9,7 @@ function MySceneGraph(filename, scene) {
 	this.lights = [];
 	this.textures = {};
 	this.materials = {};
-	this.transformations = [];
+	this.transformations = {};
 	this.primitives = [];
 	this.components = [];
 
@@ -362,7 +362,7 @@ MySceneGraph.prototype.parseComponents  = function(rootElement) {
 		for (var i = 0;i < comp.children.length; i++){
 			var node = comp.children[i];
 			var c = new Component(node);
-			this.components.push(c);
+			//this.components.push(c);
 		}
 
 		console.debug('COMPUNENTS READ\n');
