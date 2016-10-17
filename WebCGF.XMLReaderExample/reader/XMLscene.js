@@ -12,10 +12,11 @@ XMLscene.prototype.init = function (application) {
     this.initCameras();
 
     this.initLights();
+    this.enableTextures(true);
 
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
-    this.gl.clearDepth(100.0);CGFscene
+    this.gl.clearDepth(100.0);
     this.gl.enable(this.gl.DEPTH_TEST);
 	  this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
@@ -24,9 +25,9 @@ XMLscene.prototype.init = function (application) {
 };
 
 XMLscene.prototype.initLights = function () {
-    //this.lights[0].setPosition(2, 3, 3, 1);
-    //this.lights[0].setDiffuse(1.0,1.0,1.0,1.0);
-    //this.lights[0].update();
+  this.lights[0].setPosition(2, 3, 3, 1);
+  this.lights[0].setDiffuse(1.0,1.0,1.0,1.0);
+  this.lights[0].update();
 };
 
 XMLscene.prototype.initCameras = function () {
@@ -34,17 +35,17 @@ XMLscene.prototype.initCameras = function () {
 };
 
 XMLscene.prototype.setDefaultAppearance = function () {
-    this.setAmbient(0.2, 0.4, 0.8, 1.0);
-    this.setDiffuse(0.2, 0.4, 0.8, 1.0);
-    this.setSpecular(0.2, 0.4, 0.8, 1.0);
-    this.setShininess(10.0);
+  this.setAmbient(0.2, 0.4, 0.8, 1.0);
+  this.setDiffuse(0.2, 0.4, 0.8, 1.0);
+  this.setSpecular(0.2, 0.4, 0.8, 1.0);
+  this.setShininess(10.0);
 };
 
 // Handler called when the graph is finally loaded.
 // As loading is asynchronous, this may be called already after the application has started the run loop
 XMLscene.prototype.onGraphLoaded = function ()
 {
-	this.gl.clearColor(0,1,1,0.5);
+	this.gl.clearColor(0,0,0,1);
 	this.lights[0].setVisible(true);
   this.lights[0].enable();
 };
@@ -97,7 +98,7 @@ XMLscene.prototype.primitivesDisplay = function(){
       //p["sph1"].display();
       console.debug(this.graph.materials["m1"]);
       console.debug(this.graph.textures["t1"].texture);
-      this.graph.materials["m1"].setTexture(this.graph.textures["t1"].texture);
+      this.graph.materials["m1"].setTexture(this.graph.textures["t2"].texture);
       this.graph.materials["m1"].apply();
       p["sph1"].display();
     this.popMatrix();

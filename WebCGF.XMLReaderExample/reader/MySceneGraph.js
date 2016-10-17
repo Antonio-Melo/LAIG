@@ -54,8 +54,8 @@ MySceneGraph.prototype.parse=function(rootElement){
 	this.checkDsxOrder(rootElement);
 	this.parseScene(rootElement);
 	this.parseViews(rootElement);
-	this.parseIllumination(rootElement);
-	this.parseLights(rootElement);
+	//this.parseIllumination(rootElement);
+	//this.parseLights(rootElement);
 	this.parseTextures(rootElement);
 	this.parseMaterials(rootElement);
 	this.parseTransformations(rootElement);
