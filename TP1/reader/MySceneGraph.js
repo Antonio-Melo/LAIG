@@ -6,6 +6,7 @@ function MySceneGraph(filename, scene) {
 	this.views = [];
 	this.viewsIndex = 0;
 	this.materialIndex = 0;
+	this.debugMod = true;
 	this.illumination;
 	this.lights = [];
 	this.textures = {};
@@ -26,7 +27,7 @@ function MySceneGraph(filename, scene) {
 	 * If any error occurs, the reader calls onXMLError on this object, with an error message
 	 */
 
-	this.reader.open('scenes/test.xml', this);
+	this.reader.open('scenes/'+filename, this);
 }
 /*
  * Callback to be executed after successful reading
@@ -42,6 +43,7 @@ MySceneGraph.prototype.onXMLReady=function(){
 		this.onXMLError(error);
 		return;
 	}
+
 
 	this.loadedOk=true;
 
@@ -126,6 +128,11 @@ MySceneGraph.prototype.parseScene= function (rootElement){
 		this.onXMLError("Erros reading axis_lenght attribute in scene block \n Either missing or negative");
 	}
 	this.scene.axis=new CGFaxis(this.scene,this.axis_length,0.2);
+
+	if(this.debugMod){
+		console.debug("root: "+this.root_id + " axis_length: "+this.axis_length);
+	}
+
 	console.log("SCENE READ");
 }
 //Parse Views
@@ -143,7 +150,12 @@ MySceneGraph.prototype.parseViews = function(rootElement) {
         var node = nviews.children[i];
 				var view = new View(node);
 				this.views.push(view);
+
+				if(this.debugMod){
+					console.debug("id: "+view.id+" near: "+view.near+" far: "+view.far+" angle: "+view.angle+" fx: "+view.fromX+" fy: "+view.fromY+ " fy: "+view.fromZ+ " tx: "+view.toX+" ty: "+view.toY+" ty: "+view.toZ);
+				}
     }
+
 
 		//Default Camera
 		this.changeView();
@@ -398,10 +410,9 @@ MySceneGraph.prototype.checkIds = function (vector){
 
 //Read graph
 MySceneGraph.prototype.displayGraph = function(){
-	var textureStack = Stack.stack();
-	var materialStack = Stack.stack();
+	var textureStack = new Stack.stack();
+	var materialStack = new Stack.stack();
 
-	transformationStack.push(mat4.create());
 	this.visitGraph(this.root_id,textureStack,materialStack);
 }
 MySceneGraph.prototype.visitGraph = function(node_id,textureStack,materialStack){

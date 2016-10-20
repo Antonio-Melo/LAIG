@@ -78,13 +78,13 @@ XMLscene.prototype.display = function () {
     for(var i = 0;i <this.lights.length;i++){
 		  this.lights[i].update();
     }
-    this.primitivesDisplay();
+    this.graph.displayGraph();
 
 	};
 };
 
 XMLscene.prototype.primitivesDisplay = function(){
-  var p = this.graph.nodes;
+  /*var p = this.graph.nodes;
 
     this.pushMatrix();
       //p["rec1"].display();
@@ -96,7 +96,7 @@ XMLscene.prototype.primitivesDisplay = function(){
       this.graph.materials["m1"].setTexture(this.graph.textures["t2"].texture);
       this.graph.materials["m1"].apply();
       p["sph1"].display();
-    this.popMatrix();
+    this.popMatrix();*/
 
 
 

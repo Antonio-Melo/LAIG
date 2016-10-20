@@ -8,6 +8,7 @@ function View(node){
     this.near = this.reader.getFloat(node,'near');
     this.far =  this.reader.getFloat(node,'far');
     this.angle = this.reader.getFloat(node,'angle');
+    this.angle = this.angle *Math.PI/180;
 
     var f = node.getElementsByTagName('from')[0];
 

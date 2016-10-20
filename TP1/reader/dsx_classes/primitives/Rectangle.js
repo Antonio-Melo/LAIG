@@ -24,15 +24,15 @@ Rectangle.prototype.constructor=Rectangle;
 Rectangle.prototype.initBuffers = function () {
 	this.vertices = [
             this.x1, this.y1, 0,
-            this.x1, this.y2, 0,
+            this.x2, this.y1, 0,
             this.x2, this.y2, 0,
-            this.x2, this.y1, 0
+            this.x1, this.y2, 0
 
 			];
 
 	this.indices = [
-            0, 2, 1,
-			      0, 3, 2
+            0, 1, 2,
+			      2, 3, 0
         ];
 
     this.normals = [
@@ -43,10 +43,10 @@ Rectangle.prototype.initBuffers = function () {
     ];
 
   this.texCoords = [
-    this.x1, this.y2,
-    this.x2, this.y2,
-    this.x1, this.y1,
-   	this.x2, this.y1
+    0, 1,
+    1, 1,
+    1, 0,
+   	0, 0
   ];
 
   this.primitiveType=this.scene.gl.TRIANGLES;
