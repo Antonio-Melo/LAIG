@@ -1,0 +1,8 @@
+TODO:
+
+- Verificar texturas em todos as primitivas
+- Mudar de material ao carregar no m
+- Fazer novas primitivas
+	-Círculo, modificar a esfera(parte cima/baixo)
+	-Cone
+	-Piramide
