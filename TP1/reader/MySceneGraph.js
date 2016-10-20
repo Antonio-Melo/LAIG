@@ -5,6 +5,7 @@ function MySceneGraph(filename, scene) {
 	//Vectors to save things from dsx file
 	this.views = [];
 	this.viewsIndex = 0;
+	this.materialIndex = 0;
 	this.illumination;
 	this.lights = [];
 	this.textures = {};
@@ -54,8 +55,8 @@ MySceneGraph.prototype.parse=function(rootElement){
 	this.checkDsxOrder(rootElement);
 	this.parseScene(rootElement);
 	this.parseViews(rootElement);
-	//this.parseIllumination(rootElement);
-	//this.parseLights(rootElement);
+	this.parseIllumination(rootElement);
+	this.parseLights(rootElement);
 	this.parseTextures(rootElement);
 	this.parseMaterials(rootElement);
 	this.parseTransformations(rootElement);
@@ -165,7 +166,6 @@ MySceneGraph.prototype.changeView = function(){
 	}
 }
 //Parse Illumination
-//TODO :Not loading properly
 MySceneGraph.prototype.parseIllumination = function(rootElement) {
     var ill = rootElement.getElementsByTagName('illumination')[0];
     if (ill == null ) {
@@ -173,6 +173,7 @@ MySceneGraph.prototype.parseIllumination = function(rootElement) {
     }
 
 		this.illumination = new Illumination(ill);
+		this.scene.gl.clearColor(this.illumination.rb,this.illumination.gb,this.illumination.bb,this.illumination.ab);
 		//this.scene.setGlobalAmbientLight(this.illumination.ra,this.illumination.ga,this.illumination.ba,this.illumination.aa);
 		console.log('ILLUMINATION READ\n');
 };
@@ -399,16 +400,58 @@ MySceneGraph.prototype.checkIds = function (vector){
 MySceneGraph.prototype.displayGraph = function(){
 	var textureStack = Stack.stack();
 	var materialStack = Stack.stack();
-	var transformationStack = Stack.stack();
 
 	transformationStack.push(mat4.create());
-	this.visitGraph(this.root_id,textureStack,materialStack,transformationStack);
+	this.visitGraph(this.root_id,textureStack,materialStack);
 }
+MySceneGraph.prototype.visitGraph = function(node_id,textureStack,materialStack){
+	var node = this.nodes[node_id];
 
-MySceneGraph.prototype.visitGraph = function(root_id,textureStack,materialStack,transformationStack){
+	if(node instanceof Component ){
+
+		//Apply transformations
+		this.scene.pushMatrix();
+		this.scene.multMatrix(this.transformations[node.transref].matrix);
+
+		//Apply materials
+		var materialId = node.materials[this.materialIndex];
+		if(materialId == "inherit"){
+			materialStack.push(materialStack.top());
+		}else{
+			materialStack.push(materialId);
+		}
+
+		//Textures
+		if(node.textureid == "inherit"){
+			textureStack.push(textureStack.top());
+		}else{
+			textureStack.push(node.textureid);
+		}
+		for(var i = 0; i < node.children.length;i++){
+			this.visitGraph(node.children[i],textureStack,materialStack);
+		}
+		this.scene.popMatrix();
+		materialStack.pop();
+		textureStack.pop();
+	}else{
+
+		var material = this.materials[materialStack.top()];
+		var texture = this.textures[textureStack.top()].texture;
+		if(textureStack.top() != "none"){
+			material.setTexture(texture);
+		}
+
+		material.apply();
+		node.display();
+		material.setTexture(null);
+	}
+
+
+
+
+
 
 }
-
 
 /*
  * Callback to be executed on any read error

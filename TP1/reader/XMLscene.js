@@ -14,7 +14,6 @@ XMLscene.prototype.init = function (application) {
     this.initLights();
     this.enableTextures(true);
 
-    this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
     this.gl.clearDepth(100.0);
     this.gl.enable(this.gl.DEPTH_TEST);
@@ -45,7 +44,6 @@ XMLscene.prototype.setDefaultAppearance = function () {
 // As loading is asynchronous, this may be called already after the application has started the run loop
 XMLscene.prototype.onGraphLoaded = function ()
 {
-	this.gl.clearColor(0,0,0,1);
 	this.lights[0].setVisible(true);
   this.lights[0].enable();
 };
@@ -89,15 +87,12 @@ XMLscene.prototype.primitivesDisplay = function(){
   var p = this.graph.nodes;
 
     this.pushMatrix();
-      //this.multMatrix(this.graph.transformations["t1"].matrix);
-      //console.debug(p["cyl1"]);
-      //console.debug(p["tor1"]);
       //p["rec1"].display();
       //p["tri1"].display();
       //p["cyl1"].display();
       //p["sph1"].display();
-      console.debug(this.graph.materials["m1"]);
-      console.debug(this.graph.textures["t1"].texture);
+      //console.debug(this.graph.materials["m1"]);
+      //console.debug(this.graph.textures["t1"].texture);
       this.graph.materials["m1"].setTexture(this.graph.textures["t2"].texture);
       this.graph.materials["m1"].apply();
       p["sph1"].display();
@@ -105,5 +100,5 @@ XMLscene.prototype.primitivesDisplay = function(){
 
 
 
-  //}
+
 };

@@ -3,8 +3,7 @@ function Component (node,graph){
     this.node = node;
 
     this.materials = [];
-    this.componentref = [];
-    this.primitiveref = [];
+    this.children = [];
 
     //id
     this.id = this.reader.getString(node,'id');
@@ -47,10 +46,10 @@ function Component (node,graph){
 
     var cref = children.getElementsByTagName('componentref');
     for(var i = 0; i < cref.length;i++){
-        this.componentref.push(this.reader.getString(cref[i],"id"));
+        this.children.push(this.reader.getString(cref[i],"id"));
     }
     var pref = children.getElementsByTagName('primitiveref');
     for(var i = 0;i < pref.length;i++){
-      this.primitiveref.push(this.reader.getString(pref[i],"id"));
+      this.children.push(this.reader.getString(pref[i],"id"));
     }
 }

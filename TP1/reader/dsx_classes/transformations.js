@@ -11,7 +11,7 @@ function Transformation(node){
     this.matrix = mat4.create();
     mat4.identity(this.matrix);
 
-    for(var i = node.children.length -1; i >= 0;i--){
+    for(var i = 0 ; i < node.children.length;i++){
       //console.debug("Transformation ");
       switch (node.children[i].nodeName) {
         case "translate":
