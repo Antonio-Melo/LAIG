@@ -18,7 +18,7 @@ function Component (node,graph){
       this.transref = this.reader.getString(transref,"id");
     }else{
         this.transref = this.id + "trans";
-        graph.transformations[this.transref]= new Transformation(trans);
+        graph.transformations[this.transref]= new Transformation(trans,this.transref);
     }
 
     //Materials

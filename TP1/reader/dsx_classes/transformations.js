@@ -1,12 +1,12 @@
-function Transformation(node){
+function Transformation(node,id){
 
     this.reader = new CGFXMLreader();
 
 
     this.node = node;
 
-    if(this.reader.getString(node,'id') != null)
-      this.id = this.reader.getString(node,'id');
+
+    this.id = id;
 
     this.matrix = mat4.create();
     mat4.identity(this.matrix);

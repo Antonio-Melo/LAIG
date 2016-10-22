@@ -35,5 +35,9 @@ MyInterface.prototype.processKeyboard = function(event) {
 			this.setActiveCamera(this.scene.camera);
 			console.debug("v\n");
 			break;
+		case (109):				//m
+			this.scene.graph.changeMaterial();
+			console.debug("m\n");
+			break;
 	};
 };

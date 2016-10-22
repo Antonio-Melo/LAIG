@@ -299,6 +299,10 @@ MySceneGraph.prototype.parseMaterials  = function(rootElement) {
 
 		console.log('MATERIALS READ\n');
 };
+//Change Materials
+MySceneGraph.prototype.changeMaterial = function(rootElement){
+	this.materialIndex++;
+}
 //Parse Transformations
 MySceneGraph.prototype.parseTransformations  = function(rootElement) {
 		var transf = rootElement.getElementsByTagName('transformations')[0];
@@ -314,7 +318,9 @@ MySceneGraph.prototype.parseTransformations  = function(rootElement) {
 			if(node.children.length == 0){
 				this.onXMLError("zero transformations inside the 'transformation' element");
 			}
-			var tran = new Transformation(node);
+			var id = this.reader.getString(node,'id');
+
+			var tran = new Transformation(node,id);
 			if(this.transformations[tran.id] == null){
 					this.transformations[tran.id] = tran;
 			}else{
@@ -425,7 +431,7 @@ MySceneGraph.prototype.visitGraph = function(node_id,textureStack,materialStack)
 		this.scene.multMatrix(this.transformations[node.transref].matrix);
 
 		//Apply materials
-		var materialId = node.materials[this.materialIndex];
+		var materialId = node.materials[this.materialIndex % node.materials.length];
 		if(materialId == "inherit"){
 			materialStack.push(materialStack.top());
 		}else{
@@ -456,12 +462,6 @@ MySceneGraph.prototype.visitGraph = function(node_id,textureStack,materialStack)
 		node.display();
 		material.setTexture(null);
 	}
-
-
-
-
-
-
 }
 
 /*

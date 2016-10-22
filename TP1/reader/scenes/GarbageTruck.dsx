@@ -125,6 +125,14 @@
             <shininess value="0.8" />
         </material>
 
+        <material id="m2" >
+            <emission r="0.7" g="0.7" b="0.7" a="0.7" />
+            <ambient r="0.7" g="0.7" b="0.7" a="0.7" />
+            <diffuse r="0.3" g="0.3" b="0.3" a="0.3" />
+            <specular r="0.5" g="0.5" b="1.0" a="0.5" />
+            <shininess value="0.8" />
+        </material>
+
     </materials>
 
 
@@ -202,6 +210,7 @@
             <!-- ultimo material da lista volta ao primeiro -->
             <materials>
                 <material id="m1" />
+                <material id="m2" />
             </materials>
 
             <!-- declaracao obrigatoria de texture -->
