@@ -64,7 +64,7 @@ Triangle.prototype.initBuffers = function () {
   ];
 
   this.texCoords = [
-    base[0]-base[1] *Math.cos(base[2]),base[1]*Math.sin(base[2]),
+    base[0]-base[1] *Math.cos(base[2]),1-base[1]*Math.sin(base[2]),
     0,1,
     base[0],1
   ];
@@ -73,12 +73,11 @@ Triangle.prototype.initBuffers = function () {
 };
 
 Triangle.prototype.makeVec = function(p1, p2) {
-  var v = [p2[0]-p1[0],p2[1]-p1[1],p2[3]-p1[3]];
-  return v;
+  return [p2[0]-p1[0],p2[1]-p1[1],p2[2]-p1[2]];
 }
 
 Triangle.prototype.calLength = function(vec){
-  return Math.sqrt((vec[0]*vec[0])+(vec[1]*vec[1])+(vec[2]*vec[2]));
+  return Math.sqrt(vec[0]*vec[0]+vec[1]*vec[1]+vec[2]*vec[2]);
 }
 
 Triangle.prototype.multVec = function(p1,p2){
@@ -98,7 +97,7 @@ Triangle.prototype.setTexCoords = function(ls,lt){
   this.texCoords = [
     this.baseTexCoor[0]/ls,1-(this.baseTexCoor[1]/lt),
     0,1,
-    this.baseTexCoor[1]/ls,1
+    this.baseTexCoor[4]/ls,1
   ];
 
   this.updateTexCoordsGLBuffers();

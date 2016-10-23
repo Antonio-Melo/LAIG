@@ -168,9 +168,13 @@
             <triangle x1="0.5" y1="1" z1="0" x2="0" y2="0" z2="0" x3="1" y3="0" z3="0" />
         </primitive>
 
-		<primitive id="cylinder">
+		  <primitive id="cylinder">
             <cylinder base="0.5" top="0.5" height="1" slices="50" stacks="20" />
-        </primitive>
+      </primitive>
+
+      <primitive id="cone">
+          <cylinder base="0.5" top="0.0" height="1" slices="50" stacks="20" />
+      </primitive>
 
   		<primitive id="sphere">
             <sphere radius="0.5" slices="40" stacks="40" />
@@ -229,10 +233,31 @@
                 <componentref id="bus" />
                 <componentref id="road"/>
                 <componentref id="lamp"/>
+                <componentref id="test"/>
 
             </children>
 
         </component>
+
+        <component id="test">
+                     <transformation>
+                         <translate x="5.0" y="1.0" z="10.0"/>
+                         <rotate axis="x" angle="90"/>
+                         <scale x="2.0" y="2.0" z="2.0" />
+                     </transformation>
+
+                     <materials>
+                         <material id="inherit" />
+                     </materials>
+
+                     <texture id="bus" />
+
+                     <children>
+                         <primitiveref id="cone" />
+
+                     </children>
+        </component>
+
 
         <component id="bus">
           <!-- bloco "transformation" obrigatorio -->

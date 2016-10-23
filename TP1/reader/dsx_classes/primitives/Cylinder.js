@@ -16,7 +16,7 @@
 
   this.slices = node.attributes.getNamedItem("slices").value;
   this.stacks = node.attributes.getNamedItem("stacks").value;
-  
+
  	this.initBuffers();
  };
 
