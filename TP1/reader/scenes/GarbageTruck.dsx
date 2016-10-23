@@ -98,6 +98,9 @@
         <!-- quadricas (esfera, ciclindro...) -->
 
         <texture id="bus" file ="textures\\bus.jpg" length_s="1.0" length_t="1.0"/>
+        <texture id="red" file ="textures\\red.jpg" length_s="1.0" length_t="1.0"/>
+        <texture id="fire" file ="textures\\fire.jpg" length_s="1.0" length_t="1.0"/>
+        <texture id="metal" file ="textures\\metal.jpg" length_s="1.0" length_t="1.0"/>
         <texture id="tire" file ="textures\\tire.jpg" length_s="1.0" length_t="1.0"/>
         <texture id="road" file ="textures\\road.jpg" length_s="2.0" length_t="1.0"/>
         <texture id="chimney" file ="textures\\chimney.jpg" length_s="1.0" length_t="1.0"/>
@@ -233,28 +236,100 @@
                 <componentref id="bus" />
                 <componentref id="road"/>
                 <componentref id="lamp"/>
-                <componentref id="test"/>
+                <componentref id="fumo"/>
 
             </children>
 
         </component>
 
-        <component id="test">
+        <component id="fumo">
                      <transformation>
-                         <translate x="5.0" y="1.0" z="10.0"/>
-                         <rotate axis="x" angle="90"/>
-                         <scale x="2.0" y="2.0" z="2.0" />
+                         <scale x="1.0" y="1.0" z="1.0" />
                      </transformation>
 
                      <materials>
                          <material id="inherit" />
                      </materials>
 
-                     <texture id="bus" />
+                     <texture id="none" />
+
+                     <children>
+                         <componentref id="fumo1" />
+                         <componentref id="fumo2" />
+                         <componentref id="fire1" />
+                         <componentref id="fire2" />
+                     </children>
+        </component>
+
+        <component id="fumo1">
+                     <transformation>
+                         <translate x="3.0" y="1.0" z="5.5"/>
+                         <rotate axis="y" angle="-90"/>
+                         <scale x="0.5" y="0.5" z="0.5" />
+                     </transformation>
+
+                     <materials>
+                         <material id="inherit" />
+                     </materials>
+
+                     <texture id="metal" />
+
+                     <children>
+                         <primitiveref id="cylinder" />
+                     </children>
+        </component>
+
+        <component id="fire1">
+                     <transformation>
+                         <translate x="2.5" y="1.0" z="5.5"/>
+                         <rotate axis="y" angle="-90"/>
+                         <scale x="0.5" y="0.5" z="0.5" />
+                     </transformation>
+
+                     <materials>
+                         <material id="inherit" />
+                     </materials>
+
+                     <texture id="fire" />
 
                      <children>
                          <primitiveref id="cone" />
+                     </children>
+        </component>
 
+        <component id="fumo2">
+                     <transformation>
+                         <translate x="3.0" y="1.0" z="8.5"/>
+                         <rotate axis="y" angle="-90"/>
+                         <scale x="0.5" y="0.5" z="0.5" />
+                     </transformation>
+
+                     <materials>
+                         <material id="inherit" />
+                     </materials>
+
+                     <texture id="metal" />
+
+                     <children>
+                         <primitiveref id="cylinder" />
+                     </children>
+        </component>
+
+        <component id="fire2">
+                     <transformation>
+                         <translate x="2.5" y="1.0" z="8.5"/>
+                         <rotate axis="y" angle="-90"/>
+                         <scale x="0.5" y="0.5" z="0.5" />
+                     </transformation>
+
+                     <materials>
+                         <material id="inherit" />
+                     </materials>
+
+                     <texture id="fire" />
+
+                     <children>
+                         <primitiveref id="cone" />
                      </children>
         </component>
 
@@ -435,7 +510,7 @@
           <!-- bloco "transformation" obrigatorio -->
                      <transformation>
                        <translate x="1.0" y="0.0" z="4.0"/>
-                       <scale x="0.5" y="0.5" z="0.5"/>
+                       <scale x="0.5" y="0.5" z="1.0"/>
                      </transformation>
 
                      <materials>
@@ -454,7 +529,7 @@
           <!-- bloco "transformation" obrigatorio -->
                      <transformation>
                        <translate x="7.0" y="0.0" z="4.0"/>
-                       <scale x="0.5" y="0.5" z="0.5"/>
+                       <scale x="0.5" y="0.5" z="1.0"/>
                      </transformation>
 
                      <materials>
@@ -473,7 +548,7 @@
           <!-- bloco "transformation" obrigatorio -->
                      <transformation>
                        <translate x="1.0" y="0.0" z="0.0"/>
-                       <scale x="0.5" y="0.5" z="0.5"/>
+                       <scale x="0.5" y="0.5" z="1.0"/>
                      </transformation>
 
                      <materials>
@@ -492,7 +567,7 @@
           <!-- bloco "transformation" obrigatorio -->
                      <transformation>
                        <translate x="7.0" y="0.0" z="0.0"/>
-                       <scale x="0.5" y="0.5" z="0.5"/>
+                       <scale x="0.5" y="0.5" z="1.0"/>
                      </transformation>
 
                      <materials>
@@ -600,7 +675,7 @@
                      </materials>
 
 
-                     <texture id="bus" />
+                     <texture id="red" />
 
                      <children>
                          <componentref id="b1" />

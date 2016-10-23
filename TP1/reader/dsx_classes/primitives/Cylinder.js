@@ -1,14 +1,11 @@
 /*
   Class that represents a cylinder primitive in the scene
 */
-
-
  function Cylinder(node,scene,id) {
  	CGFobject.call(this,scene);
 
   this.node = node;
   this.id = id;
-
 
   this.base = node.attributes.getNamedItem("base").value;
   this.top = node.attributes.getNamedItem("top").value;
@@ -31,58 +28,29 @@ Cylinder.prototype.initBuffers = function() {
 	this.normals = new Array();
 	this.texCoords = new Array();
 
+  var deg2rad = Math.PI / 180.0;
+  var ang = 360 / this.slices;
+  var a_rad = ang * deg2rad;
+  var aux = a_rad / 2;
+  var razao = (this.top-this.base)/this.stacks;
+  var z_norm = (this.top-this.base)/Math.sqrt((this.top-this.base)*(this.top-this.base) + this.height*this.height);
 
-	var ang = (2*Math.PI) / this.slices;
+  //Normais , Vertices e TextCoords
+  for(var j = 0; j < this.stacks+1; j++){
+    for(var i = 0; i < this.slices+1; i++){
+      this.vertices.push(Math.cos(a_rad*i)*this.base + Math.cos(a_rad*i)*(razao*j),Math.sin(a_rad*i)*this.base + Math.sin(a_rad*i)*(razao*j), (j/this.stacks)*this.height);
+      this.normals.push(Math.cos(a_rad*i),Math.sin(a_rad*i),-z_norm);
+      this.texCoords.push((-ang*i)/360, j/this.stacks);
+    }
+  }
 
-	var s = 0;
-	var t = 0;
-
-	for (i = 0; i < this.slices; i++) {
-		this.vertices.push(Math.cos(i*ang), Math.sin(i*ang), 0);
-		this.normals.push(Math.cos(i*ang), Math.sin(i*ang), 0);
-
-		this.texCoords.push(s, t);
-		s += this.patchSlices;
-	}
-
-
-	var top = this.slices;
-	var bottom = 0;
-
-	for (k = 1; k <= this.stacks; k++) {
-
-		s = 0;
-		t += this.patchStacks;
-
-		this.vertices.push(Math.cos(0), Math.sin(0), k/this.stacks);
-		this.normals.push(Math.cos(0), Math.sin(0), 0.0);
-		this.texCoords.push(s, t);
-
-		for (i = 1; i < this.slices; i++) {
-
-			s += this.patchSlices;
-
-			this.vertices.push(Math.cos(i*ang), Math.sin(i*ang), k/this.stacks);
-			this.normals.push(Math.cos(i*ang), Math.sin(i*ang), 0.0);
-			this.texCoords.push(s, t);
-
-			this.indices.push(top);
-			this.indices.push(bottom+1);
-			this.indices.push(top+1);
-			this.indices.push(bottom);
-			this.indices.push(bottom+1);
-			this.indices.push(top);
-
-			top++;
-			bottom++;
-		}
-
-		top++;
-		bottom++;
-
-		this.indices.push(top - 1, bottom - this.slices, top - this.slices);
-		this.indices.push(bottom - 1, bottom - this.slices, top - 1);
-	}
+   //Indices
+   for(var j = 0; j < this.stacks; j++){
+     for(var i = 0; i < this.slices; i++){
+      this.indices.push(i + j*(this.slices + 1),i + j*(this.slices + 1) + 1, i + (j + 1)*(this.slices + 1) + 1);
+      this.indices.push(i + j*(this.slices + 1),i + (j + 1)*(this.slices + 1) + 1, i + (j + 1)*(this.slices + 1));
+     }
+   }
 
  	this.primitiveType = this.scene.gl.TRIANGLES;
  	this.initGLBuffers();
