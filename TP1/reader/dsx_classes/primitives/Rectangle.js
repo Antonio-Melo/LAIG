@@ -44,11 +44,29 @@ Rectangle.prototype.initBuffers = function () {
 
   this.texCoords = [
     0, 1,
-    1, 1,
-    1, 0,
-   	0, 0
+    this.x2-this.x1, 1,
+    this.x2-this.x1, 1-(this.y2-this.y1),
+   	0, 1-(this.y2-this.y1)
+  ];
+
+  this.baseTexCoords = [
+    0, 1,
+    this.x2-this.x1, 1,
+    this.x2-this.x1, (this.y2-this.y1),
+   	0, (this.y2-this.y1)
   ];
 
   this.primitiveType=this.scene.gl.TRIANGLES;
 	this.initGLBuffers();
 };
+
+Rectangle.prototype.setTexCoords = function(ls,lt){
+  this.texCoords = [
+    0,1,
+    this.baseTexCoords[2] / ls, 1,
+    this.baseTexCoords[4] / ls, 1 - (this.baseTexCoords[5] / lt),
+    0, 1 - (this.baseTexCoords[7] / lt)
+  ];
+  
+  this.updateTexCoordsGLBuffers();
+}

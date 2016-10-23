@@ -99,13 +99,13 @@
 
         <texture id="bus" file ="textures\\bus.jpg" length_s="1.0" length_t="1.0"/>
         <texture id="tire" file ="textures\\tire.jpg" length_s="1.0" length_t="1.0"/>
-        <texture id="road" file ="textures\\road.jpg" length_s="1.0" length_t="1.0"/>
+        <texture id="road" file ="textures\\road.jpg" length_s="2.0" length_t="1.0"/>
         <texture id="chimney" file ="textures\\chimney.jpg" length_s="1.0" length_t="1.0"/>
         <texture id="lampimage" file ="textures\\lamp.jpg" length_s="1.0" length_t="1.0"/>
-        <texture id="window" file ="textures\\window.jpg" length_s="1.0" length_t="1.0"/>
-        <texture id="front" file ="textures\\front.jpg" length_s="1.0" length_t="1.0"/>
-        <texture id="side" file ="textures\\side.jpg" length_s="1.0" length_t="1.0"/>
-        <texture id="back" file ="textures\\back.jpg" length_s="1.0" length_t="1.0"/>
+        <texture id="window" file ="textures\\window.jpg" length_s="4.0" length_t="4.0"/>
+        <texture id="front" file ="textures\\front.jpg" length_s="4.0" length_t="4.0"/>
+        <texture id="side" file ="textures\\side.jpg" length_s="4.0" length_t="4.0"/>
+        <texture id="back" file ="textures\\back.jpg" length_s="4.0" length_t="4.0"/>
 
 
 
