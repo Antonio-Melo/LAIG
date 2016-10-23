@@ -84,21 +84,4 @@ XMLscene.prototype.display = function () {
 };
 
 XMLscene.prototype.primitivesDisplay = function(){
-  /*var p = this.graph.nodes;
-
-    this.pushMatrix();
-      //p["rec1"].display();
-      //p["tri1"].display();
-      //p["cyl1"].display();
-      //p["sph1"].display();
-      //console.debug(this.graph.materials["m1"]);
-      //console.debug(this.graph.textures["t1"].texture);
-      this.graph.materials["m1"].setTexture(this.graph.textures["t2"].texture);
-      this.graph.materials["m1"].apply();
-      p["sph1"].display();
-    this.popMatrix();*/
-
-
-
-
 };

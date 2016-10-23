@@ -1,5 +1,5 @@
 TODO:
-
+- Muda textura nos rectangulos e ver as texture length s e t
 - Verificar texturas em todos as primitivas
 - Fazer novas primitivas
 	-Círculo, modificar a esfera(parte cima/baixo)

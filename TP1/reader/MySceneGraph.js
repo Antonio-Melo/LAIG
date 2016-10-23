@@ -447,6 +447,7 @@ MySceneGraph.prototype.visitGraph = function(node_id,textureStack,materialStack)
 		for(var i = 0; i < node.children.length;i++){
 			this.visitGraph(node.children[i],textureStack,materialStack);
 		}
+
 		this.scene.popMatrix();
 		materialStack.pop();
 		textureStack.pop();
@@ -455,6 +456,10 @@ MySceneGraph.prototype.visitGraph = function(node_id,textureStack,materialStack)
 		var material = this.materials[materialStack.top()];
 		var texture = this.textures[textureStack.top()].texture;
 		if(textureStack.top() != "none"){
+			if (node instanceof Triangle){
+            node.setTexCoords(this.texture[textureStack.top()].length_s,this.texture[textureStack.top()].length_s);
+      }
+
 			material.setTexture(texture);
 		}
 
