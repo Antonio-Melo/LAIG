@@ -55,3 +55,10 @@ Cylinder.prototype.initBuffers = function() {
  	this.primitiveType = this.scene.gl.TRIANGLES;
  	this.initGLBuffers();
  };
+
+Cylinder.prototype.radius = function(stack) {
+    var x = this.height/this.stacks * stack;
+    var m = (this.top-this.base)/this.height;
+
+    return m*x + this.base;
+}

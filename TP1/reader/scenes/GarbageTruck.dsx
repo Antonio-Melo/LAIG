@@ -178,6 +178,9 @@
       <primitive id="cone">
           <cylinder base="0.5" top="0.0" height="1" slices="50" stacks="20" />
       </primitive>
+      <primitive id="piramide">
+              <cylinder base="0.5" top="0.0" height="1.0" slices="4" stacks="20" />
+      </primitive>
 
   		<primitive id="sphere">
             <sphere radius="0.5" slices="40" stacks="40" />

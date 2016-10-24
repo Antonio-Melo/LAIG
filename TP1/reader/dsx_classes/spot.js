@@ -8,7 +8,7 @@ function Spot(node){
     this.id = this.reader.getString(node,'id');
     this.enabled = this.reader.getBoolean(node,'enabled');
     this.angle = this.reader.getFloat(node,'angle');
-    this.exponent = this.reader.getFloat(node,'exponent')
+    this.exponent = this.reader.getFloat(node,'exponent');
 
     var target = node.getElementsByTagName('target')[0];
     this.tx = this.reader.getFloat(target,'x');

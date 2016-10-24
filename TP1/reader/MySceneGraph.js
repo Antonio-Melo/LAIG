@@ -6,7 +6,7 @@ function MySceneGraph(filename, scene) {
 	this.views = [];
 	this.viewsIndex = 0;
 	this.materialIndex = 0;
-	this.debugMod = true;
+	this.debugMod = false;
 	this.illumination;
 	this.lights = [];
 	this.textures = {};
@@ -186,7 +186,11 @@ MySceneGraph.prototype.parseIllumination = function(rootElement) {
 
 		this.illumination = new Illumination(ill);
 		this.scene.gl.clearColor(this.illumination.rb,this.illumination.gb,this.illumination.bb,this.illumination.ab);
-		//this.scene.setGlobalAmbientLight(this.illumination.ra,this.illumination.ga,this.illumination.ba,this.illumination.aa);
+
+		if(this.debugMod){
+			console.debug("ambient r:"+this.illumination.ra+" g:"+this.illumination.ga+" b:"+this.illumination.ba+" a:"+this.illumination.aa);
+			console.debug("background r:"+this.illumination.rb+" g:"+this.illumination.gb+" b:"+this.illumination.bb+" a:"+this.illumination.ab);
+		}
 		console.log('ILLUMINATION READ\n');
 };
 //Parse lights
@@ -208,6 +212,10 @@ MySceneGraph.prototype.parseLights = function(rootElement) {
 				var node = nomni[i];
 				var omni = new Omni(node);
 				this.lights.push(omni);
+
+				if(this.debugMod){
+					console.debug("Omni id:"+omni.id+" enable:"+omni.enable+" lx:"+omni.lx+" ly:"+omni.ly+" lz:"+omni.lz+" ar:"+omni.ar+" ag:"+omni.ag+" ab:"+omni.ab+" aa:"+omni.aa+" dr:"+omni.dr+" dg:"+omni.dg+" db:"+omni.db+" da:"+omni.da+" sr:"+omni.sr+" sg:"+omni.sg+" sb:"+omni.sb+" sa:"+omni.sa);
+				}
 			}
 
 			var nspot = lights.getElementsByTagName('spot');
@@ -216,6 +224,10 @@ MySceneGraph.prototype.parseLights = function(rootElement) {
 				var node = nspot[i];
 				var spot = new Spot(node);
 				this.lights.push(spot);
+
+				if(this.debugMod){
+					console.debug("Spot id:"+spot.id+" enable:"+spot.enable+" angle:"+spot.angle+" exponent:"+spot.exponent+" tx:"+spot.tx+" ty:"+spot.ty+" tz:"+spot.tz+" lx:"+spot.lx+" ly:"+spot.ly+" lz:"+spot.lz+" ar:"+spot.ar+" ag:"+spot.ag+" ab:"+spot.ab+" aa:"+spot.aa+" dr:"+spot.dr+" dg:"+spot.dg+" db:"+spot.db+" da:"+spot.da+" sr:"+spot.sr+" sg:"+spot.sg+" sb:"+spot.sb+" sa:"+spot.sa);
+				}
 			}
 			if(!this.checkIds(this.lights)){
 					this.onXMLError("Ids repeted in Lights");
@@ -245,6 +257,33 @@ MySceneGraph.prototype.enableLights = function(){
 		 }
 		 ls.setVisible(true);
 		 ls.update();
+
+	switch(i) {
+	 	case 0:
+		 	this.scene.light1 = ld.enabled;
+		 	break;
+	 	case 1:
+		 	this.scene.light2 = ld.enabled;
+		 	break;
+	 	case 2:
+		 	this.scene.light3 = ld.enabled;
+		 	break;
+	 	case 3:
+		 	this.scene.light4 = ld.enabled;
+		 	break;
+	 	case 4:
+		 	this.scene.light5 = ld.enabled;
+		 	break;
+	 	case 5:
+		 	this.scene.light6 = ld.enabled;
+		 	break;
+	 	case 6:
+		 	this.scene.light7 = ld.enabled;
+		 	break;
+	 	case 7:
+		 	this.scene.light8 = ld.enabled;
+		 	break;
+ 		}
 	}
 }
 //Parse Textures
@@ -261,6 +300,11 @@ MySceneGraph.prototype.parseTextures = function(rootElement) {
 	for(var i = 0; i < texture.children.length; i++){
 		var node = texture.children[i];
 		var tex = new Textures(node,this.scene);
+
+		if(this.debugMod){
+			console.debug("Texture id:"+tex.id+" file:"+tex.file+" length_s:"+tex.length_s+" length_t:"+tex.length_t);
+		}
+
 		if(this.textures[tex.id] == null){
 			this.textures[tex.id]= tex;
 		}else{
@@ -282,6 +326,10 @@ MySceneGraph.prototype.parseMaterials  = function(rootElement) {
 		for(var i = 0; i < material.children.length; i++){
 			var node = material.children[i];
 			var materials = new Materials(node);
+
+			if(this.debugMod){
+
+			}
 
 			var appear = new CGFappearance(this.scene);
 	    appear.setEmission(materials.er,materials.eg,materials.eb,materials.ea);

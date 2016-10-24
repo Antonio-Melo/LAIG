@@ -27,6 +27,14 @@ XMLscene.prototype.initLights = function () {
   this.lights[0].setPosition(2, 3, 3, 1);
   this.lights[0].setDiffuse(1.0,1.0,1.0,1.0);
   this.lights[0].update();
+  this.light1 = null;
+  this.light2 = null;
+  this.light3 = null;
+  this.light4 = null;
+  this.light5 = null;
+  this.light6 = null;
+  this.light7 = null;
+  this.light8 = null;
 };
 
 XMLscene.prototype.initCameras = function () {
@@ -46,6 +54,8 @@ XMLscene.prototype.onGraphLoaded = function ()
 {
 	this.lights[0].setVisible(true);
   this.lights[0].enable();
+
+  this.interface.onGraphLoaded();
 };
 
 XMLscene.prototype.display = function () {
@@ -75,6 +85,7 @@ XMLscene.prototype.display = function () {
 	// This is one possible way to do it
 	if (this.graph.loadedOk)
 	{
+    this.updateLights();
     for(var i = 0;i <this.lights.length;i++){
 		  this.lights[i].update();
     }
@@ -85,3 +96,29 @@ XMLscene.prototype.display = function () {
 
 XMLscene.prototype.primitivesDisplay = function(){
 };
+
+XMLscene.prototype.updateLights = function() {
+	if (this.light1) { this.lights[0].enable(); }
+	else { this.lights[0].disable(); }
+
+	if (this.light2) { this.lights[1].enable(); }
+	else { this.lights[1].disable(); }
+
+	if (this.light3) { this.lights[2].enable(); }
+	else { this.lights[2].disable(); }
+
+	if (this.light4) { this.lights[3].enable(); }
+	else { this.lights[3].disable(); }
+
+	if (this.light5) { this.lights[4].enable(); }
+	else { this.lights[4].disable(); }
+
+	if (this.light6) { this.lights[5].enable(); }
+	else { this.lights[5].disable(); }
+
+	if (this.light7) { this.lights[6].enable(); }
+	else { this.lights[6].disable(); }
+
+	if (this.light8) { this.lights[7].enable(); }
+	else { this.lights[7].disable(); }
+}
