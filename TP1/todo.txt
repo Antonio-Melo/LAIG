@@ -1,3 +1,1 @@
 TODO:
-- Fazer novas primitivas
-	-Círculo, modificar a esfera(parte cima/baixo)
