@@ -10,11 +10,6 @@ function Torus(node, scene,id){
   this.slices =  this.reader.getFloat(node,'slices');
   this.loops =  this.reader.getFloat(node,'loops');
 
-  //console.debug(this.inner);
-  //console.debug(this.outer);
-  //console.debug(this.slices);
-
-
   this.initBuffers();
 };
 

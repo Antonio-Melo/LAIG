@@ -2,8 +2,6 @@
   Class that represents a triangle primitive in the scene
 */
 
-
-
 function Triangle(node,scene,id) {
 
   CGFobject.call(this,scene);
@@ -29,8 +27,6 @@ function Triangle(node,scene,id) {
   this.p1 = [this.x1,this.y1,this.z1];
   this.p2 = [this.x2,this.y2,this.z2];
   this.p3 = [this.x3,this.y3,this.z3];
-
-  //console.debug("Triangle "+this.x1);
 
 	this.initBuffers();
 
