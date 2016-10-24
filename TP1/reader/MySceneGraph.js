@@ -152,7 +152,7 @@ MySceneGraph.prototype.parseViews = function(rootElement) {
 				this.views.push(view);
 
 				if(this.debugMod){
-					console.debug("id: "+view.id+" near: "+view.near+" far: "+view.far+" angle: "+view.angle+" fx: "+view.fromX+" fy: "+view.fromY+ " fy: "+view.fromZ+ " tx: "+view.toX+" ty: "+view.toY+" ty: "+view.toZ);
+					console.debug(view);
 				}
     }
 
@@ -188,8 +188,7 @@ MySceneGraph.prototype.parseIllumination = function(rootElement) {
 		this.scene.gl.clearColor(this.illumination.rb,this.illumination.gb,this.illumination.bb,this.illumination.ab);
 
 		if(this.debugMod){
-			console.debug("ambient r:"+this.illumination.ra+" g:"+this.illumination.ga+" b:"+this.illumination.ba+" a:"+this.illumination.aa);
-			console.debug("background r:"+this.illumination.rb+" g:"+this.illumination.gb+" b:"+this.illumination.bb+" a:"+this.illumination.ab);
+			console.debug(this.illumination);
 		}
 		console.log('ILLUMINATION READ\n');
 };
@@ -214,7 +213,7 @@ MySceneGraph.prototype.parseLights = function(rootElement) {
 				this.lights.push(omni);
 
 				if(this.debugMod){
-					console.debug("Omni id:"+omni.id+" enable:"+omni.enable+" lx:"+omni.lx+" ly:"+omni.ly+" lz:"+omni.lz+" ar:"+omni.ar+" ag:"+omni.ag+" ab:"+omni.ab+" aa:"+omni.aa+" dr:"+omni.dr+" dg:"+omni.dg+" db:"+omni.db+" da:"+omni.da+" sr:"+omni.sr+" sg:"+omni.sg+" sb:"+omni.sb+" sa:"+omni.sa);
+					console.debug(omni);
 				}
 			}
 
@@ -226,7 +225,7 @@ MySceneGraph.prototype.parseLights = function(rootElement) {
 				this.lights.push(spot);
 
 				if(this.debugMod){
-					console.debug("Spot id:"+spot.id+" enable:"+spot.enable+" angle:"+spot.angle+" exponent:"+spot.exponent+" tx:"+spot.tx+" ty:"+spot.ty+" tz:"+spot.tz+" lx:"+spot.lx+" ly:"+spot.ly+" lz:"+spot.lz+" ar:"+spot.ar+" ag:"+spot.ag+" ab:"+spot.ab+" aa:"+spot.aa+" dr:"+spot.dr+" dg:"+spot.dg+" db:"+spot.db+" da:"+spot.da+" sr:"+spot.sr+" sg:"+spot.sg+" sb:"+spot.sb+" sa:"+spot.sa);
+					console.debug(spot);
 				}
 			}
 			if(!this.checkIds(this.lights)){
@@ -302,7 +301,7 @@ MySceneGraph.prototype.parseTextures = function(rootElement) {
 		var tex = new Textures(node,this.scene);
 
 		if(this.debugMod){
-			console.debug("Texture id:"+tex.id+" file:"+tex.file+" length_s:"+tex.length_s+" length_t:"+tex.length_t);
+			console.debug(tex);
 		}
 
 		if(this.textures[tex.id] == null){
@@ -328,7 +327,7 @@ MySceneGraph.prototype.parseMaterials  = function(rootElement) {
 			var materials = new Materials(node);
 
 			if(this.debugMod){
-
+				console.debug(materials);
 			}
 
 			var appear = new CGFappearance(this.scene);
@@ -370,6 +369,11 @@ MySceneGraph.prototype.parseTransformations  = function(rootElement) {
 			var id = this.reader.getString(node,'id');
 
 			var tran = new Transformation(node,id);
+
+			if(this.debugMod){
+				console.debug(tran);
+			}
+
 			if(this.transformations[tran.id] == null){
 					this.transformations[tran.id] = tran;
 			}else{
@@ -414,6 +418,9 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 			default:
 				break;
 		}
+		if(this.debugMod){
+			console.debug(p);
+		}
 		if(this.nodes[p.id] ==null){
 			this.nodes[p.id] =p;
 		}else {
@@ -436,7 +443,8 @@ MySceneGraph.prototype.parseComponents = function(rootElement) {
 		for (var i = 0;i < comp.children.length; i++){
 			var node = comp.children[i];
 			var c = new Component(node,this);
-
+			if(this.debugMod)
+				console.debug(c);
 			if(this.nodes[c.id] == null){
 				this.nodes[c.id] = c;
 			}else{

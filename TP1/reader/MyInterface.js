@@ -38,11 +38,13 @@ MyInterface.prototype.processKeyboard = function(event) {
 		case (118):			// v
 			this.scene.graph.changeView();
 			this.setActiveCamera(this.scene.camera);
-			console.debug("v\n");
+			if(this.scene.graph.debugMod)
+				console.debug("Key V pressed\n");
 			break;
 		case (109):				//m
 			this.scene.graph.changeMaterial();
-			console.debug("m\n");
+			if(this.scene.graph.debugMod)
+				console.debug("Key M pressed\n");
 			break;
 	};
 };
