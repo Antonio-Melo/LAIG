@@ -241,14 +241,15 @@ MySceneGraph.prototype.enableLights = function(){
 		 var ls = this.scene.lights[i];
 		 var ld = this.lights[i];
 
-		 ls.setPosition(ld.lx,ld.ly,ld.lz);
+		 ls.setPosition(ld.lx,ld.ly,ld.lz,1);
 		 ls.setAmbient(ld.ar,ld.ag,ld.ab,ld.aa);
 		 ls.setDiffuse(ld.dr,ld.dg,ld.db,ld.da);
 		 ls.setSpecular(ld.sr,ld.sg,ld.sb,ld.sa);
 
-		 if(ld.tx != null){
-			 ls.setSpotDirection(ld.tx,ld.ty,ld.tz);
-			 ls.setSpotCutOff(ld.angle);
+		 if(ld instanceof Spot){
+			 console.debug("Estou aqui");
+			 ls.setSpotDirection(ld.tx-ld.lx,ld.ty-ld.ly,ld.tz-ld.lz);
+			 ls.setSpotCutOff(ld.angle*Math.PI/180);
 			 ls.setSpotExponent(ld.exponent);
 		 }
 		 if(ld.enabled){
