@@ -6,5 +6,4 @@ function Animation(node){
 
     this.id = this.reader.getString(node,'id');
     this.span = this.reader.getFloat(node,'span');
-
 };

@@ -6,12 +6,13 @@ function MySceneGraph(filename, scene) {
 	this.views = [];
 	this.viewsIndex = 0;
 	this.materialIndex = 0;
-	this.debugMod = false;
+	this.debugMod = true;
 	this.illumination;
 	this.lights = [];
 	this.textures = {};
 	this.materials = {};
 	this.transformations = {};
+	this.animations = {};
 	this.nodes = {};
 
 	// Establish bidirectional references between scene and graph
@@ -64,13 +65,14 @@ MySceneGraph.prototype.parse=function(rootElement){
 	this.parseTransformations(rootElement);
 	this.parsePrimitives(rootElement);
 	this.parseComponents(rootElement);
+	this.parseAnimations(rootElement);
 	console.log("DSX FILE READ =================================");
 };
 //Checks if .dsx file order is correct
 MySceneGraph.prototype.checkDsxOrder = function(rootElement){
 	var dsx =rootElement.children;
 
-	if(dsx.length != 9){
+	if(dsx.length != 10){
 		this.onXMLError("Wrong number of blocks in the dsx file");
 	}
 
@@ -106,7 +108,11 @@ MySceneGraph.prototype.checkDsxOrder = function(rootElement){
 		this.onXMLError("Primitives block missing in the dsx file");
 	}
 
-	if(dsx[8].nodeName != "components"){
+	if(dsx[8].nodeName != "animations"){
+		this.onXMLError("Animations block missing in the dsx file");
+	}
+
+	if(dsx[9].nodeName != "components"){
 		this.onXMLError("Components block missing in the dsx file");
 	}
 	console.log("DSX order is correct");
@@ -453,6 +459,35 @@ MySceneGraph.prototype.parseComponents = function(rootElement) {
 			}
 		}
 		console.log('COMPUNENTS READ\n');
+};
+//Parse Animations
+MySceneGraph.prototype.parseAnimations = function (rootElement) {
+			var anim = rootElement.getElementsByTagName("animations")[0];
+
+			if(anim == null){
+				this.onXMLError("animations element is null");
+			}else if(anim.children.length == 0){
+				this.onXMLError("zero 'animation' elements found");
+			}
+
+			for(var i= 0;i < anim.children.length;i++){
+				var node = anim.children[i];
+				var type = this.reader.getString(node,'type');
+				if(type == "linear"){
+					var a = new LinearAnimation(node);
+				}else if(type == "circular"){
+					var a = new CircularAnimation(node);
+				}
+
+				if(this.debugMod)
+					console.debug(a);
+				if(this.animations[a.id] == null){
+					this.animations[a.id] = a;
+				}else{
+					this.onXMLError("Ids repeted in Animations");
+				}
+			}
+			console.log("ANIMATIONS READ\n");
 };
 //Checks vector for elements with the same id
 MySceneGraph.prototype.checkIds = function (vector){

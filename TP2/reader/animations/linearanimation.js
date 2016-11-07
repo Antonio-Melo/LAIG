@@ -1,7 +1,7 @@
 function LinearAnimation(node){
 
     this.reader = new CGFXMLreader();
-    Animation.call(this);
+    Animation.call(this,node);
 
     var controlpoint = node.getElementsByTagName('controlpoint')[0];
 
