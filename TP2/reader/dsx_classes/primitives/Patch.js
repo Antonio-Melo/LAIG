@@ -11,5 +11,5 @@ function Patch(scene,orderU,orderV,partsU,partsV,controlPoints){
 
 };
 
-Patch.prototype = Object.creat(CFGobject.prototype);
-Patch.prototype.constructor = Patch;
+Patch.prototype = Object.create(CGFobject.prototype);
+Patch.prototype.constructor=Patch;

@@ -13,8 +13,8 @@ function Plane(node,scene, id){
   this.initBuffers();
 };
 
-Plane.prototype = Object.creat(CFGobject.prototype);
-Plane.prototype.constructor = Plane;
+Plane.prototype = Object.create(CGFobject.prototype);
+Plane.prototype.constructor=Plane;
 
 
 Plane.prototype.getKnotsVector = function(degree) {
@@ -31,22 +31,7 @@ Plane.prototype.getKnotsVector = function(degree) {
 
 Plane.prototype.makeSurface = function (degree1, degree2, controlvertexes) {
 
-  var controlPoints = [];
-  var tempX = this.dimX / 2;
-  var tempY = this.dimY / 2;
-
-  var controlPointTemp = [[tempX, -tempY, 0, 1],
-                          [tempX,  tempY, 0, 1]];
-  controlPoints.push(temp);
-
-
-  var controlPointTemp = [[-tempX, -tempY, 0, 1],
-                          [-tempX,  tempY, 0, 1]];
-  controlPoints.push(temp);
-
- this.surface = this.makeSurface(1,1,controlPoints);
-
-	var knots1 = this.getKnotsVector(degree1);
+  var knots1 = this.getKnotsVector(degree1);
 	var knots2 = this.getKnotsVector(degree2);
 
 	var nurbsSurface = new CGFnurbsSurface(degree1, degree2, knots1, knots2, controlvertexes);
@@ -58,10 +43,23 @@ Plane.prototype.makeSurface = function (degree1, degree2, controlvertexes) {
 };
 
 Plane.prototype.initBuffers = function(){
-  this.surface.initBuffers();
+  var controlPoints = [];
+  var tempX = this.dimX / 2;
+  var tempY = this.dimY / 2;
+
+  var controlPointTemp = [[tempX, -tempY, 0, 1],
+                          [tempX,  tempY, 0, 1]];
+  controlPoints.push(controlPointTemp);
+
+
+  var controlPointTemp = [[-tempX, -tempY, 0, 1],
+                          [-tempX,  tempY, 0, 1]];
+  controlPoints.push(controlPointTemp);
+
+  this.plane = this.makeSurface(1,1,controlPoints);
 };
 
 Plane.prototype.display = function(){
 
-  this.surface.display();
+  this.plane.display();
 };
