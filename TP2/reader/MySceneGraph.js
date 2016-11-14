@@ -422,6 +422,9 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 			case "torus":
 				p = new Torus(node.children[0],this.scene,this.reader.getString(node,'id'));
 				break;
+				case "plane":
+					p = new Plane(node.children[0],this.scene,this.reader.getString(node,'id'));
+					break;
 			default:
 				break;
 		}

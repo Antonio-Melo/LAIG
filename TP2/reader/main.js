@@ -14,8 +14,9 @@ function getUrlVars() {
 serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js','dsx_classes/primitives/Rectangle.js','dsx_classes/primitives/CylinderSurf.js','dsx_classes/primitives/CylinderBase.js',
 'dsx_classes/primitives/Triangle.js','dsx_classes/primitives/Cylinder.js','dsx_classes/primitives/Sphere.js','dsx_classes/views.js', 'dsx_classes/illumination.js',
 'animations/animation.js','animations/circularanimation.js','animations/linearanimation.js',
-'dsx_classes/omni.js', 'dsx_classes/spot.js', 'dsx_classes/textures.js', 'dsx_classes/materials.js','dsx_classes/component.js', 'dsx_classes/transformations.js','dsx_classes/primitives/Torus.js','Stack.js' ,'MyInterface.js',
-
+'dsx_classes/omni.js', 'dsx_classes/spot.js', 'dsx_classes/textures.js', 'dsx_classes/materials.js','dsx_classes/component.js',
+'dsx_classes/transformations.js','dsx_classes/primitives/Torus.js','Stack.js' ,'MyInterface.js',
+'dsx_classes/primitives/Plane.js', 'dsx_classes/primitives/Patch.js',
 main=function()
 {
 	// Standard application, scene and interface setup
