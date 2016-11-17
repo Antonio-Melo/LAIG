@@ -193,15 +193,20 @@
     <torus inner="0.5" outer="1.5" slices="40" loops="40" />
   </primitive>
 
-  <!-- Nova primitiva: plano, discretizado em grelha -->
-  <!-- gera um plano de dimensões 3 x 2 unidades -->
-  <!-- assente em XY, centrado na origem, com a -->
-  <!-- face visível apontando para +Z e discretizado -->
-  <!-- em 10 partes no eixo XX e 7 partes no YY  -->
   <primitive id="plane">
     <plane dimX="3" dimY="2" partsX="10" partsY="7"/>
   </primitive>
 
+  <primitive id="patch">
+    <patch orderU="2" orderV="3" partsU="7" partsV="9">
+      <controlpoint x="0.0" y="0.0" z="0.0" />
+      <controlpoint x="0.0" y="0.0" z="0.0" />
+      <controlpoint x="0.0" y="0.0" z="0.0" />
+      <controlpoint x="0.0" y="0.0" z="0.0" />
+      <controlpoint x="0.0" y="0.0" z="0.0" />
+      <controlpoint x="0.0" y="0.0" z="0.0" />
+    </patch>
+  </primitive>
 </primitives>
 
 

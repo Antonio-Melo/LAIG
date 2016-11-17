@@ -1,7 +1,7 @@
 
 function MySceneGraph(filename, scene) {
 	this.loadedOk = null;
-	this.debugMod = false;
+	this.debugMod = true;
 
 	//Vectors to save things from dsx file
 	this.views = [];
@@ -423,6 +423,27 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 					var partsY = this.reader.getInteger(node.children[0],'partsY');
 					p = new Plane(this.scene,id,dimX,dimY,partsX,partsY);
 					break;
+		 	case "patch":
+					var id = this.reader.getString(node,'id');
+					var patch = node.children[0];
+					console.debug(patch);
+					var orderU = this.reader.getFloat(patch,'orderU');
+					var orderV = this.reader.getFloat(patch,'orderV');
+					var partsU = this.reader.getFloat(patch,'partsU');
+					var partsV = this.reader.getFloat(patch,'partsV');
+
+					var controlpoints = patch.getElementsByTagName('controlpoint');
+
+					var points = [];
+					for(var c = 0; c < controlpoints.length;c++){
+						console.debug(controlpoints[c]);
+						var x = this.reader.getFloat(controlpoints[c],"x");
+						var y = this.reader.getFloat(controlpoints[c],"y");
+						var z = this.reader.getFloat(controlpoints[c],"z");
+						var point = [x,y,z];
+						points.push(point);
+					}
+					p = new Patch(this.scene,id,orderU,orderV,partsU,partsV,points);
 			default:
 				break;
 		}

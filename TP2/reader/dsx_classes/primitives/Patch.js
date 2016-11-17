@@ -1,15 +1,15 @@
-function Patch(scene,orderU,orderV,partsU,partsV,controlPoints){
+function Patch(scene,id,orderU,orderV,partsU,partsV,points){
 
-  CGFobject.call(this,scene);
   this.scene = scene;
+  this.id = id;
   this.orderU = orderU;
   this.orderV = orderV;
   this.partsU = partsU;
   this.partsV = partsV;
-  this.controlpoints = controlPoints;
-  this.initBuffers();
+  this.points = points;
 
+  CGFnurbsObject.call(this,scene);
 };
 
-Patch.prototype = Object.create(CGFobject.prototype);
+Patch.prototype = Object.create(CGFnurbsObject.prototype);
 Patch.prototype.constructor=Patch;
