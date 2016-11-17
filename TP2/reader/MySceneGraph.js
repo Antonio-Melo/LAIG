@@ -426,7 +426,7 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 		 	case "patch":
 					var id = this.reader.getString(node,'id');
 					var patch = node.children[0];
-					console.debug(patch);
+					//console.debug(patch);
 					var orderU = this.reader.getFloat(patch,'orderU');
 					var orderV = this.reader.getFloat(patch,'orderV');
 					var partsU = this.reader.getFloat(patch,'partsU');
@@ -436,7 +436,7 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 
 					var points = [];
 					for(var c = 0; c < controlpoints.length;c++){
-						console.debug(controlpoints[c]);
+						//console.debug(controlpoints[c]);
 						var x = this.reader.getFloat(controlpoints[c],"x");
 						var y = this.reader.getFloat(controlpoints[c],"y");
 						var z = this.reader.getFloat(controlpoints[c],"z");
@@ -444,6 +444,37 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 						points.push(point);
 					}
 					p = new Patch(this.scene,id,orderU,orderV,partsU,partsV,points);
+					break;
+			case "chessboard":
+					var id = this.reader.getString(node,'id');
+					var chessboard = node.children[0];
+					var du = this.reader.getInteger(chessboard,'du');
+					var dv = this.reader.getInteger(chessboard,'dv');
+					var textureref = this.reader.getString(chessboard,'textureref');
+					var su = this.reader.getInteger(chessboard,'su');
+					var sv = this.reader.getInteger(chessboard,'sv');
+
+					var c1node =  chessboard.children[0];
+						var r1 =  this.reader.getFloat(c1node,'r');
+						var g1 =  this.reader.getFloat(c1node,'g');
+						var b1 =  this.reader.getFloat(c1node,'b');
+						var a1 =  this.reader.getFloat(c1node,'a');
+						var c1 = [r1,g1,b1,a1];
+					var c2node =  chessboard.children[1];
+						var r2 =  this.reader.getFloat(c2node,'r');
+						var g2 =  this.reader.getFloat(c2node,'g');
+						var b2 =  this.reader.getFloat(c2node,'b');
+						var a2 =  this.reader.getFloat(c2node,'a');
+						var c2 = [r2,g2,b2,a2];
+					var csnode =  chessboard.children[2];
+						var rs =  this.reader.getFloat(csnode,'r');
+						var gs =  this.reader.getFloat(csnode,'g');
+						var bs =  this.reader.getFloat(csnode,'b');
+						var as =  this.reader.getFloat(csnode,'a');
+						var cs = [rs,gs,bs,as];
+
+					p = new Chessboard(this.scene,id,du,dv,textureref,su,sv,c1,c2,cs);
+					break;
 			default:
 				break;
 		}

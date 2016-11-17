@@ -207,6 +207,15 @@
       <controlpoint x="0.0" y="0.0" z="0.0" />
     </patch>
   </primitive>
+
+  <primitive id ="chessboard">
+    <chessboard du="5" dv="5" textureref="bus" su="1" sv="1">
+      <c1 r="0.5" g="0.5" b="0.5" a="0.5" />
+      <c2 r="0.5" g="0.5" b="0.5" a="0.5" />
+      <cs r="0.5" g="0.5" b="0.5" a="0.5" />
+    </chessboard>
+  </primitive>
+
 </primitives>
 
 
