@@ -1,14 +1,16 @@
 
 function MySceneGraph(filename, scene) {
 	this.loadedOk = null;
+	this.debugMod = true;
 
 	//Vectors to save things from dsx file
 	this.views = [];
+	//Index
 	this.viewsIndex = 0;
 	this.materialIndex = 0;
-	this.debugMod = true;
 	this.illumination;
 	this.lights = [];
+	//maps
 	this.textures = {};
 	this.materials = {};
 	this.transformations = {};
@@ -22,17 +24,9 @@ function MySceneGraph(filename, scene) {
 	// File reading
 	this.reader = new CGFXMLreader();
 
-	/*
-	 * Read the contents of the xml file, and refer to this class for loading and error handlers.
-	 * After the file is read, the reader calls onXMLReady on this object.
-	 * If any error occurs, the reader calls onXMLError on this object, with an error message
-	 */
-
 	this.reader.open('scenes/'+filename, this);
 }
-/*
- * Callback to be executed after successful reading
- */
+
 MySceneGraph.prototype.onXMLReady=function(){
 	console.log("XML Loading finished.");
 	var rootElement = this.reader.xmlDoc.documentElement;
@@ -253,7 +247,6 @@ MySceneGraph.prototype.enableLights = function(){
 		 ls.setSpecular(ld.sr,ld.sg,ld.sb,ld.sa);
 
 		 if(ld instanceof Spot){
-			 console.debug("Estou aqui");
 			 ls.setSpotDirection(ld.tx-ld.lx,ld.ty-ld.ly,ld.tz-ld.lz);
 			 ls.setSpotCutOff(ld.angle*Math.PI/180);
 			 ls.setSpotExponent(ld.exponent);
@@ -422,9 +415,9 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 			case "torus":
 				p = new Torus(node.children[0],this.scene,this.reader.getString(node,'id'));
 				break;
-				case "plane":
+				/*case "plane":
 					p = new Plane(node.children[0],this.scene,this.reader.getString(node,'id'));
-					break;
+					break;*/
 			default:
 				break;
 		}
@@ -476,10 +469,27 @@ MySceneGraph.prototype.parseAnimations = function (rootElement) {
 			for(var i= 0;i < anim.children.length;i++){
 				var node = anim.children[i];
 				var type = this.reader.getString(node,'type');
+				var id = this.reader.getString(node,'id');
+				var span = this.reader.getFloat(node,'span');
 				if(type == "linear"){
-					var a = new LinearAnimation(node);
+					var controlpoints = node.getElementsByTagName('controlpoint');
+					var points = [];
+					for(var c = 0; c <controlpoints.length;c++){
+						var xx = this.reader.getFloat(controlpoints[c],"xx");
+						var yy = this.reader.getFloat(controlpoints[c],"yy");
+						var zz = this.reader.getFloat(controlpoints[c],"zz");
+						var point = [xx,yy,zz];
+						points.push(point);
+					}
+					var a = new LinearAnimation(id,span,points);
 				}else if(type == "circular"){
-					var a = new CircularAnimation(node);
+					var centerx = this.reader.getFloat(node,"centerx");
+					var centery = this.reader.getFloat(node,"centery");
+					var centerz = this.reader.getFloat(node,"centerz");
+					var radius = this.reader.getFloat(node,"radius");
+					var startang = this.reader.getFloat(node,"startang");
+					var rotang = this.reader.getFloat(node,"rotang");
+					var a = new CircularAnimation(id,span,centerx,centery,centerz,radius,startang,rotang);
 				}
 
 				if(this.debugMod)

@@ -191,25 +191,25 @@
             <torus inner="0.5" outer="1.5" slices="40" loops="40" />
         </primitive>
 
-        <primitive id="plane">
-                <plane dimX="2.0" dimY="4.0" partsX="2" partsY="2"/>
-        </primitive>
-
     </primitives>
 
 
     <!-- Animações -->
-    <animations>
-      <!-- podem existir zero ou mais nós "animation" -->
-      <!-- span é o tempo, em segundos, que a animação deve -->
-      <!-- demorar. Nesta versão do formato DSX, type pode ter -->
-      <!-- o valor "linear" ou "circular"; na animacao circular -->
-      <!-- os angulos sao expressos em graus  -->
-      <animation id="a1" span="5.0" type="linear">
+      <animations>
+        <!-- podem existir zero ou mais nós "animation" -->
+        <!-- span é o tempo, em segundos, que a animação deve -->
+        <!-- demorar. Nesta versão do formato DSX, type pode ter -->
+        <!-- o valor "linear" ou "circular"; na animacao circular -->
+        <!-- os angulos sao expressos em graus  -->
+        <animation id="a1" span="10" type="linear">
           <controlpoint xx="0.0" yy="0.0" zz="0.0" />
-      </animation>
-      <animation id="a2" span="5.0" type="circular" center="ff ff ff" radius="2.0" startang="20.0" rotang="90.0" />
-    </animations>
+          <controlpoint xx="1.0" yy="0.0" zz="0.0" />
+          <controlpoint xx="1.0" yy="1.0" zz="0.0" />
+        </animation>
+        <animation id="a2" span="20" type="circular"
+          centerx="10.0" centery="10.0" centerz="10.0"
+          radius="5.0" startang="40.0" rotang="20.0" />
+      </animations>
 
 
     <components>

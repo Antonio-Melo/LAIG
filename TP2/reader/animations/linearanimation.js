@@ -1,13 +1,7 @@
-function LinearAnimation(node){
+function LinearAnimation(id,span,points){
+    Animation.call(this,id,span);
 
-    this.reader = new CGFXMLreader();
-    Animation.call(this,node);
-
-    var controlpoint = node.getElementsByTagName('controlpoint')[0];
-
-    this.xx = this.reader.getFloat(controlpoint,'xx');
-    this.yy = this.reader.getFloat(controlpoint,'yy');
-    this.zz = this.reader.getFloat(controlpoint,'zz');
+    this.points = points;
 };
 
 LinearAnimation.prototype = Object.create(Animation.prototype);
