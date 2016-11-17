@@ -2,13 +2,13 @@ function LinearAnimation(id,span,points){
     Animation.call(this,id,span);
 
     this.points = points;
-
+    console.debug(this.points);
     var totalAnimationDistance = 0;
-    this animationDistances = [];
-    for(var i = 0; this.points.length-1;i++){
+    this.animationDistances = [];
+    for(var i = 0; i <this.points.length-1;i++){
         var distance = this.calculateDistanceBetween2Points(this.points[i],this.points[i+1]);
         totalAnimationDistance +=distance;
-        animationDistances.push(distance);
+        this.animationDistances.push(distance);
     }
 
     this.animationVelocity = totalAnimationDistance/span;

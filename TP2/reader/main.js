@@ -33,8 +33,8 @@ serialInclude(['../lib/CGF.js',
 'dsx_classes/transformations.js',
 'dsx_classes/primitives/Torus.js',
 'Stack.js',
-'MyInterface.js',/*
-'dsx_classes/primitives/Plane.js',
+'MyInterface.js',
+'dsx_classes/primitives/Plane.js',/*
 'dsx_classes/primitives/Patch.js',*/
 
 main=function()

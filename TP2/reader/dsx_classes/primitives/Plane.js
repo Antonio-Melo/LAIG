@@ -1,22 +1,23 @@
-function Plane(node,scene, id){
+/**
+ * Plane
+ * @constructor
+ */
+function Plane(scene,id,dimX,dimY,partsX,partsY){
 
-  CGFobject.call(this,scene);
   this.scene = scene;
-  this.node = node;
   this.id = id;
+  this.dimX = dimX;
+  this.dimY = dimY;
+  this.partsX = partsX;
+  this.partsY = partsY;
 
-  this.dimX = node.attributes.getNamedItem("dimX").value;
-  this.dimY = node.attributes.getNamedItem("dimY").value;
-  this.partsX = node.attributes.getNamedItem("partsX").value;
-  this.partsY = node.attributes.getNamedItem("partsY").value;
-
-  this.initBuffers();
+  CGFnurbsObject.call(this,scene);
 };
 
-Plane.prototype = Object.create(CGFobject.prototype);
-Plane.prototype.constructor=Plane;
+Plane.prototype = Object.create(CGFnurbsObject.prototype);
+Plane.prototype.constructor = Plane;
 
-
+/*
 Plane.prototype.getKnotsVector = function(degree) {
 
 	var v = new Array();
@@ -62,4 +63,4 @@ Plane.prototype.initBuffers = function(){
 Plane.prototype.display = function(){
 
   this.plane.display();
-};
+};*/

@@ -1,7 +1,7 @@
 
 function MySceneGraph(filename, scene) {
 	this.loadedOk = null;
-	this.debugMod = true;
+	this.debugMod = false;
 
 	//Vectors to save things from dsx file
 	this.views = [];
@@ -58,8 +58,8 @@ MySceneGraph.prototype.parse=function(rootElement){
 	this.parseMaterials(rootElement);
 	this.parseTransformations(rootElement);
 	this.parsePrimitives(rootElement);
-	this.parseComponents(rootElement);
 	this.parseAnimations(rootElement);
+	this.parseComponents(rootElement);
 	console.log("DSX FILE READ =================================");
 };
 //Checks if .dsx file order is correct
@@ -415,9 +415,14 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 			case "torus":
 				p = new Torus(node.children[0],this.scene,this.reader.getString(node,'id'));
 				break;
-				/*case "plane":
-					p = new Plane(node.children[0],this.scene,this.reader.getString(node,'id'));
-					break;*/
+			case "plane":
+					var id = this.reader.getString(node,'id');
+					var dimX = this.reader.getFloat(node.children[0],'dimX');
+					var dimY = this.reader.getFloat(node.children[0],'dimY');
+					var partsX = this.reader.getInteger(node.children[0],'partsX');
+					var partsY = this.reader.getInteger(node.children[0],'partsY');
+					p = new Plane(this.scene,id,dimX,dimY,partsX,partsY);
+					break;
 			default:
 				break;
 		}
@@ -490,6 +495,8 @@ MySceneGraph.prototype.parseAnimations = function (rootElement) {
 					var startang = this.reader.getFloat(node,"startang");
 					var rotang = this.reader.getFloat(node,"rotang");
 					var a = new CircularAnimation(id,span,centerx,centery,centerz,radius,startang,rotang);
+				}else {
+					this.onXMLError("Animations must be linear or circular");
 				}
 
 				if(this.debugMod)
