@@ -4,6 +4,7 @@ function Component (node,graph){
 
     this.materials = [];
     this.children = [];
+    this.animations = [];
 
     //id
     this.id = this.reader.getString(node,'id');
@@ -38,6 +39,17 @@ function Component (node,graph){
     if(tex == null)
       return "Not textures found in component";
     this.textureid = this.reader.getString(tex,"id");
+
+    //Animations
+    var anim = this.node.getElementsByTagName('animation')[0];
+    //TODO check is this block is there
+    if(anim != undefined){
+      for(var i = 0; i < anim.children.length;i++){
+        var arefnode = anim.children[i];
+        var aref = this.reader.getString(arefnode,"id");
+        this.animations.push(aref);
+      }
+    }
 
     //Children
     var children = this.node.getElementsByTagName('children')[0];

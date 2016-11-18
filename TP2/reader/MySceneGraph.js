@@ -489,30 +489,6 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 	}
 	console.log('PRIMATIVES READ\n');
 };
-//Parse Components
-MySceneGraph.prototype.parseComponents = function(rootElement) {
-		var comp = rootElement.getElementsByTagName("components")[0];
-
-		if (comp == null ) {
-			this.onXMLError("components element is null");
-		}
-		if (comp.children.length == 0) {
-			this.onXMLError("zero 'component' elements found.");
-		}
-
-		for (var i = 0;i < comp.children.length; i++){
-			var node = comp.children[i];
-			var c = new Component(node,this);
-			if(this.debugMod)
-				console.debug(c);
-			if(this.nodes[c.id] == null){
-				this.nodes[c.id] = c;
-			}else{
-				this.onXMLError("Ids repeted in Components");
-			}
-		}
-		console.log('COMPUNENTS READ\n');
-};
 //Parse Animations
 MySceneGraph.prototype.parseAnimations = function (rootElement) {
 			var anim = rootElement.getElementsByTagName("animations")[0];
@@ -560,6 +536,30 @@ MySceneGraph.prototype.parseAnimations = function (rootElement) {
 				}
 			}
 			console.log("ANIMATIONS READ\n");
+};
+//Parse Components
+MySceneGraph.prototype.parseComponents = function(rootElement) {
+		var comp = rootElement.getElementsByTagName("components")[0];
+
+		if (comp == null ) {
+			this.onXMLError("components element is null");
+		}
+		if (comp.children.length == 0) {
+			this.onXMLError("zero 'component' elements found.");
+		}
+
+		for (var i = 0;i < comp.children.length; i++){
+			var node = comp.children[i];
+			var c = new Component(node,this);
+			if(this.debugMod)
+				console.debug(c);
+			if(this.nodes[c.id] == null){
+				this.nodes[c.id] = c;
+			}else{
+				this.onXMLError("Ids repeted in Components");
+			}
+		}
+		console.log('COMPUNENTS READ\n');
 };
 //Checks vector for elements with the same id
 MySceneGraph.prototype.checkIds = function (vector){
