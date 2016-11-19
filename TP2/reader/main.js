@@ -37,7 +37,7 @@ serialInclude(['../lib/CGF.js',
 'animations/animation.js',
 'animations/circularanimation.js',
 'animations/linearanimation.js',
-
+'animations/ComponentAnimation.js',
 main=function()
 {
 	// Standard application, scene and interface setup

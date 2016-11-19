@@ -4,7 +4,6 @@ function Component (node,graph){
 
     this.materials = [];
     this.children = [];
-    this.animations = [];
 
     //id
     this.id = this.reader.getString(node,'id');
@@ -42,12 +41,20 @@ function Component (node,graph){
 
     //Animations
     var anim = this.node.getElementsByTagName('animation')[0];
-    //TODO check is this block is there
-    if(anim != undefined){
-      for(var i = 0; i < anim.children.length;i++){
-        var arefnode = anim.children[i];
-        var aref = this.reader.getString(arefnode,"id");
-        this.animations.push(aref);
+    var animated;
+
+    if(anim == undefined) animated = null;
+    else{
+      if(anim.children.length ==0) animated == null;
+      else{
+        var animations=[];
+
+        for(var i = 0; i < anim.children.length;i++){
+          var arefnode = anim.children[i];
+          var aref = this.reader.getString(arefnode,"id");
+          animations.push(graph.animations[aref]);
+        }
+        this.animated = new ComponentAnimation(animations);
       }
     }
 

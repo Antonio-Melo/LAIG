@@ -123,3 +123,9 @@ XMLscene.prototype.updateLights = function() {
 	if (this.light8) { this.lights[7].enable(); }
 	else { this.lights[7].disable(); }
 }
+XMLscene.prototype.update = function (currTime) {
+  if(this.graph.loadedOk){
+    for(var id in this.graph.animations)
+      this.graph.animations[id].update(currTime);
+  }
+};
