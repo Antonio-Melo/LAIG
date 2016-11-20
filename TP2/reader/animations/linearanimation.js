@@ -14,6 +14,8 @@ function LinearAnimation(id,span,points){
     this.animationVelocity = totalAnimationDistance/span;
     this.distanceDone = 0;
 
+    this.initialTime;
+    this.timeSpent = 0;
     this.currentAnimationControl = 0;
     this.currentAnimationPosition = this.points[0];
     this.currentAnimationAngle = Math.atan2(-(this.points[1][2]-this.points[0][2]),(this.points[1][0]-this.points[0][0]));
@@ -28,9 +30,20 @@ LinearAnimation.prototype.update = function (currTime) {
   var dtime, x, y, z,t;
   if(!this.render) return;
 
-  if(this.lastAnimationTime == -1)  dtime = 0;
-  else dtime = (currTime -this.lastAnimationTime)/1000;
+  if(this.timeSpent >= this.span){
+    this.finished = true;
+    this.render = false;
+    return;
+  }
 
+  if(this.lastAnimationTime == -1){
+    dtime = 0;
+    this.initialTime = currTime
+  }
+  else{
+    dtime = (currTime -this.lastAnimationTime)/1000;
+    this.timeSpent = (currTime -this.initialTime)/1000;
+  }
   this.lastAnimationTime = currTime;
 
   this.distanceDone  += this.animationVelocity *dtime;

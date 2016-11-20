@@ -219,8 +219,12 @@
     <controlpoint xx="15.0" yy="1.0" zz="2.0" />
   </animation>
   <animation id="a2" span="20" type="circular"
-    centerx="1.0" centery="1.0" centerz="1.0"
+    centerx="15.0" centery="1.0" centerz="2.0"
     radius="5.0" startang="0.0" rotang="-20.0" />
+  <animation id="a3" span="4" type="linear">
+    <controlpoint xx="15.0" yy="1.0" zz="2.0" />
+    <controlpoint xx="20.0" yy="0.0" zz="2.0" />
+  </animation>
 </animations>
 
 
@@ -441,7 +445,9 @@
             <!-- geometricas do mesmo objeto, isso significa -->
             <!-- que as animacoes sao afetadas pelas transformacoes -->
             <!-- geometricas do objeto.  -->
+            <animationref id="a1" />
             <animationref id="a2" />
+            <animationref id="a3" />
         </animation>
 
     <texture id="none" />
