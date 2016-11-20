@@ -1,9 +1,7 @@
 function ComponentAnimation(animations){
   this.animations = animations;
-  console.debug(this.animations.length);
 
   this.animationIndex = 0;
-  console.debug(this.animationIndex);
   this.animations[0].render = true;
 }
 

@@ -37,7 +37,6 @@ LinearAnimation.prototype.update = function (currTime) {
   if(this.distanceDone > this.animationDistances[this.currentAnimationControl]){
     if(this.currentAnimationControl == this.points.length -2){
       this.finished = true;
-      console.debug("Acabei esta animação\n");
       return;
     }else{
       this.distanceDone = 0;
