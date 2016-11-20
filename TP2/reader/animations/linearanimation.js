@@ -16,7 +16,7 @@ function LinearAnimation(id,span,points){
 
     this.currentAnimationControl = 0;
     this.currentAnimationPosition = this.points[0];
-    this.currentAnimationAngle = Math.atan2*((this.points[1][0]-this.points[0][0]),(this.points[1][2]-this.points[0][2]));
+    this.currentAnimationAngle = Math.atan2(-(this.points[1][2]-this.points[0][2]),(this.points[1][0]-this.points[0][0]));
 
     this.lastAnimationTime = -1;
 };
@@ -35,21 +35,22 @@ LinearAnimation.prototype.update = function (currTime) {
 
   this.distanceDone  += this.animationVelocity *dtime;
   if(this.distanceDone > this.animationDistances[this.currentAnimationControl]){
-    if(this.currentAnimationControl == this.currentAnimationControl -2){
+    if(this.currentAnimationControl == this.points.length -2){
       this.finished = true;
+      console.debug("Acabei esta animação\n");
       return;
     }else{
       this.distanceDone = 0;
       this.currentAnimationControl++;
-      this.currentAnimationAngle = Math.atan2 ((this.points[this.currentAnimationControl+1][0]-this.points[this.currentAnimationControl][0]),
-                                              (this.points[this.currentAnimationControl+1][2]-this.points[this.currentAnimationControl][2]));
+      this.currentAnimationAngle = Math.atan2 (-(this.points[this.currentAnimationControl+1][2]-this.points[this.currentAnimationControl][2]),
+                                              (this.points[this.currentAnimationControl+1][0]-this.points[this.currentAnimationControl][0]));
     }
   }
 
   t = this.distanceDone / this.animationDistances[this.currentAnimationControl];
-  x = this.points[this.currentAnimationControl+1][0]*t+((1-t)*this.points[this.currentAnimationControl[0]]);
-  y = this.points[this.currentAnimationControl+1][1]*t+((1-t)*this.points[this.currentAnimationControl[1]]);
-  z = this.points[this.currentAnimationControl+1][2]*t+((1-t)*this.points[this.currentAnimationControl[2]]);
+  x = this.points[this.currentAnimationControl+1][0]*t+((1-t)*this.points[this.currentAnimationControl][0]);
+  y = this.points[this.currentAnimationControl+1][1]*t+((1-t)*this.points[this.currentAnimationControl][1]);
+  z = this.points[this.currentAnimationControl+1][2]*t+((1-t)*this.points[this.currentAnimationControl][2]);
 
   this.currentAnimationPosition = [x,y,z];
 };
