@@ -10,9 +10,9 @@ function CircularAnimation(id,span,centerx,centery,centerz,radius,startang,rotan
 
     this.animationAngularVelocity = this.rotang/this.span;
 
-    this.currentAnimationPosition = [this.centerx + this.radius * Math.cos(this.startang),
+    this.currentAnimationPosition = [this.centerx + this.radius * -Math.cos(this.startang),
                                     this.centery,
-                                    this.centerz + this.radius * Math.sin(this.startang)];
+                                    this.centerz + this.radius * -Math.sin(this.startang)];
 
     this.initialTime = 0;
     this.currentAnimationAngle = this.startang;
@@ -39,7 +39,7 @@ CircularAnimation.prototype.update = function (currTime) {
   else this.lastAnimationTime = currTime;
 
   this.currentAnimationAngle = this.animationAngularVelocity*this.initialTime +this.startang;
-  x = this.centerx+this.radius *Math.sin(this.currentAnimationAngle);
+  x = this.centerx+this.radius *-Math.sin(this.currentAnimationAngle);
   y = this.centery;
   z = this.centerz + this.radius *Math.cos(this.currentAnimationAngle);
 
