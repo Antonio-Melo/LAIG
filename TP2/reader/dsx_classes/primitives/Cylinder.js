@@ -1,17 +1,16 @@
 /*
   Class that represents a cylinder primitive in the scene
 */
- function Cylinder(node,scene,id) {
+ function Cylinder(scene,id,base,top,height,slices,stacks) {
  	CGFobject.call(this,scene);
 
-  this.node = node;
   this.id = id;
 
-  this.base = node.attributes.getNamedItem("base").value;
-  this.top = node.attributes.getNamedItem("top").value;
-  this.height = node.attributes.getNamedItem("height").value;
-  this.slices = node.attributes.getNamedItem("slices").value;
-  this.stacks = node.attributes.getNamedItem("stacks").value;
+  this.base = base;
+  this.top = top;
+  this.height = height;
+  this.slices = slices;
+  this.stacks = stacks;
 
   this.surface = new CylinderSurf(scene,this.id,this.base,this.top,this.height,this.slices,this.stacks);
   this.topCir = new CylinderBase(scene,this.top,this.slices);

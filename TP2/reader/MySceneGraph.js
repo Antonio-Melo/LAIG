@@ -412,13 +412,23 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 				p = new Triangle(node.children[0],this.scene,this.reader.getString(node,'id'));
 				break;
 			case "cylinder":
-				p = new Cylinder(node.children[0],this.scene,this.reader.getString(node,'id'));
+				var base = this.reader.getFloat(node.children[0],"base");
+				//console.debug(base);
+				var top = this.reader.getFloat(node.children[0],"top");
+				var height = this.reader.getFloat(node.children[0],"height");
+				var slices = this.reader.getFloat(node.children[0],"slices");
+				var stacks = this.reader.getFloat(node.children[0],"stacks");
+				p = new Cylinder(this.scene,this.reader.getString(node,'id'),base,top,height,slices,stacks);
 				break;
 			case "sphere":
 				p = new Sphere(node.children[0],this.scene,this.reader.getString(node,'id'));
 				break;
 			case "torus":
-				p = new Torus(node.children[0],this.scene,this.reader.getString(node,'id'));
+				var inner = this.reader.getFloat(node.children[0],'inner');
+				var outer = this.reader.getFloat(node.children[0],'outer');
+				var slices =  this.reader.getFloat(node.children[0],'slices');
+				var loops =  this.reader.getFloat(node.children[0],'loops');
+				p = new Torus(this.scene,this.reader.getString(node,'id'),inner,outer,slices,loops);
 				break;
 			case "plane":
 					var id = this.reader.getString(node,'id');
@@ -449,6 +459,9 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 					}
 					p = new Patch(this.scene,id,orderU,orderV,partsU,partsV,points);
 					break;
+			case "vehicle":
+				p = new Vehicle(this.scene,"vehicle");
+				break;
 			case "chessboard":
 					var id = this.reader.getString(node,'id');
 					var chessboard = node.children[0];
@@ -625,18 +638,18 @@ MySceneGraph.prototype.visitGraph = function(node_id,textureStack,materialStack)
 	}else{
 
 		var material = this.materials[materialStack.top()];
-		var texture = this.textures[textureStack.top()].texture;
 		if(textureStack.top() != "none"){
-			if (node instanceof Triangle || node instanceof Rectangle){
-            node.setTexCoords(this.textures[textureStack.top()].length_s,this.textures[textureStack.top()].length_t);
-      }
-
-			material.setTexture(texture);
+				var texture = this.textures[textureStack.top()].texture;
+				if (node instanceof Triangle || node instanceof Rectangle){
+            	node.setTexCoords(this.textures[textureStack.top()].length_s,this.textures[textureStack.top()].length_t);
+      	}
+				material.setTexture(texture);
+				material.apply();
 		}
-
-		material.apply();
 		node.display();
-		material.setTexture(null);
+		if(textureStack.top() != "none"){
+			material.setTexture(null);
+		}
 	}
 }
 

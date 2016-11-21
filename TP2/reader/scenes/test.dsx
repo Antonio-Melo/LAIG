@@ -156,7 +156,7 @@
         <!-- Deve existir um ou mais blocos "primitive" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
         <primitive id="rectangle">
-            <rectangle x1="0" y1="0" x2="4" y2="4" />
+            <rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
         </primitive>
 
 
@@ -199,6 +199,9 @@
                <controlpoint x="2.0" y="1.0" z="-5.0" />
                <controlpoint x="2.0" y="2.0" z="1.0" />
           </patch>
+      </primitive>
+      <primitive id="vehicle">
+        <vehicle />
       </primitive>
 
 </primitives>
@@ -280,13 +283,13 @@
                      </transformation>
 
                      <materials>
-                         <material id="inherit" />
+                         <material id="none" />
                      </materials>
 
-                     <texture id="bus" />
+                     <texture id="inherit" />
 
                      <children>
-                         <primitiveref id="rectangle" />
+                         <primitiveref id="vehicle" />
                      </children>
         </component>
 

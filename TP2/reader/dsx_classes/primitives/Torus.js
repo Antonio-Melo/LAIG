@@ -1,14 +1,12 @@
-function Torus(node, scene,id){
+function Torus(scene,id,inner,outer,slices,loops){
   CGFobject.call(this,scene);
-  this.reader = new CGFXMLreader();
 
-  this.node= node;
   this.id = id;
 
-  this.inner =  this.reader.getFloat(node,'inner');
-  this.outer = this.reader.getFloat(node,'outer');
-  this.slices =  this.reader.getFloat(node,'slices');
-  this.loops =  this.reader.getFloat(node,'loops');
+  this.inner =  inner;
+  this.outer = outer;
+  this.slices =  slices;
+  this.loops =  loops;
 
   this.initBuffers();
 };

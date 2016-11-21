@@ -16,5 +16,9 @@ var Stack = {
     this.top = function() {
       return vec[vec.length - 1];
     }
+
+    this.length = function(){
+      return vec.length;
+    }
   }
 }
