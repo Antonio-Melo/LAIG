@@ -286,7 +286,7 @@
                      <texture id="bus" />
 
                      <children>
-                         <primitiveref id="patch" />
+                         <primitiveref id="rectangle" />
                      </children>
         </component>
 

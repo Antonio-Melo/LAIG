@@ -1,16 +1,15 @@
-function Rectangle(node,scene,id) {
+function Rectangle(scene,id,x1,x2,y1,y2) {
 
   CGFobject.call(this,scene);
 
 	this.materialDefault = new CGFappearance(this.scene);
 
-  this.node = node;
   this.id = id;
 
-  this.x1 = node.attributes.getNamedItem("x1").value;
-  this.x2 = node.attributes.getNamedItem("x2").value;
-  this.y1 = node.attributes.getNamedItem("y1").value;
-  this.y2 = node.attributes.getNamedItem("y2").value;
+  this.x1 = x1;
+  this.x2 = x2;
+  this.y1 = y1;
+  this.y2 = y2;
 
 
   //console.debug("Rectangle "+this.x1 +" "+this.x2 +"\n");
@@ -67,6 +66,6 @@ Rectangle.prototype.setTexCoords = function(ls,lt){
     this.baseTexCoords[4] / ls, 1 - (this.baseTexCoords[5] / lt),
     0, 1 - (this.baseTexCoords[7] / lt)
   ];
-  
+
   this.updateTexCoordsGLBuffers();
 }
