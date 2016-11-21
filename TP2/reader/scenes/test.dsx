@@ -156,7 +156,7 @@
         <!-- Deve existir um ou mais blocos "primitive" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
         <primitive id="rectangle">
-            <rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
+            <rectangle x1="0" y1="0" x2="2" y2="2" />
         </primitive>
 
 
@@ -280,6 +280,7 @@
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
                 <componentref id="test" />
+                <componentref id="road" />
 
             </children>
 
@@ -287,6 +288,7 @@
 
         <component id="test">
                      <transformation>
+                         <translate x="0.0" y="4.5" z="10.0"/>
                          <scale x="1.0" y="1.0" z="1.0" />
                      </transformation>
 
@@ -304,6 +306,26 @@
                      <children>
                          <primitiveref id="vehicle" />
                      </children>
+        </component>
+
+
+        <component id="road">
+          <!-- bloco "transformation" obrigatorio -->
+          <transformation>
+            <rotate axis="y" angle="-90"/>
+            <rotate axis="x" angle="-90"/>
+            <scale x="25.0" y="25.0" z="1.0" />
+          </transformation>
+
+          <materials>
+            <material id="inherit" />
+          </materials>
+
+          <texture id="road" />
+
+          <children>
+            <primitiveref id="rectangle"/>
+          </children>
         </component>
 
 
