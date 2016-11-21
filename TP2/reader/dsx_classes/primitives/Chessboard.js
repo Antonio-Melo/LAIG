@@ -29,7 +29,7 @@ function Chessboard(scene,id,du,dv,textureref,su,sv,c1,c2,cs) {
 	this.shader.setUniformsValues({cs: vec4.fromValues(cs.r, cs.g, cs.b, cs.a)});
 
 	this.appearance = new CGFappearance(this.scene);
-	this.appearance.loadTexture("textures\\wood.jpg");
+	this.appearance.loadTexture("textures\\"+this.textureref+".jpg");
 
 };
 

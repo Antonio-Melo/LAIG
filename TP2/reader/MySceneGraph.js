@@ -475,7 +475,7 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 					var c1 =  this.toRGBA(chessboard.children[0]);
 					var c2 =  this.toRGBA(chessboard.children[1]);
 					var cs =  this.toRGBA(chessboard.children[2]);
-					p = new Chessboard(this.scene,"chessboard",du,dv,textureref,su,sv,c1,c2,cs);
+					p = new Chessboard(this.scene,id,du,dv,textureref,su,sv,c1,c2,cs);
 					break;
 			default:
 				break;
