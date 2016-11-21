@@ -439,18 +439,6 @@
       <material id="inherit" />
     </materials>
     <animation>
-            <!-- podem ser declaradas zero ou mais animacoes -->
-            <!-- de entre as declaradas no bloco de animacoes; -->
-            <!-- as animacoes devem ser executadas sequencialmente -->
-            <!-- pela ordem com que sao declaradas.     -->
-            <!-- NOTA: as transformacoes geometricas da -->
-            <!-- animacao seguem as mesmas regras de ordenacao -->
-            <!-- definidas no trabalho anterior para as -->
-            <!-- transformacoes geometricas; dado que as -->
-            <!-- animacoes sao declaradas apos as transformacoes -->
-            <!-- geometricas do mesmo objeto, isso significa -->
-            <!-- que as animacoes sao afetadas pelas transformacoes -->
-            <!-- geometricas do objeto.  -->
             <animationref id="a1" />
             <animationref id="a2" />
             <animationref id="a3" />

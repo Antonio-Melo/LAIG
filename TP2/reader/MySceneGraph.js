@@ -464,6 +464,7 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 				break;
 			case "chessboard":
 					var id = this.reader.getString(node,'id');
+					console.debug(id);
 					var chessboard = node.children[0];
 					var du = this.reader.getInteger(chessboard,'du');
 					var dv = this.reader.getInteger(chessboard,'dv');
@@ -471,26 +472,10 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 					var su = this.reader.getInteger(chessboard,'su');
 					var sv = this.reader.getInteger(chessboard,'sv');
 
-					var c1node =  chessboard.children[0];
-						var r1 =  this.reader.getFloat(c1node,'r');
-						var g1 =  this.reader.getFloat(c1node,'g');
-						var b1 =  this.reader.getFloat(c1node,'b');
-						var a1 =  this.reader.getFloat(c1node,'a');
-						var c1 = [r1,g1,b1,a1];
-					var c2node =  chessboard.children[1];
-						var r2 =  this.reader.getFloat(c2node,'r');
-						var g2 =  this.reader.getFloat(c2node,'g');
-						var b2 =  this.reader.getFloat(c2node,'b');
-						var a2 =  this.reader.getFloat(c2node,'a');
-						var c2 = [r2,g2,b2,a2];
-					var csnode =  chessboard.children[2];
-						var rs =  this.reader.getFloat(csnode,'r');
-						var gs =  this.reader.getFloat(csnode,'g');
-						var bs =  this.reader.getFloat(csnode,'b');
-						var as =  this.reader.getFloat(csnode,'a');
-						var cs = [rs,gs,bs,as];
-
-					p = new Chessboard(this.scene,id,du,dv,textureref,su,sv,c1,c2,cs);
+					var c1 =  this.toRGBA(chessboard.children[0]);
+					var c2 =  this.toRGBA(chessboard.children[1]);
+					var cs =  this.toRGBA(chessboard.children[2]);
+					p = new Chessboard(this.scene,"chessboard",du,dv,textureref,su,sv,c1,c2,cs);
 					break;
 			default:
 				break;
@@ -499,6 +484,7 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 			console.debug(p);
 		}
 		if(this.nodes[p.id] ==null){
+			console.debug("É null!!");
 			this.nodes[p.id] =p;
 		}else {
 			this.onXMLError("Ids repeted in primitives");
@@ -646,6 +632,7 @@ MySceneGraph.prototype.visitGraph = function(node_id,textureStack,materialStack)
 				material.setTexture(texture);
 				material.apply();
 		}
+		console.debug(node);
 		node.display();
 		if(textureStack.top() != "none"){
 			material.setTexture(null);
@@ -653,6 +640,21 @@ MySceneGraph.prototype.visitGraph = function(node_id,textureStack,materialStack)
 	}
 }
 
+
+MySceneGraph.prototype.toRGBA = function(element) {
+    var tmpData = {
+        r: 0,
+        g: 0,
+        b: 0,
+        a: 1
+    };
+    tmpData.r = this.reader.getFloat(element, 'r');
+    tmpData.g = this.reader.getFloat(element, 'g');
+    tmpData.b = this.reader.getFloat(element, 'b');
+    tmpData.a = this.reader.getFloat(element, 'a');
+    //////console.log(tmpData.r + " " + tmpData.g + " " + tmpData.b + " " + tmpData.a)
+    return tmpData;
+}
 /*
  * Callback to be executed on any read error
  */
