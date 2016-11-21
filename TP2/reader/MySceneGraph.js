@@ -1,7 +1,7 @@
 
 function MySceneGraph(filename, scene) {
 	this.loadedOk = null;
-	this.debugMod = true;
+	this.debugMod = false;
 
 	//Vectors to save things from dsx file
 	this.views = [];
@@ -401,7 +401,6 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 		var p;
 		switch (node.children[0].nodeName) {
 			case "rectangle":
-				console.debug(node.children[0]);
 				var x1 = this.reader.getFloat(node.children[0],'x1');
 				var x2 = this.reader.getFloat(node.children[0],'x2');
 				var y1 = this.reader.getFloat(node.children[0],'y1');
@@ -464,7 +463,6 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 				break;
 			case "chessboard":
 					var id = this.reader.getString(node,'id');
-					console.debug(id);
 					var chessboard = node.children[0];
 					var du = this.reader.getInteger(chessboard,'du');
 					var dv = this.reader.getInteger(chessboard,'dv');
@@ -484,7 +482,6 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 			console.debug(p);
 		}
 		if(this.nodes[p.id] ==null){
-			console.debug("É null!!");
 			this.nodes[p.id] =p;
 		}else {
 			this.onXMLError("Ids repeted in primitives");
@@ -632,7 +629,6 @@ MySceneGraph.prototype.visitGraph = function(node_id,textureStack,materialStack)
 				material.setTexture(texture);
 				material.apply();
 		}
-		console.debug(node);
 		node.display();
 		if(textureStack.top() != "none"){
 			material.setTexture(null);
