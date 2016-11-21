@@ -184,6 +184,23 @@
             <plane dimX="2.0" dimY="4.0" partsX="2" partsY="2"/>
     </primitive>
 
+    <primitive id="patch">
+           <patch orderU="2" orderV="3" partsU="20" partsV="20" >
+               <controlpoint x="-2.0" y="-2.0" z="1.0" />
+               <controlpoint x="-2.0" y="-1.0" z="-2.0" />
+               <controlpoint x="-2.0" y="1.0" z="5.0" />
+               <controlpoint x="-2.0" y="2.0" z="-1.0" />
+               <controlpoint x="0" y="-2.0" z="0" />
+               <controlpoint x="0" y="-1.0" z="-1.0" />
+               <controlpoint x="0" y="1.0" z="1.5" />
+               <controlpoint x="0" y="2.0" z="0" />
+               <controlpoint x="2.0" y="-2.0" z="-1.0" />
+               <controlpoint x="2.0" y="-1.0" z="2.0" />
+               <controlpoint x="2.0" y="1.0" z="-5.0" />
+               <controlpoint x="2.0" y="2.0" z="1.0" />
+          </patch>
+      </primitive>
+
 </primitives>
 
 <!-- Animações -->
@@ -269,7 +286,7 @@
                      <texture id="bus" />
 
                      <children>
-                         <primitiveref id="plane" />
+                         <primitiveref id="patch" />
                      </children>
         </component>
 

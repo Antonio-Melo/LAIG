@@ -426,7 +426,7 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 		 	case "patch":
 					var id = this.reader.getString(node,'id');
 					var patch = node.children[0];
-					//console.debug(patch);
+
 					var orderU = this.reader.getFloat(patch,'orderU');
 					var orderV = this.reader.getFloat(patch,'orderV');
 					var partsU = this.reader.getFloat(patch,'partsU');
@@ -436,7 +436,6 @@ MySceneGraph.prototype.parsePrimitives= function(rootElement) {
 
 					var points = [];
 					for(var c = 0; c < controlpoints.length;c++){
-						//console.debug(controlpoints[c]);
 						var x = this.reader.getFloat(controlpoints[c],"x");
 						var y = this.reader.getFloat(controlpoints[c],"y");
 						var z = this.reader.getFloat(controlpoints[c],"z");
