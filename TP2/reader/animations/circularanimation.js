@@ -39,7 +39,7 @@ CircularAnimation.prototype.update = function (currTime) {
   this.currentAnimationAngle = this.animationAngularVelocity*this.initialTime +this.startang;
   x = this.centerx+this.radius *-Math.sin(this.currentAnimationAngle);
   y = this.centery;
-  z = this.centerz + this.radius *Math.cos(this.currentAnimationAngle);
+  z = this.centerz + this.radius *-Math.cos(this.currentAnimationAngle);
 
   this.currentAnimationPosition = [x,y,z];
 };
