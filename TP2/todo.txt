@@ -1,1 +1,2 @@
 TODO:
+Corrigir animações até ao teste
