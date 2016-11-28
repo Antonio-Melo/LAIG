@@ -222,13 +222,13 @@
   <!-- o valor "linear" ou "circular"; na animacao circular -->
   <!-- os angulos sao expressos em graus  -->
   <animation id="a1" span="2" type="linear">
-    <controlpoint xx="3.5" yy="0.0" zz="2.0" />
-    <controlpoint xx="10.0" yy="0.0" zz="2.0" />
-    <controlpoint xx="15.0" yy="1.0" zz="2.0" />
+    <controlpoint xx="3.5" yy="4.5" zz="20.0" />
+    <controlpoint xx="10.0" yy="4.5" zz="20.0" />
+    <controlpoint xx="15.0" yy="5.5" zz="20.0" />
   </animation>
   <animation id="a2" span="2.0" type="circular"
-    centerx="10.0" centery="0.0" centerz="10.0"
-    radius="15.0" startang="180.0" rotang="-90.0" />
+    centerx="15.0" centery="5.5" centerz="20.0"
+    radius="1.0" startang="180.0" rotang="-90.0" />
   <animation id="a3" span="4" type="linear">
     <controlpoint xx="15.0" yy="1.0" zz="2.0" />
     <controlpoint xx="20.0" yy="0.0" zz="2.0" />
@@ -297,7 +297,9 @@
 
                      <texture id="inherit" />
                      <animation>
+                             <animationref id="a1" />
                              <animationref id="a2" />
+
                          </animation>
 
                      <children>
