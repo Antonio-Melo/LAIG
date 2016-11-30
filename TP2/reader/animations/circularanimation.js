@@ -7,14 +7,21 @@ function CircularAnimation(id,span,centerx,centery,centerz,radius,startang,rotan
     this.radius = radius;
     this.startang = startang*(Math.PI/180);
     this.rotang = rotang*Math.PI/180;
-     if(rotang < 0) this.rot = true;
-     else this.rot = false;
+     if(rotang < 0){
+        this.rot = true;
+        this.currentAnimationPosition = [this.centerx - this.radius * Math.cos(this.startang),
+                                        this.centery,
+                                        this.centerz - this.radius * Math.sin(this.startang)];
+    }
+    else{
+      this.rot = false;
+          this.currentAnimationPosition = [this.centerx + this.radius * Math.cos(this.startang),
+                                          this.centery,
+                                          this.centerz + this.radius * Math.sin(this.startang)];
+    }
 
     this.animationAngularVelocity = this.rotang/this.span;
 
-    this.currentAnimationPosition = [this.centerx + this.radius * Math.cos(this.startang),
-                                    this.centery,
-                                    this.centerz + this.radius * Math.sin(this.startang)];
 
     this.initialTime = 0;
     this.currentAnimationAngle = this.startang;

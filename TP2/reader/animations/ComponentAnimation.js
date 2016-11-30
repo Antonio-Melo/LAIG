@@ -23,7 +23,6 @@ ComponentAnimation.prototype.getAnimationMatrix = function () {
 
   mat4.translate(matrix,matrix,this.getAnimationPosition());
   mat4.rotateY(matrix,matrix,this.getAnimationAngle());
-  console.debug(this.animations[this.animationIndex].radius);
   //mat4.translate(matrix,matrix,[this.animations[this.animationIndex].radius,0,0]);
   if(this.animations[this.animationIndex].rot){
    mat4.rotateY(matrix,matrix,Math.PI);
