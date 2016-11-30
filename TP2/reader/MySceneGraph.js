@@ -1,7 +1,7 @@
 
 function MySceneGraph(filename, scene) {
 	this.loadedOk = null;
-	this.debugMod = false;
+	this.debugMod = true;
 
 	//Vectors to save things from dsx file
 	this.views = [];
@@ -505,6 +505,7 @@ MySceneGraph.prototype.parseAnimations = function (rootElement) {
 				var id = this.reader.getString(node,'id');
 				var span = this.reader.getFloat(node,'span');
 				if(type == "linear"){
+					var rot = this.reader.getFloat(node,'rotation');
 					var controlpoints = node.getElementsByTagName('controlpoint');
 					var points = [];
 					for(var c = 0; c <controlpoints.length;c++){
@@ -514,7 +515,8 @@ MySceneGraph.prototype.parseAnimations = function (rootElement) {
 						var point = [xx,yy,zz];
 						points.push(point);
 					}
-					var a = new LinearAnimation(id,span,points);
+					if(rot == null)var a = new LinearAnimation(id,span,points);
+					else var a = new LinearRotation(id,span,points,rot);
 				}else if(type == "circular"){
 					var centerx = this.reader.getFloat(node,"centerx");
 					var centery = this.reader.getFloat(node,"centery");
