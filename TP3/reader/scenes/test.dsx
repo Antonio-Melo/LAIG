@@ -285,8 +285,6 @@
                 <!-- deve existir uma ou mais tags "componentref" e/ou -->
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
-                <componentref id="test" />
-                <componentref id="road" />
 
             </children>
 

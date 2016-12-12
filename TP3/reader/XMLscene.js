@@ -91,7 +91,8 @@ XMLscene.prototype.display = function () {
 		  this.lights[i].update();
     }
     this.graph.displayGraph();
-
+    var piece = new Piece(this,"piece1");
+    piece.display();
 	};
 };
 
