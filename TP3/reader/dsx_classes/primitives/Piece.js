@@ -1,7 +1,7 @@
 /*
   Class that represents a Piece primitive in the scene
 */
- function Piece(scene,id) {
+ function Piece(scene,id,type) {
  	CGFobject.call(this,scene);
 
   this.id = id;
