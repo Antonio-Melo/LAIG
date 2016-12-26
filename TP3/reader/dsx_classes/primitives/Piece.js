@@ -1,18 +1,20 @@
 /*
   Class that represents a Piece primitive in the scene
 */
- function Piece(scene,id,type) {
+ function Piece(scene,id,player,type) {
  	CGFobject.call(this,scene);
 
   this.id = id;
+  this.type = type;
+  this.player = player;
 
   this.surface = new CylinderSurf(scene,this.id,2,2,1,40,40);
   this.topCir = new CylinderBase(scene,2,40);
   this.baseCir = new CylinderBase(scene,2,40);
   this.basecolor = new CGFappearance(scene);
-  this.basecolor.loadTexture("textures\\blue.png");
+  this.basecolor.loadTexture("textures\\"+this.player+".png");
   this.topcolor = new CGFappearance(scene);
-  this.topcolor.loadTexture("textures\\blue3.png");
+  this.topcolor.loadTexture("textures\\"+this.player+this.type+".png");
   console.debug(this.color)
  };
 
