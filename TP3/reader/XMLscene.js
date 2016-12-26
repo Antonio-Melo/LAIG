@@ -25,6 +25,7 @@ XMLscene.prototype.init = function (application) {
 
     this.piece = new Piece(this,"piece1","blue","1");
     this.HexBoard = new HexBoard(this);
+    this.house = new House(this,"h");
 };
 
 XMLscene.prototype.initLights = function () {
@@ -95,7 +96,8 @@ XMLscene.prototype.display = function () {
     }
     this.graph.displayGraph();
     //this.piece.display();
-    this.HexBoard.display();
+    //this.HexBoard.display();
+    this.house.display();
 	};
 };
 
