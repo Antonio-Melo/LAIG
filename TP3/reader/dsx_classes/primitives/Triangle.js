@@ -2,27 +2,25 @@
   Class that represents a triangle primitive in the scene
 */
 
-function Triangle(node,scene,id) {
+function Triangle(scene,id,x1,x2,x3,y1,y2,y3,z1,z2,z3) {
 
   CGFobject.call(this,scene);
 
 	this.materialDefault = new CGFappearance(this.scene);
 
-  this.node = node;
   this.id = id;
 
-  this.x1 = node.attributes.getNamedItem("x1").value;
-  this.x2 = node.attributes.getNamedItem("x2").value;
-  this.x3 = node.attributes.getNamedItem("x3").value;
+  this.x1 = x1;
+  this.x2 = x2;
+  this.x3 = x3;
 
-  this.y1 = node.attributes.getNamedItem("y1").value;
-  this.y2 = node.attributes.getNamedItem("y2").value;
-  this.y3 = node.attributes.getNamedItem("y3").value;
+  this.y1 = y1;
+  this.y2 = y2;
+  this.y3 = y3;
 
-
-  this.z1 = node.attributes.getNamedItem("z1").value;
-  this.z2 = node.attributes.getNamedItem("z2").value;
-  this.z3 = node.attributes.getNamedItem("z3").value;
+  this.z1 = z1;
+  this.z2 = z2;
+  this.z3 = z3;
 
   this.p1 = [this.x1,this.y1,this.z1];
   this.p2 = [this.x2,this.y2,this.z2];

@@ -24,6 +24,7 @@ XMLscene.prototype.init = function (application) {
 	  this.axis=new CGFaxis(this);
 
     this.piece = new Piece(this,"piece1","blue","1");
+    this.HexBoard = new HexBoard(this);
 };
 
 XMLscene.prototype.initLights = function () {
@@ -93,7 +94,8 @@ XMLscene.prototype.display = function () {
 		  this.lights[i].update();
     }
     this.graph.displayGraph();
-    this.piece.display();
+    //this.piece.display();
+    this.HexBoard.display();
 	};
 };
 
