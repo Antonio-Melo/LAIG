@@ -22,6 +22,8 @@ XMLscene.prototype.init = function (application) {
     this.setUpdatePeriod(30);
 
 	  this.axis=new CGFaxis(this);
+
+    this.piece = new Piece(this,"piece1");
 };
 
 XMLscene.prototype.initLights = function () {
@@ -91,8 +93,7 @@ XMLscene.prototype.display = function () {
 		  this.lights[i].update();
     }
     this.graph.displayGraph();
-    var piece = new Piece(this,"piece1");
-    piece.display();
+    this.piece.display();
 	};
 };
 
