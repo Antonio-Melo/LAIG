@@ -63,6 +63,7 @@ GameHouses.prototype.constructor = GameHouses;
 
 GameHouses.prototype.display = function(){
   for(var i = 0;i < this.list.length;i++){
+    this.scene.registerForPick(i+1, this.list[i]);
     this.list[i].display();
   }
 }
