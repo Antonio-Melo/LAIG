@@ -1,11 +1,13 @@
 /*
   Class that represents a House primitive in the scene
 */
- function House(scene,id) {
+ function House(scene,id,x,z) {
  	CGFobject.call(this,scene);
 
   this.id = id;
   this.scene = scene;
+  this.x = x;
+  this.z = z;
 
   this.surface = new CylinderSurf(scene,this.id,2,2,0.01,40,40);
   this.topCir = new CylinderBase(scene,2,40);
@@ -19,6 +21,7 @@ House.prototype.constructor = House;
 
 House.prototype.display = function(){
   this.basecolor.apply();
+  this.scene.translate(this.x,0,this.z);
   this.scene.rotate(-Math.PI/2,1,0,0);
   this.surface.display();
   this.scene.pushMatrix();

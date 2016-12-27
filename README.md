@@ -1,3 +1,3 @@
 TODO
-- Criar tabuleiro e casas isoladas
+- Criar o tabuleiro com as peças todas 
 - Perceber o modo de picking
