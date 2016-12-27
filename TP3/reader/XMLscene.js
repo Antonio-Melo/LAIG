@@ -96,7 +96,7 @@ XMLscene.prototype.display = function () {
 		  this.lights[i].update();
     }
     this.graph.displayGraph();
-    //this.piece.display();
+    this.piece.display();
     this.HexBoard.display();
     //this.house.display();
     this.houses.display();

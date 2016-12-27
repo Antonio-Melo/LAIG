@@ -5,6 +5,7 @@
  	CGFobject.call(this,scene);
 
   this.scene = scene;
+  this.list = new Array();
   //Line 1
   //this.h11 blocked cell X
   this.h12 = new House(scene,"12",-10,-16);
@@ -36,7 +37,6 @@
   this.h54 = new House(scene,"54",10,16);
   //this.h55 blocked cell X
 
-  this.list = new Array();
   this.list.push(this.h12);
   this.list.push(this.h13);
   this.list.push(this.h14);
