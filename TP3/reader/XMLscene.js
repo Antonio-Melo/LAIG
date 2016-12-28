@@ -69,10 +69,10 @@ XMLscene.prototype.logPicking = function ()
 	if (this.pickMode == false) {
 		if (this.pickResults != null && this.pickResults.length > 0) {
 			for (var i=0; i< this.pickResults.length; i++) {
-				var obj = this.pickResults[i][0];
+				var obj = this.pickResults[i][0]; // o objeto seleccionado
 				if (obj)
 				{
-					var customId = this.pickResults[i][1];
+					var customId = this.pickResults[i][1]; // o ID do objeto seleccionado
 					console.log("Picked object: " + obj + ", with pick id " + customId);
 				}
 			}

@@ -44,6 +44,7 @@ serialInclude(['../lib/CGF.js',
 'animations/ComponentAnimation.js',
 'animations/LinearRotation.js',
 'GameLAIG/GameHouses.js',
+'GameLAIG/GamePieces.js',
 main=function()
 {
 	// Standard application, scene and interface setup

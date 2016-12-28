@@ -52,7 +52,7 @@
 
     <illumination doublesided="1" local="1" >
 
-        <ambient r="0.5" g="0.5" b="0.5" a="0.8" />
+        <ambient r="0.9" g="0.9" b="0.9" a="0.8" />
         <background r="0.1" g="0.1" b="0.2" a="1" />
 
     </illumination>
@@ -63,19 +63,19 @@
         <!-- Deve existir um ou mais blocos "omni" ou "spot" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
         <omni id="Sun" enabled="1" >
-            <location x="-70" y="1" z="0" w="1" />
-            <ambient r="1" g="0.5" b="0" a="1" />
-            <diffuse r="1" g="0.5" b="0" a="1" />
-            <specular r="1" g="0.5" b="0" a="1" />
+            <location x="0" y="20" z="0" w="1" />
+            <ambient r="1" g="1" b="0.8" a="1" />
+            <diffuse r="1" g="1" b="0.8" a="1" />
+            <specular r="1" g="1" b="0.8" a="1" />
         </omni>
 
-        <spot id="Sun2" enabled="1" angle="0" exponent="1">
+        <spot id="Sun2" enabled="1" angle="10" exponent="1">
             <!-- atencao, "target" e' diferente de "direction" -->
-            <target x="0" y="1" z="0" />
-            <location x="-70" y="1" z="0" w="1" />
-            <ambient r="1" g="1" b="0.2" a="1" />
-            <diffuse r="1" g="0.5" b="0" a="0.5" />
-            <specular r="0.5" g="0.5" b="0.5" a="0.5" />
+            <target x="0" y="0" z="0" />
+            <location x="-25" y="5" z="0" w="1" />
+            <ambient r="1" g="1" b="1" a="1" />
+            <diffuse r="1" g="1" b="1" a="1" />
+            <specular r="1" g="1" b="1" a="1" />
         </spot>
 
 
