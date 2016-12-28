@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>CGFexample</title>
+    <title>CrabStack</title>
 
 <style>
 body, html {
@@ -19,8 +19,28 @@ canvas {
 </style>
 </head>
 <body>
-
-<script src="main.js"></script>
-
+  <img id='logo' src='textures/logo.png'/>
+  <ul>
+  	<li><button id="player-vs-player" class="button">Player vs Player</button></li>
+  	<li><button id="player-vs-computer" class="button">Player vs Computer</button></li>
+  	<li><button id="computer-vs-computer" class="button">Computer vs Computer</button></li>
+  	<li><button id="watch-replays" class="button">Watch replays</button></li>
+  	<li><button id="options" class="button">Options</button></li>
+  </ul>
+<!--<script src="main.js"></script>-->
+<script type="text/javascript">
+  document.getElementById("player-vs-player").onclick = function () {
+    location.href = "game.html";
+  };
+  document.getElementById("player-vs-computer").onclick = function () {
+    location.href = "game.html";
+  };
+  document.getElementById("computer-vs-computer").onclick = function () {
+    location.href = "game.html";
+  };
+  document.getElementById("options").onclick = function () {
+    location.href = "game.html";
+  };
+</script>
 </body>
 </html>
