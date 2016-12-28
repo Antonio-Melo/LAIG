@@ -30,7 +30,6 @@ serialInclude(['../lib/CGF.js',
 'dsx_classes/primitives/Vehicle.js',
 'dsx_classes/primitives/Piece.js',
 'dsx_classes/primitives/House.js',
-'dsx_classes/primitives/GameHouses.js',
 'dsx_classes/omni.js',
 'dsx_classes/spot.js',
 'dsx_classes/views.js',
@@ -44,6 +43,7 @@ serialInclude(['../lib/CGF.js',
 'animations/linearanimation.js',
 'animations/ComponentAnimation.js',
 'animations/LinearRotation.js',
+'GameLAIG/GameHouses.js',
 main=function()
 {
 	// Standard application, scene and interface setup
