@@ -10,9 +10,6 @@
   this.houses = new GameHouses(this.scene);
  };
 
-GameState.prototype = Object.create(CGFobject.prototype);
-GameState.prototype.constructor = GameState;
-
 GameState.prototype.display = function(){
   this.HexBoard.display();
   this.houses.display();
