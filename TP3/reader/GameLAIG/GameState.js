@@ -8,6 +8,8 @@
   //Game elements
   this.HexBoard = new HexBoard(this.scene);
   this.houses = new GameHouses(this.scene);
+  var teste = makeRequest("handshake");
+  console.debug(teste);
  };
 
 GameState.prototype.display = function(){
