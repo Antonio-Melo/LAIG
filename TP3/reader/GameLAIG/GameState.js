@@ -10,38 +10,42 @@
   this.houses = new GameHouses(this.scene);
   this.listPieces = new Array();
   var teste = makeRequest("gameinit");
-  console.debug(teste.response);
+  //console.debug(teste.response);
   this.processBoard(teste.response);
+  this.pieces = new GamePieces(this.scene,this.listPieces,this.houses);
   var teste2 = makeRequest("quit");
  };
 
 GameState.prototype.display = function(){
   this.HexBoard.display();
   this.houses.display();
+  this.pieces.display();
 }
 GameState.prototype.processBoard = function(board){
   board = board.slice(1,board.length-1);
-  console.debug(board);
+  //console.debug(board);
 
   for(var linha = 0;linha <5;linha++){
     board = board.slice(1,board.length);
-    console.debug(board);
+    if(linha !=0)
+      board = board.slice(1,board.length);
+    //console.debug(board);
     var index = 0;
     var numofpositions =0;
     while(numofpositions != 5){
       if(board.charAt(index) == '['){
         board = board.slice(1,board.length);
-        console.debug(board);
+        //console.debug(board);
         board = this.readPosition(board);
-        console.debug(board);
+        //console.debug(board);
         board = board.slice(1,board.length);
-        console.debug(board);
+        //console.debug(board);
         numofpositions++;
       }
     }
   }
 
-  console.debug(board);
+  //console.debug(board);
   console.debug(this.listPieces);
 }
 
@@ -57,7 +61,7 @@ GameState.prototype.readPosition = function(board){
     }
     index++;
   }
-  console.debug(board.slice(0,index));
+  //console.debug(board.slice(0,index));
   listPosition.push(board.slice(0,index));
   board = board.slice(index+1,board.length);
   this.listPieces.push(listPosition);

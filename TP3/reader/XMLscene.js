@@ -23,7 +23,6 @@ XMLscene.prototype.init = function (application) {
 
 	  this.axis=new CGFaxis(this);
     this.GameState = new GameState(this);
-    this.piece = new Piece(this,"piece1","blue","1");
     this.setPickEnabled(true);
 };
 
@@ -110,7 +109,6 @@ XMLscene.prototype.display = function () {
 		  this.lights[i].update();
     }
     this.graph.displayGraph();
-    this.piece.display();
     this.GameState.display();
 	};
 };
