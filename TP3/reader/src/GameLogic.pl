@@ -11,29 +11,29 @@ lockedPieces(2,0).
 
 gameState(board,lockedPieces,turnToPlay).
 
-%Game Initializer 
-gameInit(0):-
+%Game Initializer
+gameInit(0,NewBoard2):-
         retract(lockedPieces(1, _)),
         assert(lockedPieces(1, 0)),
         retract(lockedPieces(2, _)),
         assert(lockedPieces(2, 0)),
         board(T),
-        write('Placing Player1 Pieces\n'),   
+        %write('Placing Player1 Pieces\n'),
         positionPlayerPieces(1,T,NewBoard),
-        write('Placing Player2 Pieces\n'), 
-        positionPlayerPieces(2,NewBoard,NewBoard2),
-        write('Displaying Initial Board\n'),
-        display_tab(NewBoard2),
-        game_loop(1,NewBoard2).
+        %write('Placing Player2 Pieces\n'),
+        positionPlayerPieces(2,NewBoard,NewBoard2).
+        %write('Displaying Initial Board\n').
+        %display_tab(NewBoard2),
+        %game_loop(1,NewBoard2).
 gameInit(1):-
         retract(lockedPieces(1, _)),
         assert(lockedPieces(1, 0)),
         retract(lockedPieces(2, _)),
         assert(lockedPieces(2, 0)),
         board(T),
-        write('Placing Player1 Pieces\n'),   
+        write('Placing Player1 Pieces\n'),
         positionPlayerPieces(1,T,NewBoard),
-        write('Placing Bot Pieces\n'), 
+        write('Placing Bot Pieces\n'),
         positionPlayerPieces(2,NewBoard,NewBoard2),
         write('Displaying Initial Board\n'),
         display_tab(NewBoard2),
@@ -143,7 +143,7 @@ chooseBestPlay(2,Board,X,Y,BestPlay,Xmove,Ymove,Xsource,Ysource):-
         Y1 is Y+1,
         chooseBestPlay(2,Board,X,Y1,BestPlay,Xmove,Ymove,Xsource,Ysource).
 %---Last Column---%
-%Player 2 Pieces 
+%Player 2 Pieces
 chooseBestPlay(2,Board,X,Y,BestPlay,Xmove,Ymove,Xsource,Ysource):-
         X> 0, X <5,Y ==5,
         getCell(X,Y,Board,C),
@@ -180,7 +180,7 @@ chooseBestPlay(2,Board,X,Y,BestPlay,Xmove,Ymove,Xsource,Ysource):-
         chooseBestPiecePlay(X,Y,Xquad0,Yquad0,Xquad1,Yquad1,Xquad0,Yquad0,Xquad1,Yquad1,Board,BestPlayP,0,XmoveP,YmoveP),
         X1 is X+1,
         ((BestPlayP > BestPlay)->chooseBestPlay(2,Board,X1,1,BestPlayP,XmoveP,YmoveP,X,Y);chooseBestPlay(2,Board,X1,1,BestPlay,Xmove,Ymove,Xsource,Ysource)).
-%Player 1 Pieces 
+%Player 1 Pieces
 chooseBestPlay(2,Board,X,Y,BestPlay,Xmove,Ymove,Xsource,Ysource):-
         X> 0, X <5,Y ==5,
         getCell(X,Y,Board,C),
@@ -208,7 +208,7 @@ chooseBestPlay(2,Board,X,Y,BestPlay,Xmove,Ymove,Xsource,Ysource):-
 %Last Position
 chooseBestPlay(2,Board,X,Y,BestPlay,Xmove,Ymove,Xsource,Ysource):-
         X == 5,Y== 5.
-        
+
 %------ Chooses best piece move -------%
 %Top Point conditions
 chooseBestPiecePlay(X,Y,X1,Y1,X2,Y2,X3,Y3,X4,Y4,Board,BestPlay,Stop,Xmove,Ymove):-
@@ -371,7 +371,7 @@ positionPlayerPieces(N,T,NewBoard):-
         positionMediumPiecies(N,New1,New2),
         positionLargePiecies(N,New2,NewBoard).
 
-%Place Small Player Piecies 
+%Place Small Player Piecies
 
 positionSmallPiecies(N,T,NewBoard):-
         %write('Placing Player SmallPiece\n'),
@@ -402,26 +402,26 @@ positionLargePiecies(N,T,NewBoard):-
 
 placePiece(N,T,NewBoard,Placed,Char):-
          Placed == 0,
-         %write('Vou gerar um posição\n'),
+         %write('Vou gerar um posiï¿½ï¿½o\n'),
          generateRandomNumber(X,Y),
-         %write('Gerei um posição\n'),
+         %write('Gerei um posiï¿½ï¿½o\n'),
          %write(X),
          %write(Y),
          getCell(X,Y,T,[C]),
          %write(C),
          ((C == empty)->(
-                %write('\nEncontrei uma celula vazia\n'),                           
+                %write('\nEncontrei uma celula vazia\n'),
                 emptyCell(X,Y,T,NewT),
                 %write('Limpei a casa\n'),
                 setCell(X,Y,NewT,[Char],NewBoard),
-                %write('Dei set\n'), 
+                %write('Dei set\n'),
                 %getCell(X,Y,NewBoard,[B]),
                 %write(B),
                 placePiece(N,T,NewBoard,1,Char)); (placePiece(N,T,NewBoard,Placed,Char))).
-         
+
 
 placePiece(N,T,NewBoard,Placed,Char):-
-         Placed == 1.      
+         Placed == 1.
 
 %Generates a random Coord(X,Y) [1,5]
 generateRandomNumber(X,Y):-
@@ -430,7 +430,7 @@ generateRandomNumber(X,Y):-
 
 
 equalPosition(X,Y,Z,X1,Y1,Z1):-
-        ((X == X1)->((Y == Y1)->((Z == Z1)->true))).        
+        ((X == X1)->((Y == Y1)->((Z == Z1)->true))).
 
 %Locks Piece
 lockPiece(Player):-
@@ -457,14 +457,14 @@ unlockPiece(C):-
         ((last(C,s2))->unlockPiece(2));true,
         ((last(C,m2))->unlockPiece(2));true,
         ((last(C,l2))->unlockPiece(2));true.
-      
+
 %Checks if the player can move certain Piece from (Row, Col) to (RowDest,ColDest) in the Board
 checkIsValidMove(Row, Col,RowDest,ColDest, 1, Board):-
         getCell(Row,Col,Board,C),
         write(C),nl,
         getCell(RowDest,ColDest,Board,D),
         write(D),nl,
-        
+
          ((last(D,x))->fail;true),
          ((last(D,center))->fail;true),
          ((last(C,x))->fail;true),
@@ -501,7 +501,7 @@ checkIsValidMove(Row, Col,RowDest,ColDest, 2, Board):-
         write(C),nl,
         getCell(RowDest,ColDest,Board,D),
         write(D),nl,
-        
+
         ((last(D,center))->fail;true),
          ((last(C,x))->fail;true),
          ((last(C,s2))->( ((areAdjacent(Row,Col,RowDest,ColDest,3))->true;fail),
@@ -537,7 +537,7 @@ movePiece(Row,Col,RowDest,ColDest,Board,NewBoard):-
         lastElem(C,Las),
         % write(Las),
         emptyCell(Row,Col,Board,NewBoard1),
-        
+
         getCell(Row,Col,NewBoard1,C2),
         write(C2),nl,
         unlockPiece(C2),

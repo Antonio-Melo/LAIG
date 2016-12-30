@@ -105,7 +105,9 @@ print_header_line(_).
 :- ensure_loaded('src/GameLogic.pl').
 :- ensure_loaded('src/util.pl').
 
-parse_input(handshake, handshake).
+parse_input(gameinit, Board):-
+	gameInit(0,Board).
+
 parse_input(test(C,N), Res) :- test(C,Res,N).
 parse_input(quit, goodbye).
 
