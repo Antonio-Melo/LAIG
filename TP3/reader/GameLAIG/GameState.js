@@ -20,18 +20,22 @@ GameState.prototype.display = function(){
   this.houses.display();
 }
 GameState.prototype.processBoard = function(board){
-  console.debug(board.length);
   board = board.slice(1,board.length-1);
-  board = board.slice(1,board.length);
+  console.debug(board);
 
   for(var linha = 0;linha <5;linha++){
+    board = board.slice(1,board.length);
+    console.debug(board);
     var index = 0;
     var numofpositions =0;
     while(numofpositions != 5){
       if(board.charAt(index) == '['){
         board = board.slice(1,board.length);
+        console.debug(board);
         board = this.readPosition(board);
+        console.debug(board);
         board = board.slice(1,board.length);
+        console.debug(board);
         numofpositions++;
       }
     }
