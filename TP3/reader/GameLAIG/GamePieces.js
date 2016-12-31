@@ -7,15 +7,16 @@
   this.scene = scene;
   this.list = new Array();
 
-  for(var i = 1; i < 6;i++){
+  for(var i = 0; i < 5;i++){
     for(var f = 1;f < 6;f++){
-      if(listofPieces[(i*f)-1] == 'x' ||listofPieces[(i*f)-1] == 'center'){
+      if(listofPieces[i*5+f-1] == 'x'){
       }else{
-        var type = listofPieces[(i*f)-1][0].charAt(0);
-        var player = listofPieces[(i*f)-1][0].charAt(1);
-        console.debug(i.toString()+f.toString());
+        var type = listofPieces[i*5+f-1][0].charAt(0);
+        var player = listofPieces[i*5+f-1][0].charAt(1);
+        var ii = i+1;
+        console.debug(ii.toString()+f.toString());
         var house = houses.list[i.toString()+f.toString()];
-        this.list[listofPieces[(i*f)-1][0]] = new Piece(this.scene,listofPieces[(i*f)-1][0],player,type,house);
+        this.list[listofPieces[i*5+f-1][0]] = new Piece(this.scene,listofPieces[i*5+f-1][0],player,type,house);
       }
     }
   }
