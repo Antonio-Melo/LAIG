@@ -8,14 +8,31 @@
   this.type = type;
   this.player = player;
   this.house = house;
+  var ptexture;
+  var ttexture;
+  if(this.player == "1")  ptexture = "blue";
+  else ptexture = "red";
+  switch (this.type) {
+    case "s":
+      ttexture = "3";
+      break;
+    case "m":
+      ttexture = "2";
+      break;
+    case "l":
+      ttexture = "1";
+      break;
+    default:
+      break;
+  }
 
   this.surface = new CylinderSurf(scene,this.id,2.5,2.5,1,40,40);
   this.topCir = new CylinderBase(scene,2.5,40);
   this.baseCir = new CylinderBase(scene,2.5,40);
   this.basecolor = new CGFappearance(scene);
-  this.basecolor.loadTexture("textures\\red.png");
+  this.basecolor.loadTexture("textures\\"+ptexture+".png");
   this.topcolor = new CGFappearance(scene);
-  this.topcolor.loadTexture("textures\\red1.png");
+  this.topcolor.loadTexture("textures\\"+ptexture+ttexture+".png");
  };
 
 Piece.prototype = Object.create(CGFobject.prototype);
