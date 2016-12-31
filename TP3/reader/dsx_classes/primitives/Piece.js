@@ -24,11 +24,12 @@ Piece.prototype.constructor = Piece;
 Piece.prototype.display = function(){
   this.basecolor.apply();
   this.scene.pushMatrix();
-    this.scene.translate(this.house.x,0,this.house.y);
+    this.scene.translate(this.house.x,0,this.house.z);
     this.scene.rotate(-Math.PI/2,1,0,0);
     this.surface.display();
   this.scene.popMatrix();
   this.scene.pushMatrix();
+    this.scene.translate(this.house.x,0,this.house.z);
     this.scene.rotate(-Math.PI/2,1,0,0);
     this.scene.rotate(Math.PI,0,1,0);
     this.baseCir.display();
@@ -36,6 +37,7 @@ Piece.prototype.display = function(){
 
   this.scene.pushMatrix();
     this.topcolor.apply();
+    this.scene.translate(this.house.x,0,this.house.z);
     this.scene.rotate(-Math.PI/2,1,0,0);
     this.scene.translate(0,0,1);
     this.topCir.display();

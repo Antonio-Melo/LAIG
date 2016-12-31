@@ -15,7 +15,8 @@
         var player = listofPieces[i*5+f-1][0].charAt(1);
         var ii = i+1;
         console.debug(ii.toString()+f.toString());
-        var house = houses.list[i.toString()+f.toString()];
+        var house = houses.list[ii.toString()+f.toString()];
+        console.debug(house);
         this.list[listofPieces[i*5+f-1][0]] = new Piece(this.scene,listofPieces[i*5+f-1][0],player,type,house);
       }
     }
