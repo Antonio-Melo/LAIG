@@ -17,7 +17,8 @@
         console.debug(ii.toString()+f.toString());
         var house = houses.list[ii.toString()+f.toString()];
         console.debug(house);
-        this.list[ii.toString()+f.toString()] = new Piece(this.scene,listofPieces[i*5+f-1][0],player,type,house);
+        this.list[ii.toString()+f.toString()] = new Array();
+        this.list[ii.toString()+f.toString()][0] = new Piece(this.scene,listofPieces[i*5+f-1][0],player,type,house);
       }
     }
   }
@@ -28,7 +29,9 @@ GamePieces.prototype.constructor = GamePieces;
 
 GamePieces.prototype.display = function(){
   for(var key in this.list){
-    this.scene.registerForPick(key,this.list[key]);
-    this.list[key].display();
+    for(var i = 0;i < this.list[key].length;i++){
+      this.scene.registerForPick(key,this.list[key][i]);
+      this.list[key][i].display();
+    }
   }
 }
