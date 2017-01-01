@@ -8,6 +8,7 @@
   this.type = type;
   this.player = player;
   this.house = house;
+  this.y = 0; 
   var ptexture;
   var ttexture;
   if(this.player == "1")  ptexture = "blue";
