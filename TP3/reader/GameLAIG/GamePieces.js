@@ -5,8 +5,15 @@
  	CGFobject.call(this,scene);
 
   this.scene = scene;
-  this.list = new Array();
+  this.list = [];
+  this.update(listofPieces,houses);
+ };
 
+GamePieces.prototype = Object.create(CGFobject.prototype);
+GamePieces.prototype.constructor = GamePieces;
+
+GamePieces.prototype.update = function(listofPieces,houses){
+  this.list = [];
   for(var i = 0; i < 5;i++){
     for(var f = 1;f < 6;f++){
       if(listofPieces[i*5+f-1] == 'x' || listofPieces[i*5+f-1] == 'center'){
@@ -22,10 +29,7 @@
       }
     }
   }
- };
-
-GamePieces.prototype = Object.create(CGFobject.prototype);
-GamePieces.prototype.constructor = GamePieces;
+}
 
 GamePieces.prototype.display = function(){
   for(var key in this.list){

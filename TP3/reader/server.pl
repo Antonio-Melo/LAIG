@@ -112,7 +112,9 @@ parse_input(gameinit, Board):-
 % GAME REQUESTS
 parse_input(Message,Response):-
 	write(Message),nl,
-	getInt(Message,Response1,Row),
+	getInt(Message,Response0,ReqType),
+	write(ReqType),nl,
+	getInt(Response0,Response1,Row),
 	write(Row),nl,
 	getInt(Response1,Response2,Col),
 	write(Col),nl,
@@ -123,12 +125,18 @@ parse_input(Message,Response):-
 	getInt(Response4,Board,Player),
 	write(Player),nl,
 	write(Board),nl,
-	(getValidation(Row,Col,RowDes,ColDest,Board,Player)->
-		(write('Validei'),nl,append([],[1],Response));(write('Nao validei'),nl,append([],[0],Response))).
+	((ReqType =:= 1)->(
+	(validateMove(Row,Col,RowDes,ColDest,Board,Player)->
+		(write('Validei'),nl,append([],[1],Response));(write('Nao validei'),nl,append([],[0],Response))));
+	(validateMovePiece(Row,Col,RowDes,ColDest,Board,Response))
+	).
 
-getValidation(Row,Col,RowDes,ColDest,[B|Bs],Player):-
+validateMove(Row,Col,RowDes,ColDest,[B|Bs],Player):-
 	write('Vou validar'),nl,write(B),nl,
 	checkIsValidMove(Row,Col,RowDes,ColDest,Player,B).
+
+validateMovePiece(Row,Col,RowDes,ColDest,[B|Bs],Response):-
+	movePiece(Row,Col,RowDes,ColDest,B,Response).
 
 
 
