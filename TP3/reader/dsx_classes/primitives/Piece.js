@@ -57,7 +57,7 @@ Piece.prototype.display = function(){
 
   this.scene.pushMatrix();
     this.topcolor.apply();
-    this.scene.translate(this.house.x,0,this.house.z);
+    this.scene.translate(this.house.x,this.y,this.house.z);
     this.scene.rotate(-Math.PI/2,1,0,0);
     this.scene.translate(0,0,1);
     this.topCir.display();
