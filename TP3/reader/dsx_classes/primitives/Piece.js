@@ -1,14 +1,14 @@
 /*
   Class that represents a Piece primitive in the scene
 */
- function Piece(scene,id,player,type,house) {
+ function Piece(scene,id,player,type,house,y) {
  	CGFobject.call(this,scene);
 
   this.id = id;
   this.type = type;
   this.player = player;
   this.house = house;
-  this.y = 0; 
+  this.y = y;
   var ptexture;
   var ttexture;
   if(this.player == "1")  ptexture = "blue";
@@ -26,6 +26,8 @@
     default:
       break;
   }
+  console.debug(ptexture);
+  console.debug(ttexture);
 
   this.surface = new CylinderSurf(scene,this.id,2.5,2.5,1,40,40);
   this.topCir = new CylinderBase(scene,2.5,40);
@@ -42,12 +44,12 @@ Piece.prototype.constructor = Piece;
 Piece.prototype.display = function(){
   this.basecolor.apply();
   this.scene.pushMatrix();
-    this.scene.translate(this.house.x,0,this.house.z);
+    this.scene.translate(this.house.x,this.y,this.house.z);
     this.scene.rotate(-Math.PI/2,1,0,0);
     this.surface.display();
   this.scene.popMatrix();
   this.scene.pushMatrix();
-    this.scene.translate(this.house.x,0,this.house.z);
+    this.scene.translate(this.house.x,this.y,this.house.z);
     this.scene.rotate(-Math.PI/2,1,0,0);
     this.scene.rotate(Math.PI,0,1,0);
     this.baseCir.display();

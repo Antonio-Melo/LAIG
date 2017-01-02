@@ -6,6 +6,7 @@
 
   this.scene = scene;
   this.list = [];
+
   this.update(listofPieces,houses);
  };
 
@@ -14,18 +15,22 @@ GamePieces.prototype.constructor = GamePieces;
 
 GamePieces.prototype.update = function(listofPieces,houses){
   this.list = [];
+  //console.debug(listofPieces);
   for(var i = 0; i < 5;i++){
     for(var f = 1;f < 6;f++){
-      if(listofPieces[i*5+f-1] == 'x' || listofPieces[i*5+f-1] == 'center'){
+      if(listofPieces[i*5+f-1] == 'x' || listofPieces[i*5+f-1] == 'center' || listofPieces[i*5+f-1] == ''){
       }else{
-        var type = listofPieces[i*5+f-1][0].charAt(0);
-        var player = listofPieces[i*5+f-1][0].charAt(1);
         var ii = i+1;
-        console.debug(ii.toString()+f.toString());
+        //console.debug(ii.toString()+f.toString());
         var house = houses.list[ii.toString()+f.toString()];
-        console.debug(house);
+        //console.debug(house);
         this.list[ii.toString()+f.toString()] = new Array();
-        this.list[ii.toString()+f.toString()][0] = new Piece(this.scene,listofPieces[i*5+f-1][0],player,type,house);
+        for(var x = 0; x < listofPieces[i*5+f-1].length;x++){
+            var type = listofPieces[i*5+f-1][x].charAt(0);
+            var player = listofPieces[i*5+f-1][x].charAt(1);
+            this.list[ii.toString()+f.toString()][x] = new Piece(this.scene,listofPieces[i*5+f-1][x],player,type,house,x);
+        }
+        //this.list[ii.toString()+f.toString()][0] = new Piece(this.scene,listofPieces[i*5+f-1][0],player,type,house);
       }
     }
   }

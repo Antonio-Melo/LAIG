@@ -80,13 +80,13 @@ GameState.prototype.readPosition = function(board){
   while (board.charAt(index) != ']') {
     //console.debug(board.charAt(index));
     if(board.charAt(index) ==','){
-      listPosition.push(board.slice(0,index));
+      listPosition.push(board.slice(lastindex,index));
       lastindex = index +1;
     }
     index++;
   }
   //console.debug(board.slice(0,index));
-  listPosition.push(board.slice(0,index));
+  listPosition.push(board.slice(lastindex,index));
   board = board.slice(index+1,board.length);
   this.listPieces.push(listPosition);
   return board;
