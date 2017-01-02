@@ -6,6 +6,8 @@
 
   this.scene = scene;
   //Game elements
+  this.PlayerinGame = "1";
+  this.PickedPiece = null;
   this.HexBoard = new HexBoard(this.scene);
   this.houses = new GameHouses(this.scene);
   this.listPieces = new Array();
@@ -14,8 +16,8 @@
   //console.debug(teste.response);
   this.processBoard(teste.response);
   this.pieces = new GamePieces(this.scene,this.listPieces,this.houses);
-  this.checkIsValidMove("2","3","3","4","1");
-  this.requestMove("2","3","3","4","1");
+  //this.checkIsValidMove("2","3","3","4","1");
+  //this.requestMove("2","3","3","4","1");
   var teste2 = makeRequest("quit");
  };
 
@@ -25,13 +27,31 @@ GameState.prototype.display = function(){
   this.pieces.display();
 }
 
+GameState.prototype.processPick = function(id){
+  if(this.PickedPiece == null){
+    console.debug("Não tinha nenhum");
+    this.PickedPiece = id;
+  }else{
+    console.debug("Já tinha");
+    var Row = this.PickedPiece[0];
+    var Col = this.PickedPiece[1];
+    var RowDest = id[0];
+    var ColDest = id[1];
+    if(this.checkIsValidMove(Row,Col,RowDest,ColDest,this.PlayerinGame) == "[1]"){
+      console.debug("Vou fazer request");
+      this.requestMove(Row,Col,RowDest,ColDest,this.PlayerinGame);
+    }
+    this.PickedPiece = null;
+  }
+}
+
 GameState.prototype.checkIsValidMove = function(Row,Col,RowDest,ColDest,Player){
   var RequestType = 1;
   var Coords = "["+RequestType+","+Row+","+Col+","+RowDest+","+ColDest+","+Player+",";
   var Message = Coords + this.listBoardProlog+"]";
   console.debug(Message);
   var Response = makeRequest(Message);
-  console.debug(Response.response);
+  return Response.response;
 }
 GameState.prototype.requestMove = function(Row,Col,RowDest,ColDest,Player){
   var RequestType = 0;

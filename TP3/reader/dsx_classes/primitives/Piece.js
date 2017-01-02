@@ -26,8 +26,8 @@
     default:
       break;
   }
-  console.debug(ptexture);
-  console.debug(ttexture);
+  //console.debug(ptexture);
+  //console.debug(ttexture);
 
   this.surface = new CylinderSurf(scene,this.id,2.5,2.5,1,40,40);
   this.topCir = new CylinderBase(scene,2.5,40);
