@@ -10,9 +10,11 @@
   this.houses = new GameHouses(this.scene);
   this.listPieces = new Array();
   var teste = makeRequest("gameinit");
+  this.listBoardProlog = teste.response;
   //console.debug(teste.response);
   this.processBoard(teste.response);
   this.pieces = new GamePieces(this.scene,this.listPieces,this.houses);
+  this.checkIsValidMove("2","3","3","4","1");
   var teste2 = makeRequest("quit");
  };
 
@@ -20,6 +22,14 @@ GameState.prototype.display = function(){
   this.HexBoard.display();
   this.houses.display();
   this.pieces.display();
+}
+
+GameState.prototype.checkIsValidMove = function(Row,Col,RowDest,ColDest,Player){
+  var Coords = "["+Row+","+Col+","+RowDest+","+ColDest+","+Player+",";
+  var Message = Coords + this.listBoardProlog+"]";
+  console.debug(Message);
+  var Response = makeRequest(Message);
+  console.debug(Response.response);
 }
 GameState.prototype.processBoard = function(board){
   board = board.slice(1,board.length-1);

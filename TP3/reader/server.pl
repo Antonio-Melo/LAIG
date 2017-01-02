@@ -103,13 +103,39 @@ print_header_line(_).
 
 % Require your Prolog Files here
 :- ensure_loaded('src/GameLogic.pl').
-:- ensure_loaded('src/util.pl').
+:- ensure_loaded('src/utils.pl').
 
+% GAME INIT
 parse_input(gameinit, Board):-
 	gameInit(0,Board).
 
-parse_input(test(C,N), Res) :- test(C,Res,N).
-parse_input(quit, goodbye).
+% GAME REQUESTS
+parse_input(Message,Response):-
+	write(Message),nl,
+	getInt(Message,Response1,Row),
+	write(Row),nl,
+	getInt(Response1,Response2,Col),
+	write(Col),nl,
+	getInt(Response2,Response3,RowDes),
+	write(RowDes),nl,
+	getInt(Response3,Response4,ColDest),
+	write(ColDest),nl,
+	getInt(Response4,Board,Player),
+	write(Player),nl,
+	write(Board),nl,
+	(getValidation(Row,Col,RowDes,ColDest,Board,Player)->
+		(write('Validei'),nl,append([],[1],Response));(write('Nao validei'),nl,append([],[0],Response))).
 
-test(_,[],N) :- N =< 0.
-test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).
+getValidation(Row,Col,RowDes,ColDest,[B|Bs],Player):-
+	write('Vou validar'),nl,write(B),nl,
+	checkIsValidMove(Row,Col,RowDes,ColDest,Player,B).
+
+
+
+
+getInt([H|T],NewMessage,Number):-
+	append([],H,Number),
+	append([],T,NewMessage).
+
+% GAME ENDING
+parse_input(quit, goodbye).
