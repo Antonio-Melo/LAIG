@@ -38,7 +38,7 @@ LinearAnimation.prototype.update = function (currTime) {
 
   if(this.lastAnimationTime == -1){
     dtime = 0;
-    this.initialTime = currTime
+    this.initialTime = currTime;
   }
   else{
     dtime = (currTime -this.lastAnimationTime)/1000;

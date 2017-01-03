@@ -605,7 +605,7 @@ MySceneGraph.prototype.visitGraph = function(node_id,textureStack,materialStack)
 
 		//Apply transformations
 		this.scene.pushMatrix();
-		if (node.animated != null)
+		if(node.animated != null)
 			this.scene.multMatrix(node.animated.getAnimationMatrix());
 		this.scene.multMatrix(this.transformations[node.transref].matrix);
 
