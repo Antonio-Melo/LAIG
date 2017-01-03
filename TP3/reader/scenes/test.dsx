@@ -37,6 +37,18 @@
             <from x="0.0" y="30.0" z="50.0" />
             <to x="0.0" y="0.0" z="0.0" />
         </perspective>
+        <perspective id="p3" near="0.1" far="500.0" angle="40.0">
+            <from x="50.0" y="30.0" z="0.1" />
+            <to x="0.0" y="0.0" z="0.0" />
+        </perspective>
+        <perspective id="p4" near="0.1" far="500.0" angle="40.0">
+            <from x="0.0" y="30.0" z="-50.0" />
+            <to x="0.0" y="0.0" z="0.0" />
+        </perspective>
+        <perspective id="p3" near="0.1" far="500.0" angle="40.0">
+            <from x="-50.0" y="30.0" z="0.1" />
+            <to x="0.0" y="0.0" z="0.0" />
+        </perspective>
 
     </views>
 

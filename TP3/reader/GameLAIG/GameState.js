@@ -19,6 +19,7 @@
   //this.checkIsValidMove("2","3","3","4","1");
   //this.requestMove("2","3","3","4","1");
   //var teste2 = makeRequest("quit");
+
  };
 
 GameState.prototype.display = function(){
@@ -48,6 +49,7 @@ GameState.prototype.processPick = function(id){
       if(this.checkIsValidMove(Row,Col,RowDest,ColDest,this.PlayerinGame) == "[1]"){
         console.debug("Vou fazer request");
         this.requestMove(Row,Col,RowDest,ColDest,this.PlayerinGame);
+        this.requestLockedPieces();
         if(this.PlayerinGame == "1"){
           this.PlayerinGame = "2";
         }else this.PlayerinGame = "1";
@@ -77,6 +79,12 @@ GameState.prototype.requestMove = function(Row,Col,RowDest,ColDest,Player){
   this.pieces.update(Row,Col,RowDest,ColDest,this.listPieces,this.houses);
   console.debug(Response.response);
 }
+
+GameState.prototype.requestLockedPieces = function(){
+  var Response = makeRequest("locked");
+  console.debug(Response.response);
+}
+
 GameState.prototype.processBoard = function(board){
   this.listPieces = [];
   board = board.slice(1,board.length-1);

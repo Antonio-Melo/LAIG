@@ -108,7 +108,11 @@ print_header_line(_).
 % GAME INIT
 parse_input(gameinit, Board):-
 	gameInit(0,Board).
-
+% GAME LOCKED PIECES
+parse_input(locked,Locked):-
+	lockedPieces(1, CurrentPieces1),
+	lockedPieces(2, CurrentPieces2),
+	append([CurrentPieces1],[CurrentPieces2],Locked).
 % GAME REQUESTS
 parse_input(Message,Response):-
 	write(Message),nl,
