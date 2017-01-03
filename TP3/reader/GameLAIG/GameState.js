@@ -27,7 +27,23 @@ GameState.prototype.display = function(){
   this.houses.display();
   this.pieces.display();
 }
+GameState.prototype.checkWin = function(scores){
+  var blueScore = scores.charAt(1);
+  var redScore = scores.charAt(3);
+  if(blueScore == "9"){
+    console.debug("Red player wins");
+    this.closeServer();
+  }
+  if(redScore == "9"){
+    console.debug("Blue player wins");
+    this.closeServer();
+  }
 
+}
+
+GameState.prototype.closeServer = function(){
+  makeRequest("quit");
+}
 GameState.prototype.processPick = function(id){
   if(this.PickedPiece == null){
     console.debug("Não tinha nenhum");
@@ -83,6 +99,7 @@ GameState.prototype.requestMove = function(Row,Col,RowDest,ColDest,Player){
 GameState.prototype.requestLockedPieces = function(){
   var Response = makeRequest("locked");
   console.debug(Response.response);
+  this.checkWin(Response.response);
 }
 
 GameState.prototype.processBoard = function(board){
