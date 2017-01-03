@@ -29,8 +29,10 @@ GameState.prototype.display = function(){
 
 GameState.prototype.processPick = function(id){
   if(this.PickedPiece == null){
-    console.debug("Não tinha nenhum");
-    this.PickedPiece = id;
+    if(this.pieces.list[id].length != 0){
+      console.debug("Não tinha nenhum");
+      this.PickedPiece = id;
+    }
   }else{
     console.debug("Já tinha");
     var Row = this.PickedPiece[0];
