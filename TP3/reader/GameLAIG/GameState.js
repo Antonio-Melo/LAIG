@@ -34,6 +34,7 @@ GameState.prototype.processPick = function(id){
       this.PickedPiece = id;
     }
   }else{
+    console.debug(this.PlayerinGame);
     console.debug("Já tinha");
     var Row = this.PickedPiece[0];
     var Col = this.PickedPiece[1];

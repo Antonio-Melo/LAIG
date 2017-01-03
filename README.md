@@ -1,4 +1,5 @@
 TODO
 2/01
-- Fazer um game loop (usar o picking) com animação instantanea
 - Faz animação
+- Verificar vitória
+- Fazer score no game.html
