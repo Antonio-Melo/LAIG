@@ -29,14 +29,14 @@ GameState.prototype.display = function(){
 
 GameState.prototype.processPick = function(id){
   if(this.PickedPiece == null){
-    var RowDest = id[0];
-    var ColDest = id[1];
-    if(RowDest != "3" && ColDest != "3"){
-    if(this.pieces.list[id].length != 0){
-      console.debug("Não tinha nenhum");
-      this.PickedPiece = id;
+    console.debug("Não tinha nenhum");
+    var Row = id[0];
+    var Col = id[1];
+    if(!(Row == "3" && Col == "3")){
+      if(this.pieces.list[id].length != 0){
+        this.PickedPiece = id;
+      }
     }
-  }
   }else{
     console.debug(this.PlayerinGame);
     console.debug("Já tinha");
@@ -44,12 +44,14 @@ GameState.prototype.processPick = function(id){
     var Col = this.PickedPiece[1];
     var RowDest = id[0];
     var ColDest = id[1];
-    if(this.checkIsValidMove(Row,Col,RowDest,ColDest,this.PlayerinGame) == "[1]" && RowDest != "3" && ColDest != "3"){
-      console.debug("Vou fazer request");
-      this.requestMove(Row,Col,RowDest,ColDest,this.PlayerinGame);
-      if(this.PlayerinGame == "1"){
-        this.PlayerinGame = "2";
-      }else this.PlayerinGame = "1";
+    if(!(RowDest == "3" && ColDest == "3")){
+      if(this.checkIsValidMove(Row,Col,RowDest,ColDest,this.PlayerinGame) == "[1]"){
+        console.debug("Vou fazer request");
+        this.requestMove(Row,Col,RowDest,ColDest,this.PlayerinGame);
+        if(this.PlayerinGame == "1"){
+          this.PlayerinGame = "2";
+        }else this.PlayerinGame = "1";
+      }
     }
     this.PickedPiece = null;
   }
