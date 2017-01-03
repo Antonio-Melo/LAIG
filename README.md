@@ -1,5 +1,5 @@
 TODO
-2/01
+3/01
 - Faz animação
 - Fazer score no game.html
 
@@ -9,7 +9,9 @@ Criação da cena de jogo (4.5 valores)
 
 Peças (4.5 valores)
 - Movimento e animação por imagens chave.
-- Visualização (3 valores)
+
+
+Visualização (3 valores)
 - Ambientes de jogo
 
 
