@@ -6,15 +6,6 @@
 
   this.scene = scene;
   this.list = [];
-
-  this.update(listofPieces,houses);
- };
-
-GamePieces.prototype = Object.create(CGFobject.prototype);
-GamePieces.prototype.constructor = GamePieces;
-
-GamePieces.prototype.update = function(listofPieces,houses){
-  this.list = [];
   //console.debug(listofPieces);
   for(var i = 0; i < 5;i++){
     for(var f = 1;f < 6;f++){
@@ -30,10 +21,23 @@ GamePieces.prototype.update = function(listofPieces,houses){
             var player = listofPieces[i*5+f-1][x].charAt(1);
             this.list[ii.toString()+f.toString()][x] = new Piece(this.scene,listofPieces[i*5+f-1][x],player,type,house,x);
         }
-        //this.list[ii.toString()+f.toString()][0] = new Piece(this.scene,listofPieces[i*5+f-1][0],player,type,house);
       }
     }
   }
+ };
+
+GamePieces.prototype = Object.create(CGFobject.prototype);
+GamePieces.prototype.constructor = GamePieces;
+
+GamePieces.prototype.update = function(Row,Col,RowDest,ColDest,listofPieces,houses){
+  var Coord = Row+Col;
+  console.debug(Coord);
+  var Coord2 = RowDest+ColDest;
+  console.debug(Coord2);
+  this.list[Coord2].push(this.list[Coord][this.list[Coord].length-1]);
+  this.list[Coord].pop();
+  this.list[Coord2][this.list[Coord2].length-1].changeHouse(houses.list[Coord2],this.list);
+  console.debug(this.list[Coord2][this.list[Coord2].length-1]);
 }
 
 GamePieces.prototype.display = function(){

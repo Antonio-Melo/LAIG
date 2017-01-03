@@ -41,6 +41,11 @@
 Piece.prototype = Object.create(CGFobject.prototype);
 Piece.prototype.constructor = Piece;
 
+Piece.prototype.changeHouse = function(house,pieces){
+    this.house = house;
+    this.id = house.id;
+    this.y = pieces[this.id].length-1;
+}
 Piece.prototype.display = function(){
   this.basecolor.apply();
   this.scene.pushMatrix();
