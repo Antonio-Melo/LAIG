@@ -1,6 +1,8 @@
 TODO
-3/01
-- Fazer score no game.html
+4/01
+- Undo
+- Ambientes de jogo
+- Medição do tempo de jogo 
 
 Criação da cena de jogo (4.5 valores)
 - Done
@@ -21,7 +23,6 @@ Funcionalidades genéricas do jogo (2.5 valores)
 
 
 Outras Funcionalidades (1.5 valores)
-- Marcador
 - Filme do jogo
 - Medição do tempo de jogo
 
