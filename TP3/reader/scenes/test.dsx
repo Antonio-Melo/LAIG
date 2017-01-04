@@ -30,7 +30,7 @@
         <!-- ultima vista da lista volta 'a primeira -->
 
         <perspective id="p1" near="0.1" far="500.0" angle="40.0">
-            <from x="0.0" y="58.0" z="0.1" />
+            <from x="0.0" y="67.0" z="0.1" />
             <to x="0.0" y="0.0" z="0.0" />
         </perspective>
         <perspective id="p2" near="0.1" far="500.0" angle="40.0">
@@ -38,7 +38,7 @@
             <to x="0.0" y="0.0" z="0.0" />
         </perspective>
         <perspective id="p3" near="0.1" far="500.0" angle="40.0">
-            <from x="50.0" y="30.0" z="0.1" />
+            <from x="55.0" y="30.0" z="0.1" />
             <to x="0.0" y="0.0" z="0.0" />
         </perspective>
         <perspective id="p4" near="0.1" far="500.0" angle="40.0">
@@ -46,7 +46,7 @@
             <to x="0.0" y="0.0" z="0.0" />
         </perspective>
         <perspective id="p3" near="0.1" far="500.0" angle="40.0">
-            <from x="-50.0" y="30.0" z="0.1" />
+            <from x="-55.0" y="30.0" z="0.1" />
             <to x="0.0" y="0.0" z="0.0" />
         </perspective>
 
