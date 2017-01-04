@@ -147,5 +147,9 @@ XMLscene.prototype.update = function (currTime) {
     for(var id in this.graph.animations)
       this.graph.animations[id].update(currTime);
   }
-  if(this.GameState.animation != null) this.GameState.animation.update(currTime);
+  if(this.GameState.animation != null) {
+    if(this.GameState.animation.finished == false)
+      this.GameState.animation.update(currTime);
+    else   this.GameState.animation == null;
+  }
 };
