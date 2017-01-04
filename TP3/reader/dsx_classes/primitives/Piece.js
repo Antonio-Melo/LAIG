@@ -56,6 +56,11 @@ Piece.prototype.animate = function(animation){
 Piece.prototype.display = function(){
   this.basecolor.apply();
   this.scene.pushMatrix();
+    if(this.animation != null){
+      if(this.animation.finished){
+        this.animated = false;
+      }
+    }
     if(!this.animated){
       this.scene.translate(this.house.x,this.y,this.house.z);
     }else{

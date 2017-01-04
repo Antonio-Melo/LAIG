@@ -150,6 +150,6 @@ XMLscene.prototype.update = function (currTime) {
   if(this.GameState.animation != null) {
     if(this.GameState.animation.finished == false)
       this.GameState.animation.update(currTime);
-    else   this.GameState.animation == null;
+    else   this.GameState.animation = null;
   }
 };
