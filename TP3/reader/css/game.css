@@ -1,0 +1,44 @@
+body, html {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background-color: #808000;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+}
+#game {
+	width: 100%;
+	height: 100%;
+}
+#interface {
+	width: 100%;
+	height: 80px;
+  margin-left: 40%;
+}
+.interface-section {
+	display: inline-block;
+}
+#player-blue, #player-red {
+	height: 50px;
+	width: 10%;
+	margin: 15px 5% 15px 5%;
+	display: inline-block;
+	vertical-align: middle;
+	border-radius: 3px;
+}
+#player-blue-score, #player-red-score {
+	display: inline;
+	font-size: 2vw;
+	vertical-align: middle;
+	text-align: center;
+}
+#blue-piece, #red-piece {
+	height: 100%;
+	width: 60%;
+	vertical-align: middle;
+	margin: 0 2% 0 2%;
+}

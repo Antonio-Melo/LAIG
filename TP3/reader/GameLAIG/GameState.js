@@ -118,7 +118,7 @@ GameState.prototype.calculatePoints = function(Piece,HouseOrigin,HouseDest,id){
     var middlePoint = [(HouseDest.x+HouseOrigin.x)/2,this.pieces.list[HouseDest.id].length+1,(HouseOrigin.z+HouseDest.z)/2];
   var lastPoint = [HouseDest.x,this.pieces.list[HouseDest.id].length,HouseDest.z];
   var points = [firstPoint,middlePoint,lastPoint];
-  console.debug(points)
+  console.debug(points);
   return points;
 }
 GameState.prototype.checkIsValidMove = function(Row,Col,RowDest,ColDest,Player){
@@ -144,7 +144,8 @@ GameState.prototype.requestMove = function(Row,Col,RowDest,ColDest,Player){
 
 GameState.prototype.requestLockedPieces = function(){
   var Response = makeRequest("locked");
-  //console.debug(Response.response);
+  document.getElementById("player-blue-score").innerHTML = Response.response[1];
+  document.getElementById("player-red-score").innerHTML = Response.response[3];
   this.checkWin(Response.response);
 }
 
