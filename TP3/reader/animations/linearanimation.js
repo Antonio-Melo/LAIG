@@ -3,6 +3,8 @@ function LinearAnimation(id,span,points){
 
     this.points = points;
     this.animationDistances = [];
+    this.finished = false;
+    this.render = true;
 
     var totalAnimationDistance = 0;
     for(var i = 0; i <this.points.length-1;i++){
@@ -27,6 +29,7 @@ LinearAnimation.prototype = Object.create(Animation.prototype);
 LinearAnimation.prototype.constructor = LinearAnimation;
 
 LinearAnimation.prototype.update = function (currTime) {
+  //console.debug("Vou atualizar as coordenadas");
   var dtime, x, y, z,t;
   if(!this.render) return;
 

@@ -3,7 +3,8 @@
 */
  function Piece(scene,id,player,type,house,y) {
  	CGFobject.call(this,scene);
-  this.animated = null;
+  this.animated = false;
+  this.animation = null;
   this.id = id;
   this.type = type;
   this.player = player;
@@ -40,19 +41,42 @@ Piece.prototype = Object.create(CGFobject.prototype);
 Piece.prototype.constructor = Piece;
 
 Piece.prototype.changeHouse = function(house,pieces){
+    //this.animated = true;
+
     this.house = house;
     this.id = house.id;
+
     this.y = pieces[this.id].length-1;
 }
+Piece.prototype.animate = function(animation){
+  this.animated = true;
+  this.animation = animation;
+}
+
 Piece.prototype.display = function(){
   this.basecolor.apply();
   this.scene.pushMatrix();
-    this.scene.translate(this.house.x,this.y,this.house.z);
+    if(!this.animated){
+      this.scene.translate(this.house.x,this.y,this.house.z);
+    }else{
+      //console.debug("Sou animado");
+      //console.debug(this);
+      var matrix = mat4.create();
+      mat4.translate(matrix,matrix,this.animation.getAnimationPosition());
+      //console.debug(matrix);
+      this.scene.multMatrix(matrix);
+    }
     this.scene.rotate(-Math.PI/2,1,0,0);
     this.surface.display();
   this.scene.popMatrix();
   this.scene.pushMatrix();
-    this.scene.translate(this.house.x,this.y,this.house.z);
+    if(!this.animated){
+      this.scene.translate(this.house.x,this.y,this.house.z);
+    }else{
+      var matrix = mat4.create();
+      mat4.translate(matrix,matrix,this.animation.getAnimationPosition());
+      this.scene.multMatrix(matrix);
+    }
     this.scene.rotate(-Math.PI/2,1,0,0);
     this.scene.rotate(Math.PI,0,1,0);
     this.baseCir.display();
@@ -60,7 +84,13 @@ Piece.prototype.display = function(){
 
   this.scene.pushMatrix();
     this.topcolor.apply();
-    this.scene.translate(this.house.x,this.y,this.house.z);
+    if(!this.animated){
+      this.scene.translate(this.house.x,this.y,this.house.z);
+    }else{
+      var matrix = mat4.create();
+      mat4.translate(matrix,matrix,this.animation.getAnimationPosition());
+      this.scene.multMatrix(matrix);
+    }
     this.scene.rotate(-Math.PI/2,1,0,0);
     this.scene.translate(0,0,1);
     this.topCir.display();

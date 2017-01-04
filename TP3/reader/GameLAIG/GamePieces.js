@@ -31,13 +31,13 @@ GamePieces.prototype.constructor = GamePieces;
 
 GamePieces.prototype.update = function(Row,Col,RowDest,ColDest,listofPieces,houses){
   var Coord = Row+Col;
-  console.debug(Coord);
+  //console.debug(Coord);
   var Coord2 = RowDest+ColDest;
-  console.debug(Coord2);
+  //console.debug(Coord2);
   this.list[Coord2].push(this.list[Coord][this.list[Coord].length-1]);
   this.list[Coord].pop();
   this.list[Coord2][this.list[Coord2].length-1].changeHouse(houses.list[Coord2],this.list);
-  console.debug(this.list[Coord2][this.list[Coord2].length-1]);
+  //console.debug(this.list[Coord2][this.list[Coord2].length-1]);
 }
 
 GamePieces.prototype.display = function(){

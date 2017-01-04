@@ -19,7 +19,7 @@ XMLscene.prototype.init = function (application) {
     this.gl.enable(this.gl.DEPTH_TEST);
 	  this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
-    this.setUpdatePeriod(30);
+    this.setUpdatePeriod(1);
 
 	  this.axis=new CGFaxis(this);
     this.GameState = new GameState(this);
@@ -147,4 +147,5 @@ XMLscene.prototype.update = function (currTime) {
     for(var id in this.graph.animations)
       this.graph.animations[id].update(currTime);
   }
+  if(this.GameState.pieces.list["24"][0].animation != null) this.GameState.pieces.list["24"][0].animation.update(currTime);
 };
