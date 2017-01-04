@@ -1,6 +1,5 @@
 TODO
 3/01
-- Faz animação
 - Fazer score no game.html
 
 Criação da cena de jogo (4.5 valores)
@@ -8,7 +7,7 @@ Criação da cena de jogo (4.5 valores)
 
 
 Peças (4.5 valores)
-- Movimento e animação por imagens chave.
+- Done
 
 
 Visualização (3 valores)

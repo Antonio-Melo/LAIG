@@ -16,7 +16,7 @@
   //console.debug(teste.response);
   this.processBoard(GameInit.response);
   this.pieces = new GamePieces(this.scene,this.listPieces,this.houses);
-
+  /*
   //Teste
   //Animação de uma peça
   var PieceTeste = this.pieces.list["24"];
@@ -35,7 +35,8 @@
   //CreatingAnimation
   this.animation = new LinearAnimation("teste",2,points);
   console.debug(this.animation);
-  PieceTeste[0].animate(this.animation);
+  PieceTeste[0].animate(this.animation);*/
+  this.animation = null;
 
   //var teste2 = makeRequest("quit");
 
@@ -64,8 +65,9 @@ GameState.prototype.closeServer = function(){
   makeRequest("quit");
 }
 GameState.prototype.processPick = function(id){
+  console.debug(this.PickedPiece);
   if(this.PickedPiece == null){
-    //console.debug("Não tinha nenhum");
+    console.debug("Não tinha nenhum");
     var Row = id[0];
     var Col = id[1];
     if(!(Row == "3" && Col == "3")){
@@ -74,8 +76,8 @@ GameState.prototype.processPick = function(id){
       }
     }
   }else{
-    //console.debug(this.PlayerinGame);
-    //console.debug("Já tinha");
+    console.debug(this.PlayerinGame);
+    console.debug("Já tinha");
     var Row = this.PickedPiece[0];
     var Col = this.PickedPiece[1];
     var RowDest = id[0];
@@ -83,7 +85,22 @@ GameState.prototype.processPick = function(id){
     if(!(RowDest == "3" && ColDest == "3")){
       if(this.checkIsValidMove(Row,Col,RowDest,ColDest,this.PlayerinGame) == "[1]"){
         //console.debug("Vou fazer request");
+        console.debug(this.PickedPiece);
+        var Piece = this.pieces.list[this.PickedPiece][this.pieces.list[this.PickedPiece].length-1];
+        console.debug(Piece);
+        var HouseOrigin = Piece.house;
+        console.debug(HouseOrigin);
+        var HouseDest = this.houses.list[id];
+        console.debug(HouseDest);
+        var points = this.calculatePoints(Piece,HouseOrigin,HouseDest,id);
+        //CreatingAnimation
+        this.animation = new LinearAnimation("teste",1,points);
+        console.debug(this.animation);
+        Piece.animate(this.animation);
+        console.debug(Piece);
+
         this.requestMove(Row,Col,RowDest,ColDest,this.PlayerinGame);
+
         this.requestLockedPieces();
         if(this.PlayerinGame == "1"){
           this.PlayerinGame = "2";
@@ -93,7 +110,17 @@ GameState.prototype.processPick = function(id){
     this.PickedPiece = null;
   }
 }
-
+GameState.prototype.calculatePoints = function(Piece,HouseOrigin,HouseDest,id){
+  var firstPoint = [HouseOrigin.x,this.pieces.list[HouseOrigin.id].length-1,HouseOrigin.z];
+  if(this.pieces.list[HouseOrigin.id].length-1 >= this.pieces.list[HouseDest.id].length)
+    var middlePoint = [(HouseDest.x+HouseOrigin.x)/2,2,(HouseOrigin.z+HouseDest.z)/2];
+  else
+    var middlePoint = [(HouseDest.x+HouseOrigin.x)/2,2,(HouseOrigin.z+HouseDest.z)/2];
+  var lastPoint = [HouseDest.x,this.pieces.list[HouseDest.id].length,HouseDest.z];
+  var points = [firstPoint,middlePoint,lastPoint];
+  console.debug(points)
+  return points;
+}
 GameState.prototype.checkIsValidMove = function(Row,Col,RowDest,ColDest,Player){
   var RequestType = 1;
   var Coords = "["+RequestType+","+Row+","+Col+","+RowDest+","+ColDest+","+Player+",";
