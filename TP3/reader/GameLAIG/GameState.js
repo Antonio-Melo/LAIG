@@ -113,9 +113,9 @@ GameState.prototype.processPick = function(id){
 GameState.prototype.calculatePoints = function(Piece,HouseOrigin,HouseDest,id){
   var firstPoint = [HouseOrigin.x,this.pieces.list[HouseOrigin.id].length-1,HouseOrigin.z];
   if(this.pieces.list[HouseOrigin.id].length-1 >= this.pieces.list[HouseDest.id].length)
-    var middlePoint = [(HouseDest.x+HouseOrigin.x)/2,2,(HouseOrigin.z+HouseDest.z)/2];
+    var middlePoint = [(HouseDest.x+HouseOrigin.x)/2,this.pieces.list[HouseOrigin.id].length+1,(HouseOrigin.z+HouseDest.z)/2];
   else
-    var middlePoint = [(HouseDest.x+HouseOrigin.x)/2,2,(HouseOrigin.z+HouseDest.z)/2];
+    var middlePoint = [(HouseDest.x+HouseOrigin.x)/2,this.pieces.list[HouseDest.id].length+1,(HouseOrigin.z+HouseDest.z)/2];
   var lastPoint = [HouseDest.x,this.pieces.list[HouseDest.id].length,HouseDest.z];
   var points = [firstPoint,middlePoint,lastPoint];
   console.debug(points)
