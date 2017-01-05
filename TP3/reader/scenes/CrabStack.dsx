@@ -115,14 +115,6 @@
         <!-- quadricas (esfera, ciclindro...) -->
 
         <texture id="bus" file ="textures\\bus.jpg" length_s="1.0" length_t="1.0"/>
-        <texture id="tire" file ="textures\\tire.jpg" length_s="1.0" length_t="1.0"/>
-        <texture id="road" file ="textures\\road.jpg" length_s="2.0" length_t="1.0"/>
-        <texture id="chimney" file ="textures\\chimney.jpg" length_s="1.0" length_t="1.0"/>
-        <texture id="lampimage" file ="textures\\lamp.jpg" length_s="1.0" length_t="1.0"/>
-        <texture id="window" file ="textures\\window.jpg" length_s="4.0" length_t="4.0"/>
-        <texture id="front" file ="textures\\front.jpg" length_s="4.0" length_t="4.0"/>
-        <texture id="side" file ="textures\\side.jpg" length_s="4.0" length_t="4.0"/>
-        <texture id="back" file ="textures\\back.jpg" length_s="4.0" length_t="4.0"/>
 
 
 
@@ -193,9 +185,6 @@
             <sphere radius="0.5" slices="40" stacks="40" />
         </primitive>
 
-		<primitive id="torus">
-            <torus inner="0.5" outer="1.5" slices="40" loops="40" />
-        </primitive>
 
     <primitive id="plane">
             <plane dimX="2.0" dimY="4.0" partsX="2" partsY="2"/>
@@ -216,17 +205,6 @@
                <controlpoint x="2.0" y="1.0" z="-5.0" />
                <controlpoint x="2.0" y="2.0" z="1.0" />
           </patch>
-      </primitive>
-      <primitive id="vehicle">
-        <vehicle />
-      </primitive>
-
-      <primitive id="chessboard">
-        <chessboard du="10" dv="10" textureref="wood" su="2" sv="1">
-                   <c1 r="0" g="0.4" b="0.2" a="1.0" />
-                   <c2 r="0.7" g="0.6" b="0.0" a="1.0" />
-                   <cs r="1.0" g="0.0" b="1.0" a="1.0" />
-        </chessboard>
       </primitive>
 
 </primitives>

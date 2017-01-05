@@ -23,7 +23,7 @@
   this.pieces = new GamePieces(this.scene,this.listPieces,this.houses);
   this.animation = null;
 
-  //makeRequest("quit");
+  makeRequest("quit");
  };
 
 GameState.prototype.display = function(){
