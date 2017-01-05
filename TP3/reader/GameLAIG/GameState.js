@@ -23,7 +23,7 @@
   this.pieces = new GamePieces(this.scene,this.listPieces,this.houses);
   this.animation = null;
 
-  //var teste2 = makeRequest("quit");
+  //makeRequest("quit");
  };
 
 GameState.prototype.display = function(){
@@ -69,7 +69,7 @@ GameState.prototype.processPick = function(id){
     if(!(RowDest == "3" && ColDest == "3")){
       if(this.checkIsValidMove(Row,Col,RowDest,ColDest,this.PlayerinGame) == "[1]"){
         //Save move
-        var move =[Row,Col,RowDest,ColDest];
+        var move =[Row,Col,RowDest,ColDest,this.listBoardProlog.slice()];
         this.moves.push(move);
 
 
@@ -102,6 +102,12 @@ GameState.prototype.processPick = function(id){
 GameState.prototype.undo = function(){
   var lastmove = this.moves[this.moves.length-1];
   this.pieces.undo(lastmove[0],lastmove[1],lastmove[2],lastmove[3],this.listPieces,this.houses);
+  this.moves.pop();
+  this.listBoardProlog = lastmove[4];
+  this.processBoard(this.listBoardProlog);
+  if(this.PlayerinGame == "1") makeRequest("unlockPiece1");
+  else makeRequest("unlockPiece2");
+  this.requestLockedPieces();
 }
 GameState.prototype.calculatePoints = function(Piece,HouseOrigin,HouseDest,id){
   var firstPoint = [HouseOrigin.x,this.pieces.list[HouseOrigin.id].length-1,HouseOrigin.z];

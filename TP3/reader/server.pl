@@ -108,6 +108,11 @@ print_header_line(_).
 % GAME INIT
 parse_input(gameinit, Board):-
 	gameInit(0,Board).
+% UNLOCK PIECES
+parse_input(unlockPiece1, Response):-
+	unlockPiece(1).
+parse_input(unlockPiece2, Response):-
+		unlockPiece(2).
 % GAME LOCKED PIECES
 parse_input(locked,Locked):-
 	lockedPieces(1, CurrentPieces1),
