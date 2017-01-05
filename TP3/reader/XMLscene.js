@@ -3,6 +3,7 @@ function XMLscene() {
     CGFscene.call(this);
     this.time = 30000;
     this.timepassed = 0;
+    this.style = "wood";
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -25,6 +26,13 @@ XMLscene.prototype.init = function (application) {
 
 	  this.axis=new CGFaxis(this);
     this.GameState = new GameState(this);
+    this.Table = new Cylinder(this,"table",40,40,5,40,40);
+    this.AppearanceMetal = new CGFappearance(this);
+    this.AppearanceMetal.loadTexture("textures\\metal.jpg");
+    this.AppearanceWood = new CGFappearance(this);
+    this.AppearanceWood.loadTexture("textures\\wood.jpg");
+    this.AppearanceRock = new CGFappearance(this);
+    this.AppearanceRock.loadTexture("textures\\rock.jpg");
     this.setPickEnabled(true);
 };
 
@@ -113,6 +121,25 @@ XMLscene.prototype.display = function () {
     }
     this.graph.displayGraph();
     this.GameState.display();
+
+    //Table
+    this.pushMatrix();
+    this.translate(0,-5.1,0);
+    this.rotate(-Math.PI/2,1,0,0);
+    switch (this.style) {
+      case "wood":
+        this.AppearanceWood.apply();
+        break;
+      case "rock":
+        this.AppearanceRock.apply();
+        break;
+      case "metal":
+        this.AppearanceMetal.apply();
+      default:
+
+    }
+    this.Table.display();
+    this.popMatrix();
 	};
 };
 

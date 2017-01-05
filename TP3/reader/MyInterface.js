@@ -15,10 +15,16 @@ function MyInterface(scene) {
       thirty : 30000,
       minute: 60000
    };
+	 this.stylesList = {
+		 wood : "wood",
+		 rock : "rock",
+		 metal : "metal"
+	 }
   this.lights=this.gui.addFolder("Lights");
 	this.dif = this.gui.addFolder("Difficulty");
-
 	this.dif.add(this.scene, 'time', this.timeList);
+	this.styles = this.gui.addFolder("Style");
+	this.styles.add(this.scene,'style',this.stylesList);
 };
 
 MyInterface.prototype = Object.create(CGFinterface.prototype);

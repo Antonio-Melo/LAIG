@@ -1,6 +1,5 @@
 TODO
 4/01
-- Ambientes de jogo
 
 Criação da cena de jogo (4.5 valores)
 - Done
@@ -11,7 +10,7 @@ Peças (4.5 valores)
 
 
 Visualização (3 valores)
-- Ambientes de jogo
+- Done
 
 
 Funcionalidades genéricas do jogo (2.5 valores)
