@@ -10,8 +10,15 @@ function MyInterface(scene) {
 
 
 	this.gui = new dat.GUI();
-
+	this.timeList = {
+      ten : 10000,
+      thirty : 30000,
+      minute: 60000
+   };
   this.lights=this.gui.addFolder("Lights");
+	this.dif = this.gui.addFolder("Difficulty");
+
+	this.dif.add(this.scene, 'time', this.timeList);
 };
 
 MyInterface.prototype = Object.create(CGFinterface.prototype);

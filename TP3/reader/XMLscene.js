@@ -1,6 +1,8 @@
 
 function XMLscene() {
     CGFscene.call(this);
+    this.time = 30000;
+    this.timepassed = 0;
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -143,6 +145,36 @@ XMLscene.prototype.updateLights = function() {
 	else { this.lights[7].disable(); }
 }
 XMLscene.prototype.update = function (currTime) {
+
+
+
+  var curr_time = new Date();
+	var diff = Math.floor((currTime-this.timepassed)/1000);
+	var minutes = Math.floor(diff/60);
+	var seconds = Math.floor(diff%60);
+	var formatted_time = "";
+	if (minutes < 10) {
+		formatted_time += "0";
+	}
+	formatted_time += minutes + ":";
+	if (seconds < 10) {
+		formatted_time += "0";
+	}
+	formatted_time += seconds;
+	document.getElementById('turn-time-countdown').innerHTML = formatted_time;
+  //console.debug(this.time);
+  console.debug(this.GameState.PlayerinGame);
+  if(currTime - this.timepassed >= this.time){
+    if(this.GameState.PlayerinGame == "1"){
+      this.GameState.PlayerinGame = "2";
+      this.GameState.changeBackgroundColorPlayer(1);
+    }else{
+      this.GameState.PlayerinGame = "1";
+      this.GameState.changeBackgroundColorPlayer(2);
+    }
+    this.timepassed = currTime;
+  }
+
   if(this.graph.loadedOk){
     for(var id in this.graph.animations)
       this.graph.animations[id].update(currTime);
@@ -154,8 +186,8 @@ XMLscene.prototype.update = function (currTime) {
   }
 
   if(localStorage.undo == 'true'){
-    console.debug("Vou fazer undo");
+    //console.debug("Vou fazer undo");
     this.GameState.undo();
     localStorage.undo = false;
-  }else console.debug("Não vou fazer undo");
+  }
 };

@@ -10,6 +10,27 @@ canvas {
     width: 100%;
     height: 100%;
 }
+#time {
+	width: 20%;
+	height: 100%;
+	float: left;
+	display: inline-block;
+}
+#turn-time-countdown {
+	display: inline;
+	font-size: 2.5vw;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: bold;
+}
+
+#turn-time {
+	height: 50px;
+	width: 25%;
+	margin: 15px 5% 15px 5%;
+	display: inline-block;
+	vertical-align: middle;
+}
 #wintext {
   margin-left: 45%;
   display: none;
@@ -35,12 +56,14 @@ canvas {
 	display: inline-block;
 	vertical-align: middle;
 	border-radius: 3px;
+  background-color: none;
 }
 #player-blue-score, #player-red-score {
 	display: inline;
 	font-size: 2vw;
 	vertical-align: middle;
 	text-align: center;
+  color: green;
 }
 #blue-piece, #red-piece {
 	height: 100%;

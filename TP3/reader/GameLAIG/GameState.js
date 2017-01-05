@@ -183,7 +183,16 @@ GameState.prototype.processBoard = function(board){
   //console.debug(board);
   //console.debug(this.listPieces);
 }
+GameState.prototype.changeBackgroundColorPlayer = function(n){
+  if(n == 1){
+    document.getElementById("player-blue").style.backgroundColor = "#CCCCCC";
+    document.getElementById("player-red").style.backgroundColor = "black";
+  }else{
+    document.getElementById("player-red").style.backgroundColor = "#CCCCCC";
+    document.getElementById("player-blue").style.backgroundColor = "black";
+  }
 
+}
 GameState.prototype.readPosition = function(board){
   var listPosition = new Array();
   var index = 0;
