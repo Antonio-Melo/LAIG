@@ -96,7 +96,12 @@ GameState.prototype.processPick = function(id){
         this.requestLockedPieces();
         if(this.PlayerinGame == "1"){
           this.PlayerinGame = "2";
-        }else this.PlayerinGame = "1";
+          this.changeBackgroundColorPlayer(1);
+        }else{
+           this.PlayerinGame = "1";
+           this.changeBackgroundColorPlayer(2);
+        }
+        this.scene.timepassed = new Date();
       }
     }
     this.PickedPiece = null;
@@ -114,7 +119,11 @@ GameState.prototype.undo = function(){
   this.requestLockedPieces();
   if(this.PlayerinGame == "1"){
     this.PlayerinGame = "2";
-  }else this.PlayerinGame = "1";
+    this.changeBackgroundColorPlayer(1);
+  }else{
+     this.PlayerinGame = "1";
+     this.changeBackgroundColorPlayer(2);
+  }
 }
 GameState.prototype.calculatePoints = function(Piece,HouseOrigin,HouseDest,id){
   var firstPoint = [HouseOrigin.x,this.pieces.list[HouseOrigin.id].length-1,HouseOrigin.z];
