@@ -37,10 +37,14 @@ GameState.prototype.checkWin = function(scores){
   if(blueScore == "9"){
     console.debug("Red player wins");
     this.closeServer();
+    document.getElementById("wintext").innerHTML = "Player 2 wins !!";
+    document.getElementById("wintext").style.display = "inline";
   }
   if(redScore == "9"){
     console.debug("Blue player wins");
     this.closeServer();
+    document.getElementById("wintext").innerHTML = "Player 1 wins !!";
+    document.getElementById("wintext").style.display = "inline";
   }
 
 }
