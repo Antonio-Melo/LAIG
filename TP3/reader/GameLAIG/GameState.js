@@ -5,41 +5,25 @@
  	CGFobject.call(this,scene);
 
   this.scene = scene;
+
   //Game elements
   this.PlayerinGame = "1";
   this.PickedPiece = null;
   this.HexBoard = new HexBoard(this.scene);
   this.houses = new GameHouses(this.scene);
   this.listPieces = new Array();
+  this.moves = [];
+
+  //Starting the Game
   var GameInit = makeRequest("gameinit");
   this.listBoardProlog = GameInit.response;
-  //console.debug(teste.response);
   this.processBoard(GameInit.response);
-  this.pieces = new GamePieces(this.scene,this.listPieces,this.houses);
-  /*
-  //Teste
-  //Animação de uma peça
-  var PieceTeste = this.pieces.list["24"];
-  var HouseOrigin = PieceTeste[0].house;
-  var HouseDest = this.houses.list["25"];
-  console.debug(PieceTeste);
-  console.debug(HouseOrigin);
-  console.debug(HouseDest);
 
-  //Calculate points
-  var firstPoint = [HouseOrigin.x,this.pieces.list["24"].length-1,HouseOrigin.z];
-  var middlePoint = [9.25,2,HouseDest.z];
-  var lastPoint = [HouseDest.x,this.pieces.list["25"].length,HouseDest.z];
-  var points = [firstPoint,middlePoint,lastPoint];
-  console.debug(points);
-  //CreatingAnimation
-  this.animation = new LinearAnimation("teste",2,points);
-  console.debug(this.animation);
-  PieceTeste[0].animate(this.animation);*/
+  //Creating Pieces
+  this.pieces = new GamePieces(this.scene,this.listPieces,this.houses);
   this.animation = null;
 
   //var teste2 = makeRequest("quit");
-
  };
 
 GameState.prototype.display = function(){
@@ -84,6 +68,11 @@ GameState.prototype.processPick = function(id){
     var ColDest = id[1];
     if(!(RowDest == "3" && ColDest == "3")){
       if(this.checkIsValidMove(Row,Col,RowDest,ColDest,this.PlayerinGame) == "[1]"){
+        //Save move
+        var move =[Row,Col,RowDest,ColDest];
+        this.moves.push(move);
+
+
         //console.debug("Vou fazer request");
         console.debug(this.PickedPiece);
         var Piece = this.pieces.list[this.PickedPiece][this.pieces.list[this.PickedPiece].length-1];
@@ -100,7 +89,6 @@ GameState.prototype.processPick = function(id){
         console.debug(Piece);
 
         this.requestMove(Row,Col,RowDest,ColDest,this.PlayerinGame);
-
         this.requestLockedPieces();
         if(this.PlayerinGame == "1"){
           this.PlayerinGame = "2";
@@ -109,6 +97,11 @@ GameState.prototype.processPick = function(id){
     }
     this.PickedPiece = null;
   }
+}
+
+GameState.prototype.undo = function(){
+  var lastmove = this.moves[this.moves.length-1];
+  this.pieces.undo(lastmove[0],lastmove[1],lastmove[2],lastmove[3],this.listPieces,this.houses);
 }
 GameState.prototype.calculatePoints = function(Piece,HouseOrigin,HouseDest,id){
   var firstPoint = [HouseOrigin.x,this.pieces.list[HouseOrigin.id].length-1,HouseOrigin.z];

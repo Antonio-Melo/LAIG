@@ -152,4 +152,10 @@ XMLscene.prototype.update = function (currTime) {
       this.GameState.animation.update(currTime);
     else   this.GameState.animation = null;
   }
+
+  if(localStorage.undo == 'true'){
+    console.debug("Vou fazer undo");
+    this.GameState.undo();
+    localStorage.undo = false;
+  }else console.debug("Não vou fazer undo");
 };

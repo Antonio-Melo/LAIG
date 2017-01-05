@@ -20,9 +20,17 @@
   			<p id='player-red-score' class='unselectable'>0</p>
   		</div>
   	</section>
+    <section id='undo' class='interface-section'>
+		    <span class='helper'></span><a><img id='undo-button' onclick="undo()" src='textures/undo.png'/></a>
+	  </section>
   </div>
   <div id='game'>
     <script src="main.js"></script>
   </div>
+  <script>
+	function undo() {
+    localStorage.undo = true;
+	}
+	</script>
 </body>
 </html>

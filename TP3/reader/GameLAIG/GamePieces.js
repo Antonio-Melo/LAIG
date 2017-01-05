@@ -39,6 +39,15 @@ GamePieces.prototype.update = function(Row,Col,RowDest,ColDest,listofPieces,hous
   this.list[Coord2][this.list[Coord2].length-1].changeHouse(houses.list[Coord2],this.list);
   //console.debug(this.list[Coord2][this.list[Coord2].length-1]);
 }
+GamePieces.prototype.undo = function(Row,Col,RowDest,ColDest,listofPieces,houses){
+  var Coord = Row+Col;
+  console.debug(Coord);
+  var Coord2 = RowDest+ColDest;
+  console.debug(Coord2);
+  this.list[Coord].push(this.list[Coord2][this.list[Coord2].length-1]);
+  this.list[Coord2].pop();
+  this.list[Coord][this.list[Coord].length-1].changeHouse(houses.list[Coord],this.list);
+}
 
 GamePieces.prototype.display = function(){
   for(var key in this.list){
@@ -47,4 +56,7 @@ GamePieces.prototype.display = function(){
       this.list[key][i].display();
     }
   }
+}
+GamePieces.prototype.clone = function(){
+
 }
