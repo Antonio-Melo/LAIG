@@ -35,13 +35,11 @@ GameState.prototype.checkWin = function(scores){
   var blueScore = scores.charAt(1);
   var redScore = scores.charAt(3);
   if(blueScore == "9"){
-    console.debug("Red player wins");
     this.closeServer();
     document.getElementById("wintext").innerHTML = "Player 2 wins !!";
     document.getElementById("wintext").style.display = "inline";
   }
   if(redScore == "9"){
-    console.debug("Blue player wins");
     this.closeServer();
     document.getElementById("wintext").innerHTML = "Player 1 wins !!";
     document.getElementById("wintext").style.display = "inline";
@@ -82,15 +80,11 @@ GameState.prototype.processPick = function(id){
         var Piece = this.pieces.list[this.PickedPiece][this.pieces.list[this.PickedPiece].length-1];
         console.debug(Piece);
         var HouseOrigin = Piece.house;
-        console.debug(HouseOrigin);
         var HouseDest = this.houses.list[id];
-        console.debug(HouseDest);
         var points = this.calculatePoints(Piece,HouseOrigin,HouseDest,id);
         //CreatingAnimation
         this.animation = new LinearAnimation("teste",1,points);
-        console.debug(this.animation);
         Piece.animate(this.animation);
-        console.debug(Piece);
 
         this.requestMove(Row,Col,RowDest,ColDest,this.PlayerinGame);
         this.requestLockedPieces();
@@ -133,28 +127,26 @@ GameState.prototype.calculatePoints = function(Piece,HouseOrigin,HouseDest,id){
     var middlePoint = [(HouseDest.x+HouseOrigin.x)/2,this.pieces.list[HouseDest.id].length+1,(HouseOrigin.z+HouseDest.z)/2];
   var lastPoint = [HouseDest.x,this.pieces.list[HouseDest.id].length,HouseDest.z];
   var points = [firstPoint,middlePoint,lastPoint];
-  console.debug(points);
+
   return points;
 }
 GameState.prototype.checkIsValidMove = function(Row,Col,RowDest,ColDest,Player){
   var RequestType = 1;
   var Coords = "["+RequestType+","+Row+","+Col+","+RowDest+","+ColDest+","+Player+",";
   var Message = Coords + this.listBoardProlog+"]";
-  //console.debug(Message);
   var Response = makeRequest(Message);
-  //console.debug(Response.response);
+
   return Response.response;
 }
 GameState.prototype.requestMove = function(Row,Col,RowDest,ColDest,Player){
   var RequestType = 0;
   var Coords = "["+RequestType+","+Row+","+Col+","+RowDest+","+ColDest+","+Player+",";
   var Message = Coords + this.listBoardProlog+"]";
-  //console.debug(Message);
   var Response = makeRequest(Message);
+
   this.listBoardProlog = Response.response;
   this.processBoard(this.listBoardProlog);
   this.pieces.update(Row,Col,RowDest,ColDest,this.listPieces,this.houses);
-  //console.debug(Response.response);
 }
 
 GameState.prototype.requestLockedPieces = function(){
@@ -167,30 +159,24 @@ GameState.prototype.requestLockedPieces = function(){
 GameState.prototype.processBoard = function(board){
   this.listPieces = [];
   board = board.slice(1,board.length-1);
-  //console.debug(board);
 
   for(var linha = 0;linha <5;linha++){
     board = board.slice(1,board.length);
     if(linha !=0)
       board = board.slice(1,board.length);
-    //console.debug(board);
     var index = 0;
     var numofpositions =0;
     while(numofpositions != 5){
       if(board.charAt(index) == '['){
         board = board.slice(1,board.length);
-        //console.debug(board);
         board = this.readPosition(board);
-        //console.debug(board);
         board = board.slice(1,board.length);
-        //console.debug(board);
+
         numofpositions++;
       }
     }
   }
 
-  //console.debug(board);
-  //console.debug(this.listPieces);
 }
 GameState.prototype.changeBackgroundColorPlayer = function(n){
   if(n == 1){
@@ -207,14 +193,12 @@ GameState.prototype.readPosition = function(board){
   var index = 0;
   var lastindex = 0;
   while (board.charAt(index) != ']') {
-    //console.debug(board.charAt(index));
     if(board.charAt(index) ==','){
       listPosition.push(board.slice(lastindex,index));
       lastindex = index +1;
     }
     index++;
   }
-  //console.debug(board.slice(0,index));
   listPosition.push(board.slice(lastindex,index));
   board = board.slice(index+1,board.length);
   this.listPieces.push(listPosition);

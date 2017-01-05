@@ -79,7 +79,6 @@ XMLscene.prototype.logPicking = function ()
 				if (obj){
 					var customId = this.pickResults[i][1]; // o ID do objeto seleccionado
 					console.log("Picked object: " + obj + ", with pick id " + customId);
-          console.log("Vou processar o objecto");
           this.GameState.processPick(customId);
 				}
 			}
@@ -190,7 +189,6 @@ XMLscene.prototype.update = function (currTime) {
 	formatted_time += seconds;
 	document.getElementById('turn-time-countdown').innerHTML = formatted_time;
   //console.debug(this.time);
-  console.debug(this.GameState.PlayerinGame);
   if(currTime - this.timepassed >= this.time){
     if(this.GameState.PlayerinGame == "1"){
       this.GameState.PlayerinGame = "2";
@@ -213,7 +211,6 @@ XMLscene.prototype.update = function (currTime) {
   }
 
   if(localStorage.undo == 'true'){
-    //console.debug("Vou fazer undo");
     this.GameState.undo();
     localStorage.undo = false;
   }
