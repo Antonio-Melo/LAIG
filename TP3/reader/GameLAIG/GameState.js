@@ -108,6 +108,9 @@ GameState.prototype.undo = function(){
   if(this.PlayerinGame == "1") makeRequest("unlockPiece1");
   else makeRequest("unlockPiece2");
   this.requestLockedPieces();
+  if(this.PlayerinGame == "1"){
+    this.PlayerinGame = "2";
+  }else this.PlayerinGame = "1";
 }
 GameState.prototype.calculatePoints = function(Piece,HouseOrigin,HouseDest,id){
   var firstPoint = [HouseOrigin.x,this.pieces.list[HouseOrigin.id].length-1,HouseOrigin.z];
