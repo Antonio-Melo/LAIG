@@ -1,8 +1,6 @@
 TODO
 4/01
-- Undo
 - Ambientes de jogo
-- Medição do tempo de jogo 
 
 Criação da cena de jogo (4.5 valores)
 - Done
@@ -17,14 +15,11 @@ Visualização (3 valores)
 
 
 Funcionalidades genéricas do jogo (2.5 valores)
-- Nível de dificuldade
-- Tipo de jogo
-- Undo
+- Done
 
 
 Outras Funcionalidades (1.5 valores)
 - Filme do jogo
-- Medição do tempo de jogo
 
 
 Software (4 valores)
